@@ -218,6 +218,12 @@ end)
 
 for k, v in pairs(achievement_ability_config.attributes_cost) do
 	AddModRPCHandler("DSTAchievement", k, function(player)
+		player.components.achievementability:attributePointCost(player, k, 1)
+	end)
+	AddModRPCHandler("DSTAchievement", k.."10", function(player)
+		player.components.achievementability:attributePointCost(player, k, 10)
+	end)
+	AddModRPCHandler("DSTAchievement", k .."all", function(player)
 		player.components.achievementability:attributePointCost(player, k)
 	end)
 end
@@ -234,3 +240,13 @@ end)
 -- 		end)
 -- 	end
 -- end
+
+-- 技能树移植能力: 批量注册学习 RPC(与 achievementability 末尾生成的 <ability>coin 对应)
+for _, v in pairs(achievement_ability_config.ability_cost) do
+	if v.skilltree ~= nil then
+		local an = v.ability
+		AddModRPCHandler("DSTAchievement", an, function(player)
+			player.components.achievementability[an.."coin"](player.components.achievementability, player)
+		end)
+	end
+end

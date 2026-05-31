@@ -1,8 +1,8 @@
 ChooseTranslationTable = ChooseTranslationTable or function() end
-name ="New Achivement"
+name ="New Achievement"
 description = "Achievement (Reburn)"
 author = "ACLegend"
-version = "3.1.4"
+version = "3.3.2"
 
 forumthread = ""
 
@@ -106,6 +106,17 @@ local MODINFO_NAME = {
         ["zh"] = "每次升级获得的属性点",
         ["en"] = "Attribute points gained for each upgrade",
     },
+
+    NO_CONSUMPTION_DAYS = {
+        "Every few days you get a chance to reset your ability without loss",
+        ["zh"] = "每多少天获得一次无损重置能力的机会",
+        ["en"] = "Every few days you get a chance to reset your ability without loss",
+    },
+    CAN_USE_ATTRIBUTE_POINT = {
+        "Can attribute points be used",
+        ["zh"] = "是否可使用属性点",
+        ["en"] = "Can attribute points be used",
+    }
 }
 configuration_options =
 {
@@ -340,4 +351,33 @@ configuration_options =
         },
         default = 1,
     },
+    {
+        name = "no_consumption_days",
+        label = ChooseTranslationTable(MODINFO_NAME.NO_CONSUMPTION_DAYS),
+        hover = "no consumption days",
+        options =   {
+            {description = "50",hover = "50", data = 50},
+            {description = "100",hover = "100", data = 100},
+            {description = "150",hover = "150", data = 150},
+            {description = "200",hover = "200", data = 200},
+            {description = "300",hover = "300", data = 300},
+            {description = "400",hover = "400", data = 400},
+            {description = "500",hover = "500", data = 500},
+            {description = "600",hover = "600", data = 600},
+        },
+        default = 100,
+    },
+    {
+        name = "can_use_attribute_point",
+        label =  ChooseTranslationTable(MODINFO_NAME.CAN_USE_ATTRIBUTE_POINT),
+        hover = "can use attribute point",
+        options =   {
+     
+                        {description = "YES", data = true},
+                        {description = "NO", data = false},
+
+                    },
+        default = true,
+    },
+    
 }

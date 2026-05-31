@@ -1016,7 +1016,6 @@ function achievementmanager:checkkill(inst,victim)
                     killedfind = true
                 end
             else
-                print(v.victim, victim.prefab)
                 if v.victim == victim.prefab and (not v.special_condition or v.special_condition(victim,inst)) then
                     self[v.current] = self[v.current] + 1
                     killedfind = true
@@ -1024,7 +1023,6 @@ function achievementmanager:checkkill(inst,victim)
             end
             if killedfind then
                 if type(v.need_amount) ~= "table" then
-                    print(self[v.current],v.need_amount,not self[v.check],victim.prefab)
                     if self[v.current] >= v.need_amount and not self[v.check] then
                         self[v.check] = true
                         self:seffc(inst, v.id)
@@ -1042,8 +1040,8 @@ function achievementmanager:checkkill(inst,victim)
     end
 end
 
-function achievementmanager:_recentattack(inst,victim)
-    if victim  and  victim.components and  victim.components.health and victim.components.health.currenthealth == 0 and inst.achivhaskill == nil then
+function achievementmanager:_recentattack(inst,victim,deathhealth)
+    if victim  and  victim.components and  victim.components.health and victim.components.health.currenthealth == deathhealth and inst.achivhaskill == nil then
         inst.achivhaskill = inst:DoTaskInTime(1.5, function(inst) inst.achivhaskill = nil end)
         local pos = Vector3(victim.Transform:GetWorldPosition())
         local ents = TheSim:FindEntities(pos.x,pos.y,pos.z, 8)
@@ -1116,7 +1114,7 @@ function achievementmanager:OnKilledCheck(inst, data)
     local victim = data.victim
     -- self:checkGetSoul(inst,data)
     self:checkkill(inst,victim)
-    self:_recentattack(inst,victim)
+    self:_recentattack(inst,victim,1)
     self:check_kill_exp(inst,victim)
 end
 
@@ -1125,7 +1123,7 @@ function achievementmanager:OnKillAchievementCheck(inst)
         local victim = data.victim
         -- self:checkGetSoul(inst,data)
         self:checkkill(inst,victim)
-        self:_recentattack(inst,victim)
+        self:_recentattack(inst,victim,0)
         self:check_kill_exp(inst,victim)
     end)
 end

@@ -6,6 +6,11 @@ local ability_ratio = achievement_ability_config.ability_ratio
 local function getcoinamount(self,coinamount) self.inst.currentcoinamount:set(coinamount) end
 local function getkillamount(self,killamount) self.inst.currentkillamount:set(killamount) end
 local function getattributepointamount(self,attributepoint) self.inst.currentattributepointamount:set(attributepoint) end
+local function getresetamount(self,resetamount) self.inst.currentresetamount:set(resetamount) end
+local function getusedresetamount(self,usedresetamount) self.inst.currentusedresetamount:set(usedresetamount) end
+
+local modname = KnownModIndex:GetModActualName("New Achievement")
+local need_player_ages  = GetModConfigData("no_consumption_days",modname)
 
 local function InitPropsTable()
     local props_table = {}
@@ -39,17 +44,9 @@ local function InitPropsTable()
     props_table["coinamount"] = getcoinamount
     props_table["killamount"] = getkillamount
     props_table["attributepointamount"] = getattributepointamount
+    props_table["resetamount"] = getresetamount
+    props_table["usedresetamount"] = getusedresetamount
     return props_table
-end
-
-local function GetPointSpecialActions(inst, pos, useitem, right)
-    if right and useitem == nil and inst.replica.inventory:Has("wortox_soul", 1) then
-        local rider = inst.replica.rider
-        if rider == nil or not rider:IsRiding() then
-            return { ACTIONS.BLINK }
-        end
-    end
-    return {}
 end
 
 local function sanityfn(inst)
@@ -68,13 +65,6 @@ local function sanityfn(inst)
     return delta
 end
 
-local function ondeployitem(inst, data)
-    if inst and inst.components.sanity and inst.components.achievementability and inst.components.achievementability.plantfriend then
-        if data and data.prefab ~= "fossil_piece" then
-            inst.components.sanity:DoDelta(TUNING.SANITY_SUPERTINY*5)
-        end
-    end
-end
 local function InitAllAbility(inst)
     for _,v in pairs(achievement_ability_config.ability_cost) do
         inst[v.ability] = v.default_value
@@ -94,6 +84,8 @@ local achievementability = Class(function(self, inst)
         self.coinamount = 0
         self.killamount = 0
         self.attributepointamount = 0
+        self.resetamount = 0
+        self.usedresetamount = 0
         self.a_sleep = true
         self.frozenswitch = true  --冰冻开关
         self.levelswitch = true
@@ -199,6 +191,8 @@ function achievementability:OnSave()
         coinamount = self.coinamount,
         killamount = self.killamount,
         attributepointamount = self.attributepointamount,
+        resetamount = self.resetamount,
+        usedresetamount = self.usedresetamount, 
         thornsswitch = self.thornsswitch,
         cookmasterswitch = self.cookmasterswitch,
         frozenswitch = self.frozenswitch,
@@ -228,6 +222,8 @@ function achievementability:OnLoad(data)
     self.coinamount = data.coinamount or 0
     self.killamount = data.killamount or 0
     self.attributepointamount = data.attributepointamount or 0
+    self.resetamount = data.resetamount or 0
+    self.usedresetamount = data.usedresetamount or 0
     self.thornsswitch = data.thornsswitch or true --反伤
     self.effectswitch = data.effectswitch or true
     self.effectstype = data.effectstype or 1
@@ -315,8 +311,15 @@ function achievementability:resetAttributes(inst)
     inst.components.hunger:SetMax(inst.components.hunger.max - self.hungerup)
     inst.components.hunger:SetPercent(percent)
     self.hungermax = inst.components.hunger.max
-    local resetpoint = (self.healthup + self.sanityup + self.hungerup) * TUNING.RETRUN_ATTRIBUTE_POINT
-
+    
+    local resetpoint = 0
+    --local playerAge = inst.components.age:GetAgeInDays()
+    if self.resetamount - self.usedresetamount > 0 then
+        resetpoint = (self.healthup + self.sanityup + self.hungerup)
+        self.usedresetamount = self.usedresetamount + 1
+    else
+        resetpoint = (self.healthup + self.sanityup + self.hungerup) * TUNING.RETRUN_ATTRIBUTE_POINT
+    end
     self.attributepointamount = self.attributepointamount + resetpoint
     self.healthup = 0
     self.sanityup = 0
@@ -613,9 +616,80 @@ function achievementability:soulhopcopycoin(inst)
     end
 end
 
+
+local function OnBecameGhost(inst)
+    -- if inst._onentitydeathfnOld ~= nil then
+    --     inst._onentitydeathfnOld = nil
+    -- end
+    -- if inst._onentitydroplootfnOld ~= nil then
+    --     inst._onentitydroplootfnOld = nil 
+    -- end
+end
+
+local function OnRespawnedFromGhost(inst)
+    if inst.components.achievementability.soulhopcopy == true then
+        inst.boolsoulhop:set(false)
+        inst.boolsoulhop:set(true)
+    end
+    if inst._onentitydroplootfn == nil then
+        inst._onentitydroplootfn = function(src, data)
+            inst.setEntityDropLootfn = true
+            if inst.components.achievementability and inst.components.achievementability.soulhopcopy == true then
+                OnEntityDropLoot(inst, data)
+            end
+         end
+        inst:ListenForEvent("entity_droploot", inst._onentitydroplootfn, TheWorld)
+    else
+        inst:RemoveEventCallback("entity_droploot", inst._onentitydroplootfn, TheWorld)
+        if inst._onentitydroplootfnOld == nil and not inst.setEntityDropLootfn then
+            inst._onentitydroplootfnOld = inst._onentitydroplootfn 
+        end
+        inst._onentitydroplootfn = function(src, data)
+            if inst._onentitydroplootfn ~=  inst._onentitydroplootfnOld and inst._onentitydroplootfnOld ~= nil  then
+                inst._onentitydroplootfnOld(inst, data)
+            end
+            if inst.components.achievementability and inst.components.achievementability.soulhopcopy == true then
+                OnEntityDropLoot(inst, data)
+            end
+         end
+         inst:ListenForEvent("entity_droploot", inst._onentitydroplootfn, TheWorld)
+    end
+    if inst._onentitydeathfn == nil then
+        inst._onentitydeathfn = function(src, data) 
+            inst.setEntityDeathfn = true
+            if inst.components.achievementability and inst.components.achievementability.soulhopcopy == true then
+                OnEntityDeath(inst, data) 
+            end
+        end
+        inst:ListenForEvent("entity_death", inst._onentitydeathfn, TheWorld)
+    else
+        inst:RemoveEventCallback("entity_death", inst._onentitydeathfn, TheWorld)
+        if inst._onentitydeathfnOld == nil and not inst.setEntityDeathfn then
+            inst._onentitydeathfnOld = inst._onentitydeathfn
+        end
+        inst._onentitydeathfn = function(src, data) 
+            if inst._onentitydeathfn ~=  inst._onentitydeathfnOld and inst._onentitydeathfnOld ~= nil then
+                inst._onentitydeathfnOld(inst, data)
+            end
+            if inst.components.achievementability and inst.components.achievementability.soulhopcopy == true then
+                OnEntityDeath(inst, data) 
+            end
+        end
+        inst:ListenForEvent("entity_death", inst._onentitydeathfn, TheWorld)
+    end
+end
+
+local function TryToOnRespawnedFromGhost(inst)
+    if not inst.components.health:IsDead() and not inst:HasTag("playerghost") then
+        OnRespawnedFromGhost(inst)
+    end
+end
+
+
 --灵魂跳跃效果拥有
 function achievementability:soulhopcopyfn(inst)
     if self.soulhopcopy == true then
+        inst.boolsoulhop:set(true)
         if inst._freesoulhop_counter == nil then
             inst._freesoulhop_counter = 0
         end
@@ -628,35 +702,18 @@ function achievementability:soulhopcopyfn(inst)
         if inst.FinishPortalHop == nil then
             inst.FinishPortalHop = FinishPortalHop
         end
-        if inst._onentitydroplootfn == nil then
-            inst._onentitydroplootfn = function(src, data)
-                OnEntityDropLoot(inst, data)
-             end
-            inst:ListenForEvent("entity_droploot", inst._onentitydroplootfn, TheWorld)
-        else
-            inst._onentitydroplootfnOld = inst._onentitydroplootfn 
-            inst._onentitydroplootfn = function(src, data)
-                inst._onentitydroplootfnOld(inst, data)
-                OnEntityDropLoot(inst, data)
-             end
-        end
-        if inst._onentitydeathfn == nil then
-            inst._onentitydeathfn = function(src, data) OnEntityDeath(inst, data) end
-            inst:ListenForEvent("entity_death", inst._onentitydeathfn, TheWorld)
-        else
-            inst._onentitydeathfnOld = inst._onentitydeathfn
-            inst._onentitydeathfn = function(src, data) 
-                inst._onentitydeathfnOld(inst, data)
-                OnEntityDeath(inst, data) end
-            inst:ListenForEvent("entity_death", inst._onentitydeathfn, TheWorld)
-        end
+    
         inst:ListenForEvent("murdered", OnMurdered)
         inst:ListenForEvent("harvesttrapsouls", OnHarvestTrapSouls)
+        inst:DoTaskInTime(0.5, TryToOnRespawnedFromGhost)
+        inst:ListenForEvent("ms_respawnedfromghost", OnRespawnedFromGhost)
+        inst:ListenForEvent("ms_becameghost", OnBecameGhost)
     end
 end
 
 function achievementability:soulhopcopyRemove(inst)
     if self.soulhopcopy == true then
+        inst.boolsoulhop:set(false)
         if inst._onentitydroplootfn ~= nil then
             inst:RemoveEventCallback("entity_droploot", inst._onentitydroplootfn, TheWorld)
             inst._onentitydroplootfn = nil
@@ -717,11 +774,205 @@ function achievementability:fastbuildcoin(inst)
     end
 end
 
+
+-- local function CanActivate(inst, doer)
+-- 	-- if not (doer.components.skilltreeupdater and doer.components.skilltreeupdater:IsActivated("winona_wagstaff_2")) then
+-- 	-- 	return false, "NOSKILL"
+-- 	-- end
+--     
+-- 	return true
+-- end
+
+-- local function CheckDestination(inst, dest, doer)
+-- 	return dest.IsPowered ~= nil and dest:IsPowered()
+-- end
+
+-- local function OnStartTeleport(inst, doer)
+-- 	inst.components.fueled:StopConsuming()
+-- end
+
+-- local function OnTeleported(inst, doer, success)--, target, items, from_x, from_Z)
+-- 	local amt = inst.components.fueled.currentfuel
+-- 	if amt > 0.00001 then
+-- 		amt = math.min(TUNING.WINONA_TELEBRELLA_TELEPORT_FUEL, amt - 0.00001)
+-- 		inst.components.fueled:DoDelta(-amt)
+-- 	end
+-- end
+
+-- local function OnStopTeleport(inst, doer, success)
+-- 	if inst.components.fueled.currentfuel < 0.000011 then
+-- 		inst.components.fueled:DoDelta(-1)
+-- 	else
+-- 		inst.components.fueled:StartConsuming()
+-- 	end
+-- end
+-- local function OnUpdateSparks(inst)
+-- 	if inst._flash > 0 then
+-- 		local k = inst._flash * inst._flash
+-- 		inst.components.colouradder:PushColour("wiresparks", .3 * k, .3 * k, 0, 0)
+-- 		inst._flash = inst._flash - .15
+-- 	else
+-- 		inst.components.colouradder:PopColour("wiresparks")
+-- 		inst._flash = nil
+-- 		inst.components.updatelooper:RemoveOnUpdateFn(OnUpdateSparks)
+-- 	end
+-- end
+
+-- local function DoWireSparks(inst)
+-- 	inst.SoundEmitter:PlaySound("dontstarve/common/together/spot_light/electricity", nil, .5)
+-- 	SpawnPrefab("winona_battery_sparks").entity:AddFollower():FollowSymbol(inst.GUID, "wire", 0, 0, 0)
+-- 	if inst.components.updatelooper then
+-- 		if inst._flash == nil then
+-- 			inst.components.updatelooper:AddOnUpdateFn(OnUpdateSparks)
+-- 		end
+-- 		inst._flash = 1
+-- 		OnUpdateSparks(inst)
+-- 	end
+-- end
+-- local function NotifyCircuitChanged(inst, node)
+-- 	node:PushEvent("engineeringcircuitchanged")
+-- end
+
+
+-- local function OnCircuitChanged(inst)
+-- 	--Notify other connected batteries
+-- 	inst.components.circuitnode:ForEachNode(NotifyCircuitChanged)
+-- end
+
+-- local function SetLedEnabled(inst, enabled)
+-- 	if enabled then
+-- 		inst.AnimState:OverrideSymbol("led_off", "winona_telebrella", "led_on")
+-- 		inst.AnimState:SetSymbolBloom("led_off")
+-- 		inst.AnimState:SetSymbolLightOverride("led_off", 0.5)
+-- 		inst.AnimState:SetSymbolLightOverride("antenna", 0.3)
+-- 		inst.AnimState:SetSymbolLightOverride("canopy_closed", 0.06)
+-- 	else
+-- 		inst.AnimState:ClearOverrideSymbol("led_off")
+-- 		inst.AnimState:ClearSymbolBloom("led_off")
+-- 		inst.AnimState:SetSymbolLightOverride("led_off", 0)
+-- 		inst.AnimState:SetSymbolLightOverride("antenna", 0)
+-- 		inst.AnimState:SetSymbolLightOverride("canopy_closed", 0)
+-- 	end
+-- end
+
+-- local function OnUpdateChargingFuel(inst)
+-- 	if inst.components.fueled:IsFull() then
+-- 		inst.components.fueled:StopConsuming()
+-- 	end
+-- end
+
+-- local function SetCharging(inst, powered, duration)
+-- 	if not powered then
+-- 		if inst._powertask then
+-- 			inst._powertask:Cancel()
+-- 			inst._powertask = nil
+-- 			inst.components.fueled:StopConsuming()
+-- 			inst.components.fueled.rate = 1
+-- 			inst.components.fueled:SetUpdateFn(nil)
+-- 			inst.components.powerload:SetLoad(0)
+-- 			SetLedEnabled(inst, false)
+-- 		end
+-- 	else
+-- 		local waspowered = inst._powertask ~= nil
+-- 		local remaining = waspowered and GetTaskRemaining(inst._powertask) or 0
+-- 		if duration > remaining then
+-- 			if inst._powertask then
+-- 				inst._powertask:Cancel()
+-- 			end
+-- 			inst._powertask = inst:DoTaskInTime(duration, SetCharging, false)
+-- 			if not waspowered then
+-- 				inst.components.fueled.rate = TUNING.WINONA_TELEBRELLA_RECHARGE_RATE * (inst._quickcharge and TUNING.SKILLS.WINONA.QUICKCHARGE_MULT or 1)
+-- 				inst.components.fueled:SetUpdateFn(OnUpdateChargingFuel)
+-- 				inst.components.fueled:StartConsuming()
+-- 				inst.components.powerload:SetLoad(TUNING.WINONA_TELEBRELLA_POWER_LOAD_CHARGING)
+-- 				SetLedEnabled(inst, true)
+-- 			end
+-- 		end
+-- 	end
+-- end
+
+-- local function OnConnectCircuit(inst)--, node)
+-- 	if not inst._wired then
+-- 		inst._wired = true
+-- 		inst.AnimState:ClearOverrideSymbol("wire")
+-- 		if not POPULATING then
+-- 			DoWireSparks(inst)
+-- 		end
+-- 	end
+-- 	OnCircuitChanged(inst)
+-- end
+
+-- local function OnDisconnectCircuit(inst)--, node)
+-- 	if inst.components.circuitnode:IsConnected() then
+-- 		OnCircuitChanged(inst)
+-- 	elseif inst._wired then
+-- 		inst._wired = nil
+-- 		--This will remove mouseover as well (rather than just :Hide("wire"))
+-- 		inst.AnimState:OverrideSymbol("wire", "winona_storage_robot", "dummy")
+-- 		DoWireSparks(inst)
+-- 		SetCharging(inst, false)
+-- 	end
+-- end
+
+-- local function OnNoLongerLanded(inst)
+-- 	inst.components.circuitnode:Disconnect()
+-- end
+
+-- local function OnLanded(inst)
+-- 	if not (inst.components.circuitnode:IsEnabled() or inst.components.inventoryitem:IsHeld()) then
+-- 		inst.components.circuitnode:ConnectTo("engineeringbattery")
+-- 		if inst._landed_owner and inst._landed_owner:IsValid() then
+-- 			inst.components.circuitnode:ForEachNode(function(inst, node)
+-- 				node:OnUsedIndirectly(inst._landed_owner)
+-- 			end)
+-- 		end
+-- 	end
+-- 	inst._landed_owner = nil
+-- end
+
+
 --快速采集效果
 function achievementability:fastbuildfn(inst)
     if self.fastbuild then 
         inst:AddTag("fastbuilder")
-        inst:AddTag("achivehandyperson")
+        inst:AddTag("handyperson")
+        inst:AddTag("hungrybuilder")
+        inst:AddTag("basicengineer")
+        inst:AddTag("portableengineer")
+        inst:AddTag("charliet1maker")
+        inst:AddTag("wagstafft1maker")
+        -- inst:AddTag("wagstafft2maker")
+
+        -- 授予全部薇诺娜技能树技能: 投石机/电池/聚光灯升级、暗影/月亮对齐、便携、黑暗免疫、传送(wagstaff_2),
+        -- 并解锁官方 builder_skill 配方(眼镜/储物机器人/遥控器齐射/传送伞/传送垫)。
+        -- 服务端置 _achiv_skills + 跑 onactivate; 客户端经 currentfastbuild netvar 反查 IsActivated(见 modmain 桥接)。
+        local _winona_st = ability_cost["fastbuild"].skilltree
+        if _winona_st ~= nil then
+            AchivGrantSkills(inst, _winona_st.char, _winona_st.skills, _winona_st.recipes)
+        end
+
+        -- inst:AddComponent("remoteteleporter")
+        -- inst.components.remoteteleporter:SetCanActivateFn(CanActivate)
+        -- inst.components.remoteteleporter:SetCheckDestinationFn(CheckDestination)
+        -- inst.components.remoteteleporter:SetOnStartTeleportFn(OnStartTeleport)
+        -- inst.components.remoteteleporter:SetOnTeleportedFn(OnTeleported)
+        -- inst.components.remoteteleporter:SetOnStopTeleportFn(OnStopTeleport)
+        -- inst.components.remoteteleporter:SetItemTeleportRadius(1.84)
+    
+        -- inst:AddComponent("circuitnode")
+        -- inst.components.circuitnode:SetRange(TUNING.WINONA_BATTERY_RANGE)
+        -- inst.components.circuitnode:SetFootprint(0)
+        -- inst.components.circuitnode:SetOnConnectFn(OnConnectCircuit)
+        -- inst.components.circuitnode:SetOnDisconnectFn(OnDisconnectCircuit)
+        -- inst.components.circuitnode.connectsacrossplatforms = false
+        -- inst.components.circuitnode.rangeincludesfootprint = false
+    
+        -- inst:AddComponent("powerload")
+        -- inst.components.powerload:SetLoad(0)
+    
+        -- inst:ListenForEvent("engineeringcircuitchanged", OnCircuitChanged)
+        -- inst:ListenForEvent("on_no_longer_landed", OnNoLongerLanded)
+        -- inst:ListenForEvent("on_landed", OnLanded)
     end
 end
 
@@ -858,11 +1109,6 @@ end
 function achievementability:woodieabilitycoin(inst)
     if self.coinamount >= ability_cost["woodieability"].cost and self.woodieability == false and inst.prefab ~= "woodie" then
         self.woodieability = true
-        inst:AddTag("woodcarver1")
-        inst:AddTag("woodcarver2")
-        inst:AddTag("woodcarver3")
-        inst:AddTag("leifidolcrafter")
-        inst:AddTag("werehuman")--伍迪的3个肉
         self:coinDoDelta(-ability_cost["woodieability"].cost)
         self:ongetcoin(inst)
         self:woodieabilityfn(inst)
@@ -974,6 +1220,10 @@ end
 function achievementability:woodieabilityfn(inst)
     inst:DoTaskInTime(1, function()
     if self.woodieability then
+        inst:AddTag("woodcarver1")
+        inst:AddTag("woodcarver2")
+        inst:AddTag("woodcarver3")
+        inst:AddTag("leifidolcrafter")
         inst:AddTag("werehuman")
         local oldeatfn = inst.components.eater.oneatfn
         function inst.components.eater.oneatfn(inst, food)
@@ -1125,12 +1375,164 @@ function achievementability:plantfriendcoin(inst)
 end
 
 
+
 --植物人能力
 function achievementability:plantfriendfn(inst)
-    if inst and  self.plantfriend and inst.prefab ~= "wormwood" then
+    local function ondeployitem(inst, data)
+        if inst and inst.components.sanity and inst.components.achievementability and inst.components.achievementability.plantfriend then
+            if data and data.prefab ~= "fossil_piece" then
+                inst.components.sanity:DoDelta(TUNING.SANITY_SUPERTINY*5)
+            end
+        end
+    end
+
+    local WATCH_WORLD_PLANTS_DIST_SQ = 20 * 20
+    local function CalcSanityMult(distsq)
+        distsq = 1 - math.sqrt(distsq / WATCH_WORLD_PLANTS_DIST_SQ)
+        return distsq * distsq
+    end
+
+
+    local function DoPlantBonus(inst, bonus)
+        inst.components.sanity:DoDelta(bonus)
+    end
+
+    local function WLFSort(a, b) -- Better than roundcheck!
+        return a.GUID < b.GUID
+    end
+    
+    local function RecalculateLightFlierPattern(inst)
+        local pets = inst.components.petleash and inst.components.petleash:GetPetsWithPrefab("wormwood_lightflier") or nil
+        if pets then
+            inst.wormwood_lightflier_pattern = pets
+            table.sort(pets, WLFSort)
+            for i, v in ipairs(pets) do
+                pets[v] = i
+            end
+            pets.maxpets = #pets
+        else
+            inst.wormwood_lightflier_pattern = nil
+        end
+    end
+    local function RecalculateLightFlierLight(inst)
+        local pets = inst.components.petleash and inst.components.petleash:GetPetsWithPrefab("wormwood_lightflier") or nil
+        if pets == nil then
+            return
+        end
+    
+        local mult = Remap(#pets, 1, TUNING.WORMWOOD_PET_LIGHTFLIER_LIMIT, 1, 2)
+    
+        for i, pet in ipairs(pets) do
+            pet.Light:SetRadius(1.8 * mult)
+        end
+    end
+    
+    local function RecalculateDragonHealth(inst)
+        local pets = inst.components.petleash and inst.components.petleash:GetPetsWithPrefab("wormwood_fruitdragon") or nil
+        if pets == nil then
+            return
+        end
+
+        if #pets >= TUNING.WORMWOOD_PET_FRUITDRAGON_LIMIT then
+            for i, pet in ipairs(pets) do
+                local oldpercent = pet.components.health:GetPercent()
+                pet.components.health:SetMaxHealth(TUNING.WORMWOOD_PET_FRUITDRAGON_BUFF_HEALTH)
+                pet.components.health:SetCurrentHealth(TUNING.WORMWOOD_PET_FRUITDRAGON_BUFF_HEALTH*oldpercent)
+            end
+        else
+            for i, pet in ipairs(pets) do
+                local oldpercent = pet.components.health:GetPercent()
+                pet.components.health:SetMaxHealth(TUNING.WORMWOOD_PET_FRUITDRAGON_HEALTH)
+                pet.components.health:SetCurrentHealth(TUNING.WORMWOOD_PET_FRUITDRAGON_HEALTH*oldpercent)
+            end        
+        end
+    end
+    local function OnSpawnPet(inst, pet)
+        if pet.prefab == "wormwood_lightflier" then
+            inst:RecalculateLightFlierPattern()
+            inst:RecalculateLightFlierLight()
+        end
+
+        if pet.prefab == "wormwood_fruitdragon" then
+            inst:RecalculateDragonHealth()
+        end
+
+        if inst._OnSpawnPet ~= nil then
+            inst:_OnSpawnPet(pet)
+        end
+    end
+
+    local function OnDespawnPet(inst, pet)
+        if pet.prefab == "wormwood_lightflier" then
+            inst:RecalculateLightFlierPattern()
+            inst:RecalculateLightFlierLight()
+        end
+
+        if pet.prefab == "wormwood_fruitdragon" then
+            inst:RecalculateDragonHealth()
+        end
+
+        if inst._OnDespawnPet ~= nil then
+            inst:_OnDespawnPet(pet)
+        end
+    end
+
+    local function OnRemovedPet(inst, pet)
+        if pet.prefab == "wormwood_lightflier" then
+            inst:RecalculateLightFlierPattern()
+            inst:RecalculateLightFlierLight()
+        end
+
+        if pet.prefab == "wormwood_fruitdragon" then
+            inst:RecalculateDragonHealth()
+        end    
+    end
+
+    if inst and self.plantfriend and inst.prefab ~= "wormwood" then
         inst:AddTag("plantkin")
-        inst:AddTag("healonfertilize")     
-        inst:ListenForEvent("deployitem", ondeployitem)
+        inst:AddTag("healonfertilize")
+        inst:AddTag("farmplantidentifier")
+        inst:AddTag("saplingcrafter")
+        inst:AddTag("berrybushcrafter")
+        inst:AddTag("juicyberrybushcrafter")
+        inst:AddTag("reedscrafter")
+        inst:AddTag("lureplantcrafter")
+        inst:AddTag("syrupcrafter")
+        
+        inst:AddTag("lightfliercrafter")
+        inst:AddTag("carratcrafter")
+        inst:AddTag("fruitdragoncrafter")
+        inst.RecalculateLightFlierPattern = RecalculateLightFlierPattern
+        inst.RecalculateLightFlierLight = RecalculateLightFlierLight
+        inst.RecalculateDragonHealth = RecalculateDragonHealth
+
+        if inst.components.petleash ~= nil then
+            inst._OnSpawnPet = inst.components.petleash.onspawnfn
+            inst._OnDespawnPet = inst.components.petleash.ondespawnfn
+        else
+            inst:AddComponent("petleash")
+        end
+        local petleash = inst.components.petleash
+        petleash:SetOnSpawnFn(OnSpawnPet)
+        petleash:SetOnDespawnFn(OnDespawnPet)
+        petleash:SetOnRemovedFn(OnRemovedPet)
+        petleash:SetMaxPetsForPrefab("wormwood_lightflier", TUNING.WORMWOOD_PET_LIGHTFLIER_LIMIT)
+        petleash:SetMaxPetsForPrefab("wormwood_carrat", TUNING.WORMWOOD_PET_CARRAT_LIMIT)
+        petleash:SetMaxPetsForPrefab("wormwood_fruitdragon", TUNING.WORMWOOD_PET_FRUITDRAGON_LIMIT)
+    
+        inst._onitemplanted = function(src, data)
+            if not data then
+                --shouldn't happen
+            elseif data.doer == inst then
+                DoPlantBonus(inst, TUNING.SANITY_TINY * 2)
+            elseif data.pos then
+                local distsq = inst:GetDistanceSqToPoint(data.pos)
+                if distsq < WATCH_WORLD_PLANTS_DIST_SQ then
+                    DoPlantBonus(inst, CalcSanityMult(distsq) * TUNING.SANITY_SUPERTINY * 2, true)
+                end
+            end
+        end
+        inst:ListenForEvent("itemplanted", inst._onitemplanted, TheWorld)
     end
     if inst.prefab ~= "wormwood" then 
         inst.planttask = nil          
@@ -1230,7 +1632,7 @@ function achievementability:plantfriendfn(inst)
     end)
 end
 
-local modname = KnownModIndex:GetModActualName("New Achivement")
+
 local max_speedup = GetModConfigData("max_speedup",modname)
 local max_damageup = GetModConfigData("max_damageup",modname)
 local max_absorbup = GetModConfigData("max_absorbup",modname)
@@ -2199,12 +2601,14 @@ function achievementability:murlocdisguisefn(inst)
         inst:AddTag("merm_builder")  --修建tag
         inst:AddTag("stronggrip")  --武器不脱
         inst:AddTag("mermfluent")
+        -- 修复: 原逻辑与 murlocdisguisecoin 相反(coin: switch=true=鱼人形态开),导致重新加载后 fn 把 merm 摘掉→被青蛙/鱼人攻击。
+        -- 这里改为与 coin 一致: switch=true → 加 merm/mermguard(鱼人形态开)。
         if self.murlocdisguiseswitch  then
-            inst:RemoveTag("merm")
-            inst:RemoveTag("mermguard")
-        else
             inst:AddTag("merm")
             inst:AddTag("mermguard")
+        else
+            inst:RemoveTag("merm")
+            inst:RemoveTag("mermguard")
         end
 
         inst.components.locomotor:SetFasterOnGroundTile(GROUND.MARSH, true)
@@ -2414,6 +2818,12 @@ function achievementability:ghostly_friendfn(inst)
             inst.components.ghostlybond.onrecallfn = ghostlybond_onrecall
             inst.components.ghostlybond.changebehaviourfn = ghostlybond_changebehaviour
             inst.components.ghostlybond:Init("abigail", TUNING.ABIGAIL_BOND_LEVELUP_TIME)
+        else
+            -- 重学(组件未被删,仍有上次 reset 留下的 limbo 阿比盖尔)：reset 时 WendyOnDespawn 直接
+            -- RemoveFromScene 绕过状态机，notsummoned 残留为 false，导致 Summon() 返回 false 召不出(需重连)。
+            -- 这里恢复 RecallComplete 那样的干净 limbo 状态。只在重学(组件已存在)时触发，不影响 reset 后"召不出"的正确行为。
+            inst.components.ghostlybond.summoned = false
+            inst.components.ghostlybond.notsummoned = true
         end
         inst.OnDespawn = OnDespawn
         inst.OnSave = OnSave
@@ -2555,6 +2965,7 @@ local function WaxwellOnSpawnPet(inst, pet)
         if not (inst.components.health:IsDead() or inst:HasTag("playerghost")) then
             inst.components.sanity:AddSanityPenalty(pet, TUNING.SHADOWWAXWELL_SANITY_PENALTY[string.upper(pet.prefab)])
             inst:ListenForEvent("onremove", inst._onpetlost, pet)
+            pet.components.skinner:CopySkinsFromPlayer(inst)
         elseif pet._killtask == nil then
             pet._killtask = pet:DoTaskInTime(math.random(), WaxwellKillPet)
         end
@@ -2613,8 +3024,8 @@ end
 local function waxwell_common_postinit(inst)
     inst:AddTag("shadowmagic")
     inst:AddTag("dappereffects")
-    --inst:AddTag("achivshadowmagicbuilder") --制作老麦的影子   不需要做书  直接在魔法栏建造影子
-    --reader (from reader component) added to pristine state for optimization
+    inst:AddTag("magician")
+    inst:AddComponent("magician")
     inst:AddTag("reader")
 end
 
@@ -2656,6 +3067,8 @@ function achievementability:waxwellfriendRemove()
         WaxwellOnDeath(inst)
         inst:RemoveComponent("reader")
         inst:RemoveComponent("petleash")
+        inst:RemoveTag("magician")
+        inst:RemoveComponent("magician")
         inst:RemoveEventCallback("death", WaxwellOnDeath)
         inst:RemoveEventCallback("ms_becameghost", WaxwellOnDeath)
         inst:RemoveEventCallback("ms_playerreroll", WaxwellOnReroll)
@@ -2988,7 +3401,9 @@ end
 function achievementability:fearlessRemove()
     local inst = self.inst
     --if self.fearless then
-        inst.woby.components.container:DropEverything()
+        if inst.woby ~= nil and inst.woby.components.container ~= nil then
+            inst.woby.components.container:DropEverything()
+        end
         --inst:RemoveChild(inst.components.rider.mount)
         --self.inst:PushEvent("dismounted", { target = inst.woby })
         --inst.components.rider:Dismount()
@@ -3016,6 +3431,7 @@ function achievementability:fearlessRemove()
         inst._woby_onremove = nil
         inst.OnWobyTransformed = nil
         inst:RemoveComponent("storyteller")
+        if inst._achiv_craftrefresh ~= nil then inst._achiv_craftrefresh:push() end -- 延迟摘除 Walter 标签后刷新客户端制作菜单
     --end
 end
 
@@ -3284,13 +3700,17 @@ function achievementability:costKillAmountFinishAchievement(inst,id)
     end
 end
 
-function achievementability:attributePointCost(inst, attribute)
-    local cost = achievement_ability_config.attributes_cost[attribute]
+function achievementability:attributePointCost(inst, attribute, num)
+    local add = num
+    if add == nil then
+        add = inst.components.achievementability.attributepointamount
+    end
+    local cost = achievement_ability_config.attributes_cost[attribute] * add
     if inst.components.achievementability.attributepointamount >= cost then
-        inst.components.achievementability[attribute] =  inst.components.achievementability[attribute] + 1
+        inst.components.achievementability[attribute] =  inst.components.achievementability[attribute] + add
         inst.components.achievementability:attributeDoDelta(-cost)
         local fn = attribute .. "fn";
-        inst.components.achievementability[fn](self,inst)
+        inst.components.achievementability[fn](self,inst, add)
     end
 end
 
@@ -3311,11 +3731,20 @@ function achievementability:removecoin(inst)
         end
         self[v.ability] = v.default_value
     end
-    self.coinamount = self.coinamount + math.ceil(returncoin * TUNING.RETRUN_POINT)
-    self:flashyfn(inst)
-    if inst.components.playeractionpicker ~= nil then
-        inst.components.playeractionpicker.pointspecialactionsfn = nil
+    --local playerAge = inst.components.age:GetAgeInDays()
+
+    print("===============",self.resetamount,self.usedresetamount)
+    if self.resetamount - self.usedresetamount > 0 then
+        self.coinamount = self.coinamount + math.ceil(returncoin)
+        self.usedresetamount = self.usedresetamount + 1
+    else
+        self.coinamount = self.coinamount + math.ceil(returncoin * TUNING.RETRUN_POINT)
     end
+    
+    self:flashyfn(inst)
+    -- if inst.components.playeractionpicker ~= nil then
+    --     inst.components.playeractionpicker.pointspecialactionsfn = nil
+    -- end
     if inst.components.health.currenthealth > 0 and not inst.components.rider:IsRiding() then
         inst.components.locomotor:Stop()
         --inst.sg:GoToState("changeoutsidewardrobe")
@@ -3395,6 +3824,17 @@ function achievementability:resetbuff(inst)
     if inst.prefab ~= "wormwood" then
         inst:RemoveTag("plantkin")
         inst:RemoveTag("healonfertilize")
+        inst:RemoveTag("saplingcrafter")
+        inst:RemoveTag("berrybushcrafter")
+        inst:RemoveTag("juicyberrybushcrafter")
+        inst:RemoveTag("reedscrafter")
+        inst:RemoveTag("lureplantcrafter")
+        inst:RemoveTag("syrupcrafter")
+
+
+        inst:RemoveTag("lightfliercrafter")
+        inst:RemoveTag("carratcrafter")
+        inst:RemoveTag("fruitdragoncrafter")
         inst.planttask = nil
     end
     --inst:RemoveTag("achiveplantkin")
@@ -3444,7 +3884,12 @@ function achievementability:resetbuff(inst)
 
     if inst.prefab ~= "winona" then
         inst:RemoveTag("fastbuilder")
-        inst:RemoveTag("achivehandyperson")
+        inst:RemoveTag("handyperson")
+        inst:RemoveTag("hungrybuilder")
+        inst:RemoveTag("basicengineer")
+        inst:RemoveTag("portableengineer")
+        inst:RemoveTag("charliet1maker")
+        inst:RemoveTag("wagstafft1maker")
     end
     if inst.prefab ~= "woodie" then
         inst:RemoveTag("werehuman")
@@ -3473,7 +3918,9 @@ function achievementability:resetbuff(inst)
         inst.components.rider:Dismount()
         if self.fearless then
             inst:DoTaskInTime(1.5, function ()
-            self:fearlessRemove(inst)
+            if not self.fearless then -- 若 1.5s 内已重新学习(self.fearless 变回 true),跳过拆除,避免误删刚重建的 woby
+                self:fearlessRemove(inst)
+            end
             end)
         end
     end
@@ -3512,6 +3959,18 @@ function achievementability:resetbuff(inst)
         self:soulhopcopyRemove(inst)
     end
 
+    -- 技能树移植能力的通用重置(此时 flag 仍为 true,在 removecoin 置 false 之前)
+    for _an, _cfg in pairs(ability_cost) do
+        if _cfg.skilltree ~= nil and self[_an] then
+            self[_an.."Remove"](self, inst)
+        end
+    end
+
+    -- 移除能力后,各 builder_tag 已被摘掉,但客户端制作菜单不会自动刷新,导致不可造的配方仍显示。
+    -- 服务端 PushEvent 到不了客户端 HUD,用 net_event 让客户端自己 push refreshcrafting(见 modmain AddPlayerPostInit)。
+    if inst._achiv_craftrefresh ~= nil then
+        inst._achiv_craftrefresh:push()
+    end
 end
 
 local function SaveForReroll(inst)
@@ -3551,6 +4010,10 @@ function achievementability:Init(inst)
     end
     self:_calc_kill_value(inst)
     inst:DoPeriodicTask(0.1, function() self:onupdate() end)
+    inst:DoPeriodicTask(1, function ()
+        self.resetamount = math.floor(inst.components.age:GetAgeInDays() / need_player_ages)
+    end)
+
 end
 
 function achievementability:OnInitSpecialAbility()
@@ -3583,6 +4046,12 @@ function achievementability:dealSpecialTags(inst)
         end
     end
     
+    if not self.fastbuild then
+        if inst.prefab ~= "winona" then
+            inst:RemoveTag("handyperson")
+        end
+    end
+
 end
 
 function achievementability:OnLoadedPost()
@@ -3601,6 +4070,39 @@ function achievementability:OnLoadedPost()
         if self[key] and self[key] > 0  then
             local func = key .. "fn"
             self[func](self, inst, self[key])
+        end
+    end
+end
+
+-- ===== 技能树移植能力: 通用 coin/fn/Remove (桥接官方技能, Phase 0) =====
+-- ability_cost 里带 skilltree={char,skills} 的条目自动生成三件套,调用 modmain 注册的全局 AchivGrantSkills/AchivRevokeSkills。
+for _an, _cfg in pairs(ability_cost) do
+    if _cfg.skilltree ~= nil then
+        local an = _an
+        local st = _cfg.skilltree
+        -- nil 守卫: 已手写的三件套(如 fastbuild 的 coin/fn,含建筑标签逻辑)不被覆盖,只补缺失的。
+        -- 例: fastbuild 保留手写 coin/fn(其 fn 已自带 AchivGrantSkills),此处仅自动补 fastbuildRemove。
+        if achievementability[an.."coin"] == nil then
+            achievementability[an.."coin"] = function(self, inst)
+                if self[an] ~= true and self.coinamount >= ability_cost[an].cost and inst.prefab ~= st.char then
+                    self[an] = true
+                    self:coinDoDelta(-ability_cost[an].cost)
+                    self:ongetcoin(inst)
+                    AchivGrantSkills(inst, st.char, st.skills, st.recipes)
+                end
+            end
+        end
+        if achievementability[an.."fn"] == nil then
+            achievementability[an.."fn"] = function(self, inst)
+                if self[an] then
+                    AchivGrantSkills(inst, st.char, st.skills, st.recipes)
+                end
+            end
+        end
+        if achievementability[an.."Remove"] == nil then
+            achievementability[an.."Remove"] = function(self, inst)
+                AchivRevokeSkills(inst, st.char, st.skills, st.recipes)
+            end
         end
     end
 end

@@ -95,9 +95,14 @@ local tags_enum =
     "fastpicker",
 
     --winona
-    "handyperson",
+    --"handyperson",
     "fastbuilder",
     "hungrybuilder",
+    "basicengineer",
+    "portableengineer",
+    "charliet1maker",
+    --"wagstafft1maker",
+    "wagstafft2maker",
 
     --warly
     "professionalchef",

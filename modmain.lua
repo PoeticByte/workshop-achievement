@@ -27,7 +27,11 @@ local can_hide_hud = GetModConfigData("can_hide_hud")
 local language_package = "Achievement.strings_achievement_" .. language
 require(language_package)
 require "Achievement.allachivrpc"
-require 'achievement_debugcommands'
+-- GM 控制台命令: 文件返回函数表,这里注册到真全局表 GLOBAL,控制台才能调用(详见该文件注释)。
+local _gm_commands = require 'achievement_debugcommands'
+for _gmname, _gmfn in GLOBAL.pairs(_gm_commands) do
+    GLOBAL[_gmname] = _gmfn
+end
 TUNING.CHECKCOIN = GetModConfigData("checkcoin")
 TUNING.CHECKSTART = GetModConfigData("checkstart")
 TUNING.BOSSSUP = GetModConfigData("bossstrengthen")
@@ -256,57 +260,57 @@ nil, -- numtogive
 "images/inventoryimages.xml", -- atlas
 "halloweenpotion_sanity_large.tex") -- image
 
---靠谱的胶带
-AddRecipe("achiv_sewing_tape", {Ingredient("silk",1),Ingredient("cutgrass",3)}, RECIPETABS.SCIENCE, TECH.NONE, 
-nil, --placer
-nil, -- min_spacing
-nil, -- nounlock
-nil, -- numtogive
-"achivehandyperson", -- builder_tag
-"images/inventoryimages.xml", -- atlas
-"sewing_tape.tex",--image
-nil, -- testfn
-"sewing_tape")  -- product
+-- --靠谱的胶带
+-- AddRecipe("achiv_sewing_tape", {Ingredient("silk",1),Ingredient("cutgrass",3)}, RECIPETABS.SCIENCE, TECH.NONE, 
+-- nil, --placer
+-- nil, -- min_spacing
+-- nil, -- nounlock
+-- nil, -- numtogive
+-- "achivehandyperson", -- builder_tag
+-- "images/inventoryimages.xml", -- atlas
+-- "sewing_tape.tex",--image
+-- nil, -- testfn
+-- "sewing_tape")  -- product
 
---添加投石器
-AddRecipe("achiv_winona_catapult", {Ingredient("sewing_tape",1),Ingredient("twigs",3),Ingredient("rocks",15)}, RECIPETABS.SCIENCE, TECH.NONE, 
-"winona_catapult_placer", --placer
-TUNING.WINONA_ENGINEERING_SPACING, -- min_spacing
-nil, -- nounlock
-nil, -- numtogive
-"achivehandyperson", -- builder_tag
-"images/inventoryimages.xml", -- atlas
-"winona_catapult.tex",nil,"winona_catapult")
+-- --添加投石器
+-- AddRecipe("achiv_winona_catapult", {Ingredient("sewing_tape",1),Ingredient("twigs",3),Ingredient("rocks",15)}, RECIPETABS.SCIENCE, TECH.NONE, 
+-- "winona_catapult_placer", --placer
+-- TUNING.WINONA_ENGINEERING_SPACING, -- min_spacing
+-- nil, -- nounlock
+-- nil, -- numtogive
+-- "achivehandyperson", -- builder_tag
+-- "images/inventoryimages.xml", -- atlas
+-- "winona_catapult.tex",nil,"winona_catapult")
 
---聚光灯
-AddRecipe("achiv_winona_spotlight", {Ingredient("sewing_tape",1),Ingredient("goldnugget",2),Ingredient("fireflies",1)}, RECIPETABS.SCIENCE, TECH.NONE, 
-"winona_spotlight_placer", --placer
-TUNING.WINONA_ENGINEERING_SPACING, -- min_spacing
-nil, -- nounlock
-nil, -- numtogive
-"achivehandyperson", -- builder_tag
-"images/inventoryimages.xml", -- atlas
-"winona_spotlight.tex",nil,"winona_spotlight")
+-- --聚光灯
+-- AddRecipe("achiv_winona_spotlight", {Ingredient("sewing_tape",1),Ingredient("goldnugget",2),Ingredient("fireflies",1)}, RECIPETABS.SCIENCE, TECH.NONE, 
+-- "winona_spotlight_placer", --placer
+-- TUNING.WINONA_ENGINEERING_SPACING, -- min_spacing
+-- nil, -- nounlock
+-- nil, -- numtogive
+-- "achivehandyperson", -- builder_tag
+-- "images/inventoryimages.xml", -- atlas
+-- "winona_spotlight.tex",nil,"winona_spotlight")
 
---发电机
-AddRecipe("achiv_winona_battery_low", {Ingredient("sewing_tape",1),Ingredient("log",2),Ingredient("nitre",2)}, RECIPETABS.SCIENCE, TECH.NONE, 
-"winona_battery_low_placer", --placer
-TUNING.WINONA_ENGINEERING_SPACING, -- min_spacing
-nil, -- nounlock
-nil, -- numtogive
-"achivehandyperson", -- builder_tag
-"images/inventoryimages.xml", -- atlas
-"winona_battery_low.tex",nil,"winona_battery_low")
+-- --发电机
+-- AddRecipe("achiv_winona_battery_low", {Ingredient("sewing_tape",1),Ingredient("log",2),Ingredient("nitre",2)}, RECIPETABS.SCIENCE, TECH.NONE, 
+-- "winona_battery_low_placer", --placer
+-- TUNING.WINONA_ENGINEERING_SPACING, -- min_spacing
+-- nil, -- nounlock
+-- nil, -- numtogive
+-- "achivehandyperson", -- builder_tag
+-- "images/inventoryimages.xml", -- atlas
+-- "winona_battery_low.tex",nil,"winona_battery_low")
 
---G.E.M发电机
-AddRecipe("achiv_winona_battery_high", {Ingredient("sewing_tape",1),Ingredient("boards",2),Ingredient("transistor",2)}, RECIPETABS.SCIENCE, TECH.NONE, 
-"winona_battery_high_placer", --placer
-TUNING.WINONA_ENGINEERING_SPACING, -- min_spacing
-nil, -- nounlock
-nil, -- numtogive
-"achivehandyperson", -- builder_tag
-"images/inventoryimages.xml", -- atlas
-"winona_battery_high.tex",nil,"winona_battery_high")
+-- --G.E.M发电机
+-- AddRecipe("achiv_winona_battery_high", {Ingredient("sewing_tape",1),Ingredient("boards",2),Ingredient("transistor",2)}, RECIPETABS.SCIENCE, TECH.NONE, 
+-- "winona_battery_high_placer", --placer
+-- TUNING.WINONA_ENGINEERING_SPACING, -- min_spacing
+-- nil, -- nounlock
+-- nil, -- numtogive
+-- "achivehandyperson", -- builder_tag
+-- "images/inventoryimages.xml", -- atlas
+-- "winona_battery_high.tex",nil,"winona_battery_high")
 
 --活木
 -- AddRecipe("achiv_livinglog", {Ingredient(GLOBAL.CHARACTER_INGREDIENT.HEALTH, 20)}, RECIPETABS.WAR, TECH.NONE, 
@@ -412,6 +416,66 @@ nil, -- numtogive
 "images/inventoryimages/moonbase.xml", -- atlas
 "moonbase.tex") -- image
 
+AddRecipe2("achievement_leif_idol",					{Ingredient("cutgrass", 3), Ingredient("livinglog", 2), Ingredient("nightmarefuel", 5)},		TECH.NONE,				{builder_tag="leifidolcrafter"})
+AddRecipe2("achievement_woodie_boards",				{Ingredient("log", 3)}, 													TECH.NONE,				{builder_tag="woodcarver1", sg_state="carvewood_boards", product="boards",  description="boards",  no_deconstruction=true,})
+AddRecipe2("achievement_woodcarvedhat",				{Ingredient("log", 6), Ingredient("pinecone", 1)}, 						TECH.NONE,				{builder_tag="woodcarver2", sg_state="carvewood"})
+AddRecipe2("achievement_walking_stick",				{Ingredient("log", 3), Ingredient("charcoal", 1)},						TECH.NONE,				{builder_tag="woodcarver3", sg_state="carvewood"})
+
+-- 炼金科技(alchemytechnology) 修复：官方 transmute 配方已从 builder_tag 迁移到 builder_skill="wilson_alchemy_N"/"wilson_allegiance_*"，
+-- 只能靠 skilltreeupdater:IsActivated 解锁，加标签无效(见 builder.lua)。这里用 mod 自己的 builder_tag="alchemist"
+-- 重新注册一份(新名 achiv_transmute_*)，alchemytechnologyfn 本就会给玩家加 "alchemist" 标签。材料/产物/数量照抄官方 recipes.lua。
+local ACHIV_TRANSMUTES = {
+    { "log",               { Ingredient("twigs", 3) } },
+    { "twigs",             { Ingredient("log", 1) }, 2 },
+    { "bluegem",           { Ingredient("redgem", 2) } },
+    { "redgem",            { Ingredient("bluegem", 2) } },
+    { "purplegem",         { Ingredient("bluegem", 1), Ingredient("redgem", 1) } },
+    { "orangegem",         { Ingredient("purplegem", 3) } },
+    { "yellowgem",         { Ingredient("orangegem", 3) } },
+    { "greengem",          { Ingredient("yellowgem", 3) } },
+    { "opalpreciousgem",   { Ingredient("yellowgem", 1), Ingredient("orangegem", 1), Ingredient("greengem", 1), Ingredient("purplegem", 1), Ingredient("redgem", 1), Ingredient("bluegem", 1) } },
+    { "flint",             { Ingredient("rocks", 3) } },
+    { "rocks",             { Ingredient("flint", 2) } },
+    { "goldnugget",        { Ingredient("nitre", 3) } },
+    { "nitre",             { Ingredient("goldnugget", 2) } },
+    { "marble",            { Ingredient("cutstone", 2) } },
+    { "cutstone",          { Ingredient("marble", 1) } },
+    { "moonrocknugget",    { Ingredient("marble", 2) } },
+    { "meat",              { Ingredient("smallmeat", 3) } },
+    { "smallmeat",         { Ingredient("meat", 1) }, 2 },
+    { "beardhair",         { Ingredient("beefalowool", 2) } },
+    { "beefalowool",       { Ingredient("beardhair", 2) } },
+    { "boneshard",         { Ingredient("houndstooth", 2) } },
+    { "houndstooth",       { Ingredient("boneshard", 2) } },
+    { "poop",              { Ingredient("spoiled_food", 6) } },
+    { "horrorfuel",        { Ingredient("dreadstone", 1) }, 2 },
+    { "dreadstone",        { Ingredient("horrorfuel", 3) } },
+    { "nightmarefuel",     { Ingredient("horrorfuel", 1) }, 2 },
+    { "purebrilliance",    { Ingredient("moonglass_charged", 3) } },
+    { "moonglass_charged", { Ingredient("purebrilliance", 1) }, 2 },
+}
+for _, t in GLOBAL.ipairs(ACHIV_TRANSMUTES) do
+    AddRecipe2("achiv_transmute_" .. t[1], t[2], TECH.NONE, {
+        product = t[1],
+        builder_tag = "alchemist",
+        numtogive = t[3],
+        description = "transmute_" .. t[1],
+    })
+end
+
+-- 植物好友(plantfriend) 修复：Wormwood 植物配方已从 builder_tag 迁移到 builder_skill="wormwood_*crafting"(recipes.lua)，
+-- mod 加的 berrybushcrafter/saplingcrafter 等旧标签全失效。这里用 mod 自己授予的 builder_tag="plantkin"(plantfriendfn 会加且仍有效)
+-- 重新注册一份。form_* 种植 SG 状态在通用 SGwilson 里，任意角色都能用。材料/产物/sg_state 照抄官方。
+local _H = GLOBAL.CHARACTER_INGREDIENT.HEALTH
+AddRecipe2("achiv_wormwood_ipecacsyrup",   {Ingredient("red_cap",1), Ingredient("honey",1), Ingredient("spoiled_food",1)},        TECH.NONE, {builder_tag="plantkin", product="ipecacsyrup", allowautopick=true})
+AddRecipe2("achiv_wormwood_sapling",       {Ingredient(_H,5), Ingredient("twigs",5)},                                             TECH.NONE, {builder_tag="plantkin", product="dug_sapling_moon",    sg_state="form_moon",   actionstr="GROW", allowautopick=true, no_deconstruction=true, description="wormwood_sapling"})
+AddRecipe2("achiv_wormwood_berrybush",     {Ingredient(_H,10), Ingredient("spoiled_food",3), Ingredient("berries_juicy",8)},      TECH.NONE, {builder_tag="plantkin", product="dug_berrybush",       sg_state="form_bush",   actionstr="GROW", allowautopick=true, no_deconstruction=true, description="wormwood_berrybush"})
+AddRecipe2("achiv_wormwood_berrybush2",    {Ingredient(_H,10), Ingredient("spoiled_food",3), Ingredient("berries_juicy",8)},      TECH.NONE, {builder_tag="plantkin", product="dug_berrybush2",      sg_state="form_bush2",  actionstr="GROW", allowautopick=true, no_deconstruction=true, description="wormwood_berrybush2"})
+AddRecipe2("achiv_wormwood_juicyberrybush",{Ingredient(_H,10), Ingredient("spoiled_food",3), Ingredient("berries",8)},             TECH.NONE, {builder_tag="plantkin", product="dug_berrybush_juicy", sg_state="form_juicy",  actionstr="GROW", allowautopick=true, no_deconstruction=true, description="wormwood_juicyberrybush"})
+AddRecipe2("achiv_wormwood_reeds",         {Ingredient(_H,15), Ingredient("cave_banana",1), Ingredient("cutreeds",4)},            TECH.NONE, {builder_tag="plantkin", product="dug_monkeytail",      sg_state="form_monkey", actionstr="GROW", allowautopick=true, no_deconstruction=true, description="wormwood_reeds"})
+AddRecipe2("achiv_wormwood_lureplant",     {Ingredient(_H,25), Ingredient("compostwrap",2), Ingredient("plantmeat",5)},           TECH.NONE, {builder_tag="plantkin", product="lureplantbulb",       sg_state="form_bulb",   actionstr="GROW", allowautopick=true, no_deconstruction=true, description="wormwood_lureplantbulb"})
+
+
 local function CanSoulhop(inst, souls)
     if inst.replica.inventory:Has("wortox_soul", souls or 1) then
         local rider = inst.replica.rider
@@ -420,23 +484,6 @@ local function CanSoulhop(inst, souls)
         end
     end
     return false
-end
-
-local function GetPointSpecialActions(inst, pos, useitem, right)
-     if inst.prefab == "wilson" and right and useitem == nil then
-        local inventory = inst.replica.inventory
-        local toss_item = nil
-        if inventory ~= nil then
-            toss_item = inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
-        end
-        if toss_item ~= nil and toss_item:HasTag("special_action_toss") and inst.components.skilltreeupdater:IsActivated("wilson_torch_7") then
-          return { ACTIONS.TOSS }
-        end
-      end
-      if right and useitem == nil and inst.CanSoulhop and inst:CanSoulhop() then
-          return {ACTIONS.BLINK}
-      end
-      return {}
 end
 
 local function _init_ability_net_var(inst)
@@ -484,12 +531,107 @@ local function SavePlayerOldData(inst)
 end
 
 --预运行
+-- ============ 技能树能力桥接 (skilltree ability bridge) ============
+-- 目标:让"成就授予的官方技能"被视为已激活,从而 ①查 IsActivated 的服务端被动技能(如火把时长/亮度、薇诺娜建筑升级)生效
+-- ②带 onactivate 的技能执行其逻辑。③(Route B 客户端同步,见下方反查表)让客户端 IsActivated 也返回 true,
+-- 使官方 builder_skill 配方(眼镜/储物机器人/传送)+遥控器法术图标自动可用,无需重注册配方。
+local SKILLTREE_DEFS = require("prefabs/skilltree_defs").SKILLTREE_DEFS
+
+-- skill -> ability 反查表: 客户端没有 _achiv_skills(服务端字段不同步),改用已同步的 current<ability> netvar 判定。
+-- 让客户端的 IsActivated 也能对"成就授予的技能"返回 true,从而 ①遥控器法术图标 ②builder_skill 配方显示
+-- ③投石机元素齐射瞄准预览 在客户端正常工作(均在客户端读 skilltreeupdater:IsActivated)。
+local _achiv_skill2ability = {}
+for _, v in GLOBAL.pairs(achievement_ability_config.ability_cost) do
+    if v.skilltree ~= nil then
+        for _, skill in GLOBAL.ipairs(v.skilltree.skills) do
+            _achiv_skill2ability[skill] = v.ability
+        end
+    end
+end
+
+AddComponentPostInit("skilltreeupdater", function(self)
+    local base_IsActivated = self.IsActivated
+    function self:IsActivated(skill)
+        local inst = self.inst
+        -- 服务端权威: _achiv_skills(AchivGrantSkills 设置)
+        local granted = inst._achiv_skills
+        if granted ~= nil and granted[skill] then
+            return true
+        end
+        -- 客户端(及服务端冗余): 经已同步的能力标志位反查
+        local ab = _achiv_skill2ability[skill]
+        if ab ~= nil then
+            local nv = inst["current" .. ab]
+            if nv ~= nil and nv:value() ~= 0 then
+                return true
+            end
+        end
+        return base_IsActivated(self, skill)
+    end
+end)
+
+-- 授予一组官方技能(char=源角色名, skills=技能名数组, recipes=可选,需 AddRecipe 学会的配方名数组)。服务端调用。
+function GLOBAL.AchivGrantSkills(inst, char, skills, recipes)
+    if inst._achiv_skills == nil then inst._achiv_skills = {} end
+    local defs = SKILLTREE_DEFS[char]
+    for _, skill in GLOBAL.ipairs(skills) do
+        inst._achiv_skills[skill] = true
+        local def = defs ~= nil and defs[skill] or nil
+        if def ~= nil and def.onactivate ~= nil then
+            def.onactivate(inst, false)
+        end
+    end
+    -- TECH.LOST 配方(薇机人/传送伞/传送垫): builder_skill 门已由 IsActivated 桥接放行,但科技门(LOST不可达)仍挡;
+    -- AddRecipe 加入已学列表(builder.lua:878 命中→绕过科技门),并同步 replica 供客户端 KnowsRecipe。
+    if recipes ~= nil and inst.components.builder ~= nil then
+        for _, r in GLOBAL.ipairs(recipes) do
+            inst.components.builder:AddRecipe(r)
+        end
+    end
+    inst:PushEvent("onactivateskill_server", {}) -- 通知已装备物品重算被动技能
+    -- 通知客户端刷新制作菜单: builder_skill 配方(眼镜/储物机器人/传送)显示靠客户端 IsActivated,
+    -- 而 current<ability> netvar 更新不会自动刷craft菜单,这里主动 push 让新配方立即出现。
+    if inst._achiv_craftrefresh ~= nil then
+        inst._achiv_craftrefresh:push()
+    end
+end
+
+-- 收回一组官方技能(recipes=可选,需 RemoveRecipe 的配方名数组)。服务端调用。
+function GLOBAL.AchivRevokeSkills(inst, char, skills, recipes)
+    if inst._achiv_skills == nil then return end
+    local defs = SKILLTREE_DEFS[char]
+    for _, skill in GLOBAL.ipairs(skills) do
+        local def = defs ~= nil and defs[skill] or nil
+        if def ~= nil and def.ondeactivate ~= nil then
+            def.ondeactivate(inst, false)
+        end
+        inst._achiv_skills[skill] = nil
+    end
+    if recipes ~= nil and inst.components.builder ~= nil then
+        for _, r in GLOBAL.ipairs(recipes) do
+            inst.components.builder:RemoveRecipe(r)
+        end
+    end
+    inst:PushEvent("ondeactivateskill_server", {})
+end
+
 AddPlayerPostInit(function(inst)
+    inst._achiv_skills = {}
     _init_ability_net_var(inst)
     _init_attribute_net_var(inst)
     inst.currentcoinamount = GLOBAL.net_shortint(inst.GUID,"currentcoinamount")
     inst.currentkillamount = GLOBAL.net_uint(inst.GUID,"currentkillamount")--杀戮值
     inst.currentattributepointamount =  GLOBAL.net_uint(inst.GUID,"currentattributepointamount")--属性点
+    inst.currentresetamount =  GLOBAL.net_shortint(inst.GUID,"currentresetamount")
+    inst.currentusedresetamount =  GLOBAL.net_shortint(inst.GUID,"currentusedresetamount")
+    -- 制作菜单刷新信号(服务端→客户端): 移除能力摘掉 builder_tag 后,服务端 PushEvent 到不了客户端 HUD,
+    -- 用 net_event 让客户端自己 push refreshcrafting,隐藏不可造的配方。
+    inst._achiv_craftrefresh = GLOBAL.net_event(inst.GUID, "achiv_craftrefresh")
+    inst:ListenForEvent("achiv_craftrefresh", function(inst)
+        if inst.HUD ~= nil then
+            inst:PushEvent("refreshcrafting")
+        end
+    end)
     for _,v in pairs(achievement_config.idconfig) do
         if v.id == "a_4" or v.id == "angry" then
             inst[v.check] = GLOBAL.net_shortint(inst.GUID,v.check)
@@ -597,15 +739,49 @@ AddPlayerPostInit(function(inst)
         end
     end)
 
-    if inst.prefab ~= "wortox" then
-        local function OnSetOwner(inst)
-            if inst.components.playeractionpicker ~= nil then
-                inst.components.playeractionpicker.pointspecialactionsfn = GetPointSpecialActions
+    local function OnSetSpecialActions(inst, data)
+        inst:DoTaskInTime(1, function(inst, data)
+            if inst.components.achievementability and inst.components.achievementability.soulhopcopy == true then
+                inst:AddTag("soulstealer")
+            else
+                inst:RemoveTag("soulstealer")
             end
-        end
-        inst:AddTag("soulstealer")
+            if inst.components.playeractionpicker ~= nil then
+                local old_pointspecialactionsfn = inst.components.playeractionpicker.pointspecialactionsfn
+                if old_pointspecialactionsfn then
+                    inst.components.playeractionpicker.pointspecialactionsfn=function(inst, pos, useitem, right)
+                        if right and useitem == nil and inst.CanSoulhop and inst:CanSoulhop() then
+
+                            local equipitem = inst.replica.inventory and inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
+                            if equipitem == nil or equipitem.components.aoetargeting == nil or not equipitem.components.aoetargeting:IsEnabled() then
+                                return {ACTIONS.BLINK}
+                            end
+                        end
+                        return old_pointspecialactionsfn(inst, pos, useitem, right)
+                    end
+                else
+                    inst.components.playeractionpicker.pointspecialactionsfn=function(inst, pos, useitem, right)
+                        if right and useitem == nil and inst.CanSoulhop and inst:CanSoulhop() then
+                            local equipitem = inst.replica.inventory and inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
+                            if equipitem == nil or equipitem.components.aoetargeting == nil or not equipitem.components.aoetargeting:IsEnabled() then
+                                return {ACTIONS.BLINK}
+                            end
+                        end
+                        return {}
+                    end
+                end
+            end
+        end)
+    end
+
+    if inst.prefab ~= "wortox" then
         inst.CanSoulhop = CanSoulhop
-        inst:ListenForEvent("setowner", OnSetOwner)
+        inst.boolsoulhop = GLOBAL.net_bool(inst.GUID, "boolsoulhop", "boolsoulhopdirty")
+        inst:ListenForEvent("boolsoulhopdirty", OnSetSpecialActions)
+        inst:ListenForEvent("setowner", OnSetSpecialActions)
+        inst:ListenForEvent("inmightygym", OnSetSpecialActions)
+        inst:ListenForEvent("weremodedirty", OnSetSpecialActions)
+        inst:ListenForEvent("ms_respawnedfromghost", OnSetSpecialActions)
     end
     if inst.prefab ~= "walter" then
         --inst:AddTag("pebblemaker")
@@ -615,6 +791,11 @@ AddPlayerPostInit(function(inst)
     if inst.prefab ~= "wanda" then
         inst:AddTag("pocketwatchcaster")
     end
+
+    if inst.prefab ~= "winona" then
+        inst:AddTag("handyperson")
+    end
+
     if inst.OnNewSpawn then
         local function OnPlayerNewSpawn(inst)
             inst.components.achievementability:OnInitSpecialAbility()
@@ -721,6 +902,65 @@ GLOBAL.TheInput:AddKeyDownHandler(
     false
 )
 
+AddPrefabPostInit("moon_cap", function(inst)
+    local function mooncap_oneaten(inst, eater)
+        if not (eater.components.freezable and eater.components.freezable:IsFrozen()) and
+                not (eater.components.pinnable and eater.components.pinnable:IsStuck()) and
+                not (eater.components.fossilizable and eater.components.fossilizable:IsFossilized()) then
+    
+            local sleeptime = TUNING.MOON_MUSHROOM_SLEEPTIME
+    
+            local mount = (eater.components.rider ~= nil and eater.components.rider:GetMount()) or nil
+            if mount then
+                mount:PushEvent("ridersleep", { sleepiness = 4, sleeptime = sleeptime })
+            end
+    
+            if (eater.components.skilltreeupdater and eater.components.skilltreeupdater:IsActivated("wormwood_moon_cap_eating")) or (eater.components.achievementability and eater.components.achievementability.plantfriend) then
+                local cloud = SpawnPrefab("sleepcloud_lunar")
+                cloud.Transform:SetPosition(eater.Transform:GetWorldPosition())
+                cloud:SetOwner(eater)
+            elseif eater.components.sleeper then
+                eater.components.sleeper:AddSleepiness(4, sleeptime)
+            elseif eater.components.grogginess then
+                eater.components.grogginess:AddGrogginess(2, sleeptime)
+            else
+                eater:PushEvent("knockedout")
+            end
+        end
+    end
+    if GLOBAL.TheWorld.ismastersim then
+        inst.components.edible:SetOnEatenFn(mooncap_oneaten)
+    end
+end)
+AddPrefabPostInit("mushroom_farm", function(inst)
+    local function accepttest(inst, item, giver)
+        if item == nil then
+            return false
+        elseif inst.remainingharvests == 0 then
+            if item.prefab == "livinglog" then -- only livinglog for now because that is the recipe
+                return true
+            end
+            return false, "MUSHROOMFARM_NEEDSLOG"
+        elseif not (item:HasTag("mushroom") or item:HasTag("spore")) then
+            return false, "MUSHROOMFARM_NEEDSSHROOM"
+        elseif item:HasTag("moonmushroom") then
+            local grower_skilltreeupdater = giver.components.skilltreeupdater
+            if (grower_skilltreeupdater and grower_skilltreeupdater:IsActivated("wormwood_moon_cap_eating")) or (giver.components.achievementability and giver.components.achievementability.plantfriend) then
+                return true
+            else
+                return false, "MUSHROOMFARM_NOMOONALLOWED"
+            end
+        else
+            return true
+        end
+    end
+
+    if GLOBAL.TheWorld.ismastersim then
+        inst.components.trader:SetAbleToAcceptTest(accepttest)
+    end
+end)
+
+
 --欧皇检测
 AddPrefabPostInit("krampus_sack", function(inst)
     inst:AddComponent("ksmark")
@@ -729,24 +969,81 @@ AddPrefabPostInit("ancient_altar", function(inst)
     inst:AddComponent("ksmark")
 end)
 
-AddStategraphActionHandler("wilson", ActionHandler(ACTIONS.HARVEST, function(inst,action)
-            if inst:HasTag("quagmire_fasthands") then
-                return  "domediumaction" 
-            elseif   action.target --[[and not action.target.components.stewer]] and inst:HasTag("fastpicker") then
-                return  "doshortaction" 
+-- 修复鱼人伪装(成就 murlocdisguise): 青蛙用 FindEntities 的 CANT_TAGS={"merm"} 排除鱼人,
+-- 但对运行时(成就伪装)新加到玩家身上的 merm 标签不生效(C++ 标签过滤问题)。官方鱼人是用 Lua HasTag 判定才生效。
+-- 这里 hook 青蛙,用 Lua HasTag 在 retarget/keeptarget 里排除带 merm 标签的玩家,使其不被青蛙锁定/攻击。
+AddPrefabPostInit("frog", function(inst)
+    local combat = inst.components.combat
+    if combat == nil then return end -- 客户端无 combat 组件,直接跳过
+    local old_retarget = combat.targetfn -- 注意: SetRetargetFunction 存到 combat.targetfn(不是retargetfn)
+    if old_retarget ~= nil then
+        combat:SetRetargetFunction(combat.retargetperiod or 3, function(i)
+            local t = old_retarget(i)
+            if t ~= nil and t:HasTag("merm") then return nil end
+            return t
+        end)
+    end
+    local old_keep = combat.keeptargetfn
+    combat:SetKeepTargetFunction(function(i, target)
+        if target ~= nil and target:HasTag("merm") then return false end
+        return old_keep == nil or old_keep(i, target)
+    end)
+end)
+
+AddStategraphPostInit("wilson", function(inst)
+    local deststatepick = inst.actionhandlers[ACTIONS.PICK].deststate
+    inst.actionhandlers[ACTIONS.PICK].deststate = function(inst, action, ...)
+        if inst and inst:HasTag("fastpicker") then
+            if action.target then
+                if action.target.prefab ~= "junk_pile_big" and action.target.prefab ~= "berrybush_juicy" then
+                    return "doshortaction"
+                end
             else
-                return "dolongaction"
+                return "doshortaction"
             end
-        end))
-AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS.HARVEST, function(inst,action)
-            if inst:HasTag("quagmire_fasthands") then
-                return  "domediumaction" 
-            elseif  action.target --[[and not action.target.components.stewer]]  and inst:HasTag("fastpicker")  then
-                return  "doshortaction" 
+        end
+        if type(deststatepick) == "string" then
+            return deststatepick
+        else
+            return deststatepick(inst, action, ...)
+        end
+    end
+    local deststatetakeitem = inst.actionhandlers[ACTIONS.TAKEITEM].deststate
+    inst.actionhandlers[ACTIONS.TAKEITEM].deststate = function(inst, action, ...)
+        if inst and inst:HasTag("fastpicker") then
+            if action.target then
+                if action.target.prefab ~= "junk_pile_big" and action.target.prefab ~= "berrybush_juicy" then
+                    return "doshortaction"
+                end
             else
-                return "dolongaction"
+                return "doshortaction"
             end
-        end))
+        end
+        if type(deststatetakeitem) == "string" then
+            return deststatetakeitem
+        else
+            return deststatetakeitem(inst, action, ...)
+        end
+    end
+    local deststateharvest = inst.actionhandlers[ACTIONS.HARVEST].deststate
+    inst.actionhandlers[ACTIONS.HARVEST].deststate = function(inst, action, ...)
+        if inst and inst:HasTag("fastpicker") then
+            if action.target then
+                if action.target.prefab ~= "junk_pile_big" and action.target.prefab ~= "berrybush_juicy" then
+                    return "doshortaction"
+                end
+            else
+                return "doshortaction"
+            end
+        end
+        if type(deststateharvest) == "string" then
+            return deststateharvest
+        else
+            return deststateharvest(inst, action, ...)
+        end
+    end
+end)
+GLOBAL.package.loaded["stategraphs/SGwilson"] = nil
 
 --阿比盖尔杀死怪物   leader也增加exp和killamount
 local abigail_kill = function(inst, data)
@@ -768,58 +1065,24 @@ AddPrefabPostInit("abigail", function(inst)
     inst:ListenForEvent("killed", abigail_kill)    
 end)
 
-AddComponentPostInit("health", function(self)
-    function self:SetVal(val, cause, afflicter)
-        local old_health = self.currenthealth
-        local max_health = self:GetMaxWithPenalty()
-        local min_health = math.min(self.minhealth or 0, max_health)
-    
-        if val > max_health then
-            val = max_health
-        end
-        if val <= min_health then
-            self.currenthealth = min_health
-            self.inst:PushEvent("minhealth", { cause = cause, afflicter = afflicter })
-        else
-            self.currenthealth = val
-        end
-    
-        if old_health > min_health and self.currenthealth <= min_health then
-            if self.inst.prefab == "daywalker" or self.inst.prefab == "sharkboi" or self.inst.prefab == "daywalker2" then
-                if self.inst.attacker_userid and  self.inst.attacker_userid[1] then
-                    local attacker = UserToPlayer(self.inst.attacker_userid[1])
-                    local data = {
-                        victim = self.inst
-                    }
-                    attacker.components.achievementmanager:OnKilledCheck(attacker,data)
-                end
-            end
-        end 
-
-        if old_health > 0 and self.currenthealth <= 0 then
-            -- NOTES(JBK): Make sure to keep the events fired up to date with the explosive component.
-            --Push world event first, because the entity event may invalidate itself
-            --i.e. items that use .nofadeout and manually :Remove() on "death" event
-            TheWorld:PushEvent("entity_death", { inst = self.inst, cause = cause, afflicter = afflicter })
-            self.inst:PushEvent("death", { cause = cause, afflicter = afflicter })
-           
-            --Here, check if killing player or monster
-            if(self.inst:HasTag("player")) then
-                NotifyPlayerProgress("TotalPlayersKilled", 1, afflicter);
-            else
-                NotifyPlayerProgress("TotalEnemiesKilled", 1, afflicter);
-            end
-    
-            --V2C: If "death" handler removes ourself, then the prefab should explicitly set nofadeout = true.
-            --     Intentionally NOT using IsValid() here to hide those bugs.
-            if not self.nofadeout then
-                self.inst:AddTag("NOCLICK")
-                self.inst.persists = false
-                self.inst:DoTaskInTime(self.destroytime or 2, ErodeAway)
-            end
+--成就：daywalker/sharkboi 这类不会 0 血死亡、而是在 minhealth(被击败)触发的 Boss，给攻击者记成就。
+--旧实现是全局覆盖 health:SetVal，会丢掉官方 SetVal 的尸化(corpsing)/erode_task 等新逻辑，破坏全服所有怪物。
+--改为监听官方在跌到 minhealth 时本就会 push 的 "minhealth" 事件，非侵入。
+local function OnAchivBossDefeated(inst)
+    if inst._achiv_defeated then return end
+    inst._achiv_defeated = true
+    if inst.attacker_userid and inst.attacker_userid[1] then
+        local attacker = UserToPlayer(inst.attacker_userid[1])
+        if attacker ~= nil and attacker.components.achievementmanager ~= nil then
+            attacker.components.achievementmanager:OnKilledCheck(attacker, { victim = inst })
         end
     end
-end)
+end
+for _, prefab in ipairs({ "daywalker", "daywalker2", "sharkboi" }) do
+    AddPrefabPostInit(prefab, function(inst)
+        inst:ListenForEvent("minhealth", OnAchivBossDefeated)
+    end)
+end
 ----------------------------------------------------------------------------------------------------
 --BOSS SKILL
 ---是否加强-------------------------------------------------------------------

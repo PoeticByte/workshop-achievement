@@ -29,7 +29,24 @@ local achievement_ability_config = {
         {ability = "justicerain", cost = 20, default_value = false,},
         {ability = "jump", cost = 50, default_value = false,canswitch = true,},
         {ability = "level", cost = 0, default_value = true,canswitch = true,},
-        {ability = "fastbuild", cost = 50, default_value = false,},
+        -- 工程科技=薇诺娜工程: 授予全部薇诺娜技能树技能(建筑升级/暗影月亮对齐/便携/黑暗免疫/传送 + 解锁 builder_skill 配方)。
+        -- 桥接服务端 _achiv_skills + 客户端经 currentfastbuild netvar 反查(见 modmain),官方配方(含遥控器/眼镜/储物机器人/传送)自动可造。
+        {ability = "fastbuild", cost = 70, default_value = false, skilltree = {char = "winona", skills = {
+            -- lowshelf
+            "winona_spotlight_heated","winona_spotlight_range","winona_portable_structures","winona_gadget_recharge","winona_battery_idledrain",
+            -- midshelf
+            "winona_catapult_speed_1","winona_catapult_speed_2","winona_catapult_speed_3",
+            "winona_catapult_aoe_1","winona_catapult_aoe_2","winona_catapult_aoe_3",
+            "winona_battery_efficiency_1","winona_battery_efficiency_2","winona_battery_efficiency_3",
+            "winona_catapult_volley_1","winona_catapult_boost_1",
+            -- charlie(暗影)
+            "winona_shadow_1","winona_shadow_2","winona_shadow_3","winona_charlie_1","winona_charlie_2",
+            -- wagstaff(月亮)
+            "winona_lunar_1","winona_lunar_2","winona_lunar_3","winona_wagstaff_1","winona_wagstaff_2",
+        },
+        -- TECH.LOST 配方(builder_skill 放行后仍被科技门挡住,因 LOST=MAGIC/SCIENCE/ANCIENT各10不可达):
+        -- 授予时 builder:AddRecipe 加入已学列表绕过科技门(官方 winona.lua 用 RemoveRecipe 反向门控同理),收回时 RemoveRecipe。
+        recipes = {"winona_storage_robot", "winona_telebrella", "winona_teleport_pad_item"}}},
         {ability = "soulhopcopy", cost = 55, default_value = false,},
         {ability = "morestrongstomach", cost = 25, default_value = false,},
         {ability = "shadowsubmissive", cost = 45, default_value = false,canswitch = true,},
@@ -48,6 +65,8 @@ local achievement_ability_config = {
         {ability = "alchemytechnology", cost = 35, default_value = false,},
         {ability = "lunaraligned", cost = 40, default_value = false,},
         {ability = "shadowaligned", cost = 40, default_value = false,},
+        -- ===== 技能树移植能力 (Phase 0 原型) =====
+        {ability = "wilson_torch", cost = 15, default_value = false, skilltree = {char = "wilson", skills = {"wilson_torch_1","wilson_torch_2","wilson_torch_3","wilson_torch_4","wilson_torch_5","wilson_torch_6"}},},
     },
     ability_ratio=
     {
@@ -70,7 +89,7 @@ local achievement_ability_config = {
     },
     
 }
-local modname = KnownModIndex:GetModActualName("New Achivement")
+local modname = KnownModIndex:GetModActualName("New Achievement")
 local cost_ratio  = GetModConfigData("abilityifficulty",modname)
 local function PretreatmentAchievementAbilityConfig()
     achievement_ability_config.id2ability = {}

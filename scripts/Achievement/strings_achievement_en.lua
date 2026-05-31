@@ -1,2054 +1,2146 @@
 local catagory = require "Achievement.achievement_catagory"
 
-STRINGS.RECIPE_DESC.KLAUS_SACK = "Contains four-dimensional space"
-STRINGS.NAMES.DEER_ANTLER1 = "Deer Key"
-STRINGS.RECIPE_DESC.DEER_ANTLER1 = "The shape of an antler without eyes"
-STRINGS.RECIPE_DESC.HALLOWEENPOTION_HEALTH_LARGE = "Health Potion."
-STRINGS.RECIPE_DESC.HALLOWEENPOTION_SANITY_LARGE = "Psychopharmaceutical."
-STRINGS.NAMES.EXPBEAN = "Experience Beans"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.EXPBEAN = "Increase 2000 experience!"
+STRINGS.RECIPE_DESC.KLAUS_SACK = "Contains a four-dimensional space."
+
+STRINGS.NAMES.DEER_ANTLER1 = "Deer's Key"
+STRINGS.RECIPE_DESC.DEER_ANTLER1 = "Shaped like a no-eyed deer's antler."
+
+STRINGS.RECIPE_DESC.HALLOWEENPOTION_HEALTH_LARGE = "Health potion."
+STRINGS.RECIPE_DESC.HALLOWEENPOTION_SANITY_LARGE = "Sanity potion."
+
+STRINGS.NAMES.EXPBEAN = "Experience Bean"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.EXPBEAN = "Grants 2000 experience!"
 STRINGS.NAMES.REDLANTERN2 = "Red Lantern"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.REDLANTERN2 = "Red Lantern!"
-STRINGS.NAMES.MEMORYPOTION = "MemoryPOTION"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.MEMORYPOTION = "Memory Potion"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.REDLANTERN2 = "A red lantern!"
+
+STRINGS.NAMES.MEMORYPOTION = "Memory Potion"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.MEMORYPOTION = "A memory potion."
+
 STRINGS.NAMES.ACHIV_ICE_CRYSTAL = "Ice Crystal"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIV_ICE_CRYSTAL = "Ice Crystal"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIV_ICE_CRYSTAL = "An ice crystal."
+
+-- Descriptions needed to avoid errors with quick declarations
 
 STRINGS.NAMES.ACHIVBOOK_BIRDS = STRINGS.NAMES.BOOK_BIRDS
 STRINGS.RECIPE_DESC.ACHIVBOOK_BIRDS = STRINGS.RECIPE_DESC.BOOK_BIRDS
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIVBOOK_BIRDS = STRINGS.CHARACTERS.GENERIC.DESCRIBE.BOOK_BIRDS
+
 STRINGS.NAMES.ACHIVBOOK_GARDENING = STRINGS.NAMES.BOOK_GARDENING
 STRINGS.RECIPE_DESC.ACHIVBOOK_GARDENING = STRINGS.RECIPE_DESC.BOOK_GARDENING
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIVBOOK_GARDENING = STRINGS.CHARACTERS.GENERIC.DESCRIBE.BOOK_GARDENING
+
 STRINGS.NAMES.ACHIVBOOK_SLEEP = STRINGS.NAMES.BOOK_SLEEP
-STRINGS.RECIPE_DESC.ACHIVBOOK_SLEEP =STRINGS.RECIPE_DESC.BOOK_SLEEP
+STRINGS.RECIPE_DESC.ACHIVBOOK_SLEEP = STRINGS.RECIPE_DESC.BOOK_SLEEP
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIVBOOK_SLEEP = STRINGS.CHARACTERS.GENERIC.DESCRIBE.BOOK_SLEEP
+
 STRINGS.NAMES.ACHIVBOOK_BRIMSTONE = STRINGS.NAMES.BOOK_BRIMSTONE
 STRINGS.RECIPE_DESC.ACHIVBOOK_BRIMSTONE = STRINGS.RECIPE_DESC.BOOK_BRIMSTONE
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIVBOOK_BRIMSTONE = STRINGS.CHARACTERS.GENERIC.DESCRIBE.BOOK_BRIMSTONE
+
 STRINGS.NAMES.ACHIVBOOK_TENTACLES = STRINGS.NAMES.BOOK_TENTACLES
 STRINGS.RECIPE_DESC.ACHIVBOOK_TENTACLES = STRINGS.RECIPE_DESC.BOOK_TENTACLES
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIVBOOK_TENTACLES = STRINGS.CHARACTERS.GENERIC.DESCRIBE.BOOK_TENTACLES
+
 STRINGS.NAMES.ACHIVBOOK_METEOR = "Meteor Shower"
-STRINGS.RECIPE_DESC.ACHIVBOOK_METEOR = "Justice from heaven!"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIVBOOK_METEOR = "Justice from heaven."
+STRINGS.RECIPE_DESC.ACHIVBOOK_METEOR = "Justice rains from above!"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIVBOOK_METEOR = "Justice rains from above."
+
 STRINGS.NAMES.ACHIVBOOK_SHAKESPEARE = "Petrified Forest"
-STRINGS.RECIPE_DESC.ACHIVBOOK_SHAKESPEARE = "Petrified Forest!"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIVBOOK_SHAKESPEARE = "Petrified Forest."
+STRINGS.RECIPE_DESC.ACHIVBOOK_SHAKESPEARE = "A petrified forest!"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIVBOOK_SHAKESPEARE = "A petrified forest."
+
 STRINGS.NAMES.ACHIVBOOK_METEOR2 = "Meteor Shower"
-STRINGS.RECIPE_DESC.ACHIVBOOK_METEOR2 = "Justice from heaven!"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIVBOOK_METEOR2 = "Justice from heaven."
+STRINGS.RECIPE_DESC.ACHIVBOOK_METEOR2 = "Justice rains from above!"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIVBOOK_METEOR2 = "Justice rains from above."
+
 STRINGS.NAMES.ACHIVBOOK_SHAKESPEARE2 = "Petrified Forest"
-STRINGS.RECIPE_DESC.ACHIVBOOK_SHAKESPEARE2 = "Petrified Forest!"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIVBOOK_SHAKESPEARE2 = "Petrified Forest."
-STRINGS.NAMES.WINTER_ORNAMENT_LIGHT5 = "Red lantern"
-STRINGS.RECIPE_DESC.WINTER_ORNAMENT_LIGHT5 = "Red lantern!"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.WINTER_ORNAMENT_LIGHT5 = "Red colored lights."
-STRINGS.NAMES.WINTER_ORNAMENT_LIGHT6 = "Green Lantern"
-STRINGS.RECIPE_DESC.WINTER_ORNAMENT_LIGHT6 = "Green lantern!"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.WINTER_ORNAMENT_LIGHT6 = "Green lantern."
-STRINGS.NAMES.WINTER_ORNAMENT_LIGHT7 = "Blue Lantern"
-STRINGS.RECIPE_DESC.WINTER_ORNAMENT_LIGHT7 = "Blue lights!"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.WINTER_ORNAMENT_LIGHT7 = "Blue lantern."
-STRINGS.NAMES.WINTER_ORNAMENT_LIGHT8 = "White lantern"
-STRINGS.RECIPE_DESC.WINTER_ORNAMENT_LIGHT8 = "White lantern!"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.WINTER_ORNAMENT_LIGHT8 = "White lantern."
-STRINGS.NAMES.ACHIV_WINTER_ORNAMENT_LIGHT5 = "Red lantern"
-STRINGS.RECIPE_DESC.ACHIV_WINTER_ORNAMENT_LIGHT5 = "Red lantern!"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIV_WINTER_ORNAMENT_LIGHT5 = "Red colored lights."
-STRINGS.NAMES.ACHIV_WINTER_ORNAMENT_LIGHT6 = "Green Lantern"
-STRINGS.RECIPE_DESC.ACHIV_WINTER_ORNAMENT_LIGHT6 = "Green lantern!"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIV_WINTER_ORNAMENT_LIGHT6 = "Green lantern."
-STRINGS.NAMES.ACHIV_WINTER_ORNAMENT_LIGHT7 = "Blue Lantern"
-STRINGS.RECIPE_DESC.ACHIV_WINTER_ORNAMENT_LIGHT7 = "Blue lights!"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIV_WINTER_ORNAMENT_LIGHT7 = "Blue lantern."
-STRINGS.NAMES.ACHIV_WINTER_ORNAMENT_LIGHT8 = "White lantern"
-STRINGS.RECIPE_DESC.ACHIV_WINTER_ORNAMENT_LIGHT8 = "White lantern!"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIV_WINTER_ORNAMENT_LIGHT8 = "White lantern."
-STRINGS.NAMES.LUCKY_GOLDNUGGET = "Gold Ingot"
-STRINGS.RECIPE_DESC.LUCKY_GOLDNUGGET = "For 5 gold ingots!"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.LUCKY_GOLDNUGGET = "Gold Ingot."
-STRINGS.NAMES.ACHIV_LUCKY_GOLDNUGGET = "Gold Ingot"
-STRINGS.RECIPE_DESC.ACHIV_LUCKY_GOLDNUGGET = "Exchange 5 gold ingots!"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIV_LUCKY_GOLDNUGGET = "Gold Ingot."
-STRINGS.NAMES.ACHIV_SEWING_TAPE = STRINGS.NAMES.SEWING_TAPE
-STRINGS.RECIPE_DESC.ACHIV_SEWING_TAPE = STRINGS.RECIPE_DESC.SEWING_TAPE
+STRINGS.RECIPE_DESC.ACHIVBOOK_SHAKESPEARE2 = "A petrified forest!"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIVBOOK_SHAKESPEARE2 = "A petrified forest."
+
+STRINGS.NAMES.WINTER_ORNAMENT_LIGHT5 = "Red Christmas Light"
+STRINGS.RECIPE_DESC.WINTER_ORNAMENT_LIGHT5 = "A red Christmas light!"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.WINTER_ORNAMENT_LIGHT5 = "A red Christmas light."
+STRINGS.NAMES.WINTER_ORNAMENT_LIGHT6 = "Green Christmas Light"
+STRINGS.RECIPE_DESC.WINTER_ORNAMENT_LIGHT6 = "A green Christmas light!"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.WINTER_ORNAMENT_LIGHT6 = "A green Christmas light."
+STRINGS.NAMES.WINTER_ORNAMENT_LIGHT7 = "Blue Christmas Light"
+STRINGS.RECIPE_DESC.WINTER_ORNAMENT_LIGHT7 = "A blue Christmas light!"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.WINTER_ORNAMENT_LIGHT7 = "A blue Christmas light."
+STRINGS.NAMES.WINTER_ORNAMENT_LIGHT8 = "White Christmas Light"
+STRINGS.RECIPE_DESC.WINTER_ORNAMENT_LIGHT8 = "A white Christmas light!"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.WINTER_ORNAMENT_LIGHT8 = "A white Christmas light."
+
+STRINGS.NAMES.ACHIV_WINTER_ORNAMENT_LIGHT5 = "Red Christmas Light"
+STRINGS.RECIPE_DESC.ACHIV_WINTER_ORNAMENT_LIGHT5 = "A red Christmas light!"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIV_WINTER_ORNAMENT_LIGHT5 = "A red Christmas light."
+STRINGS.NAMES.ACHIV_WINTER_ORNAMENT_LIGHT6 = "Green Christmas Light"
+STRINGS.RECIPE_DESC.ACHIV_WINTER_ORNAMENT_LIGHT6 = "A green Christmas light!"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIV_WINTER_ORNAMENT_LIGHT6 = "A green Christmas light."
+STRINGS.NAMES.ACHIV_WINTER_ORNAMENT_LIGHT7 = "Blue Christmas Light"
+STRINGS.RECIPE_DESC.ACHIV_WINTER_ORNAMENT_LIGHT7 = "A blue Christmas light!"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIV_WINTER_ORNAMENT_LIGHT7 = "A blue Christmas light."
+STRINGS.NAMES.ACHIV_WINTER_ORNAMENT_LIGHT8 = "White Christmas Light"
+STRINGS.RECIPE_DESC.ACHIV_WINTER_ORNAMENT_LIGHT8 = "A white Christmas light!"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIV_WINTER_ORNAMENT_LIGHT8 = "A white Christmas light."
+
+STRINGS.NAMES.LUCKY_GOLDNUGGET = "Lucky Gold Nugget"
+STRINGS.RECIPE_DESC.LUCKY_GOLDNUGGET = "Exchange for 5 gold nuggets!"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.LUCKY_GOLDNUGGET = "A lucky gold nugget."
+STRINGS.NAMES.ACHIV_LUCKY_GOLDNUGGET = "Lucky Gold Nugget"
+STRINGS.RECIPE_DESC.ACHIV_LUCKY_GOLDNUGGET = "Exchange for 5 gold nuggets!"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIV_LUCKY_GOLDNUGGET = "A lucky gold nugget."
+
+STRINGS.NAMES.ACHIV_SEWING_TAPE = STRINGS.NAMES.SEWING_TAPE 
+STRINGS.RECIPE_DESC.ACHIV_SEWING_TAPE = STRINGS.RECIPE_DESC.SEWING_TAPE 
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIV_SEWING_TAPE = STRINGS.CHARACTERS.GENERIC.DESCRIBE.SEWING_TAPE
+
 STRINGS.NAMES.ACHIV_WINONA_CATAPULT = STRINGS.NAMES.WINONA_CATAPULT
 STRINGS.RECIPE_DESC.ACHIV_WINONA_CATAPULT = STRINGS.RECIPE_DESC.WINONA_CATAPULT
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIV_WINONA_CATAPULT = STRINGS.CHARACTERS.GENERIC.DESCRIBE.WINONA_CATAPULT
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIV_WINONA_CATAPULT = STRINGS.CHARACTERS.GENERIC.DESCRIBE.WINONA_CATAPULT 
+
 STRINGS.NAMES.ACHIV_WINONA_SPOTLIGHT = STRINGS.NAMES.WINONA_SPOTLIGHT
 STRINGS.RECIPE_DESC.ACHIV_WINONA_SPOTLIGHT = STRINGS.RECIPE_DESC.WINONA_SPOTLIGHT
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIV_WINONA_SPOTLIGHT = STRINGS.CHARACTERS.GENERIC.DESCRIBE.WINONA_SPOTLIGHT
-STRINGS.NAMES.ACHIV_WINONA_BATTERY_LOW = STRINGS.NAMES.WINONA_BATTERY_LOW
-STRINGS.RECIPE_DESC.ACHIV_WINONA_BATTERY_LOW = STRINGS.RECIPE_DESC.WINONA_BATTERY_LOW
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIV_WINONA_SPOTLIGHT = STRINGS.CHARACTERS.GENERIC.DESCRIBE.WINONA_SPOTLIGHT 
+
+STRINGS.NAMES.ACHIV_WINONA_BATTERY_LOW = STRINGS.NAMES.WINONA_BATTERY_LOW 
+STRINGS.RECIPE_DESC.ACHIV_WINONA_BATTERY_LOW = STRINGS.RECIPE_DESC.WINONA_BATTERY_LOW 
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIV_WINONA_BATTERY_LOW = STRINGS.CHARACTERS.GENERIC.DESCRIBE.WINONA_BATTERY_LOW
+
 STRINGS.NAMES.ACHIV_WINONA_BATTERY_HIGH = STRINGS.NAMES.WINONA_BATTERY_HIGH
 STRINGS.RECIPE_DESC.ACHIV_WINONA_BATTERY_HIGH = STRINGS.RECIPE_DESC.WINONA_BATTERY_HIGH
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIV_WINONA_BATTERY_HIGH = STRINGS.CHARACTERS.GENERIC.DESCRIBE.WINONA_BATTERY_HIGH
+
 STRINGS.NAMES.ACHIV_LIVINGLOG = STRINGS.NAMES.LIVINGLOG
 STRINGS.RECIPE_DESC.ACHIV_LIVINGLOG = STRINGS.RECIPE_DESC.LIVINGLOG
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIV_LIVINGLOG = STRINGS.CHARACTERS.GENERIC.DESCRIBE.LIVINGLOG
+
 STRINGS.NAMES.ACHIV_ARMOR_BRAMBLE = STRINGS.NAMES.ARMOR_BRAMBLE
 STRINGS.RECIPE_DESC.ACHIV_ARMOR_BRAMBLE = STRINGS.RECIPE_DESC.ARMOR_BRAMBLE
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIV_ARMOR_BRAMBLE = STRINGS.CHARACTERS.GENERIC.DESCRIBE.ARMOR_BRAMBLE
+
 STRINGS.NAMES.ACHIV_TRAP_BRAMBLE = STRINGS.NAMES.TRAP_BRAMBLE
 STRINGS.RECIPE_DESC.ACHIV_TRAP_BRAMBLE = STRINGS.RECIPE_DESC.TRAP_BRAMBLE
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIV_TRAP_BRAMBLE = STRINGS.CHARACTERS.GENERIC.DESCRIBE.TRAP_BRAMBLE
+
 STRINGS.NAMES.ACHIV_COMPOSTWRAP = STRINGS.NAMES.COMPOSTWRAP
 STRINGS.RECIPE_DESC.ACHIV_COMPOSTWRAP = STRINGS.RECIPE_DESC.COMPOSTWRAP
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIV_COMPOSTWRAP = STRINGS.CHARACTERS.GENERIC.DESCRIBE.COMPOSTWRAP
+
 STRINGS.NAMES.ACHIV_WINTERSFEASTOVEN = STRINGS.NAMES.WINTERSFEASTOVEN
 STRINGS.RECIPE_DESC.ACHIV_WINTERSFEASTOVEN = STRINGS.RECIPE_DESC.WINTERSFEASTOVEN
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIV_WINTERSFEASTOVEN = STRINGS.CHARACTERS.GENERIC.DESCRIBE.WINTERSFEASTOVEN
-STRINGS.NAMES.ACHIV_TABLE_WINTERS_FEAST = STRINGS.NAMES.TABLE_WINTERS_FEAST
+
+STRINGS.NAMES.ACHIV_TABLE_WINTERS_FEAST = STRINGS.NAMES.TABLE_WINTERS_FEAST 
 STRINGS.RECIPE_DESC.ACHIV_TABLE_WINTERS_FEAST = STRINGS.RECIPE_DESC.TABLE_WINTERS_FEAST
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIV_TABLE_WINTERS_FEAST = STRINGS.CHARACTERS.GENERIC.DESCRIBE.TABLE_WINTERS_FEAST
 
-STRINGS.RECIPE_DESC.FEATHER_ROBIN_WINTER = "White feathers!"
+STRINGS.RECIPE_DESC.FEATHER_ROBIN_WINTER = "A white feather!"
+
 STRINGS.NAMES.ACHIV_FEATHER_ROBIN_WINTER_B = STRINGS.NAMES.FEATHER_ROBIN_WINTER
 STRINGS.RECIPE_DESC.ACHIV_FEATHER_ROBIN_WINTER_B = STRINGS.RECIPE_DESC.FEATHER_ROBIN_WINTER
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIV_FEATHER_ROBIN_WINTER_B = STRINGS.CHARACTERS.GENERIC.DESCRIBE.FEATHER_ROBIN_WINTER
+
 STRINGS.NAMES.ACHIV_FEATHER_ROBIN_WINTER_C = STRINGS.NAMES.FEATHER_ROBIN_WINTER
 STRINGS.RECIPE_DESC.ACHIV_FEATHER_ROBIN_WINTER_C = STRINGS.RECIPE_DESC.FEATHER_ROBIN_WINTER
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIV_FEATHER_ROBIN_WINTER_C = STRINGS.CHARACTERS.GENERIC.DESCRIBE.FEATHER_ROBIN_WINTER
-STRINGS.RECIPE_DESC.WINTERSFEASTFUEL = "Synthetic food raw materials!"
+
+STRINGS.RECIPE_DESC.WINTERSFEASTFUEL = "Ingredients for crafting festive foods!"
+
 STRINGS.NAMES.ACHIV_WINTERSFEASTFUEL = STRINGS.NAMES.WINTERSFEASTFUEL
 STRINGS.RECIPE_DESC.ACHIV_WINTERSFEASTFUEL = STRINGS.RECIPE_DESC.WINTERSFEASTFUEL
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIV_WINTERSFEASTFUEL = STRINGS.CHARACTERS.GENERIC.DESCRIBE.WINTERSFEASTFUEL
 
-STRINGS.NAMES.ACHIEVEMENT_MOONBASE = "moonstone"
-STRINGS.RECIPE_DESC.ACHIEVEMENT_MOONBASE = "A stone with moon power"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIEVEMENT_MOONBASE = "moonstone"
+STRINGS.NAMES.ACHIEVEMENT_MOONBASE = "Moonbase"
+STRINGS.RECIPE_DESC.ACHIEVEMENT_MOONBASE = "A moonbase imbued with lunar power."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIEVEMENT_MOONBASE = "A moonbase."
 
-STRINGS.ALLACHIEVE_RESET_CONFIRM = "Confirm?"
-STRINGS.ALLACHIEVE_RESET = "Reset abilities and \n return %s%% (configable)achievement points \n(the same is true for reselecting characters)"
-STRINGS.ALLACHIVITEM =
-{
-  [catagory.ALL] = "All",
-  [catagory.KILL] = "Killing",
-  [catagory.GUIDE] = "Guide",
-  [catagory.FOOD] = "Food",
-  [catagory.MAKE] = "Make",
-  [catagory.COLLECT] = "Collection",
-  [catagory.TIME] = "Time",
-  [catagory.WORK] = "Work",
-  [catagory.DEATH] = "KILL",
-  [catagory.OTHER] = "DEATH",
+--------------------------------------------------------------------------------------------------------------------------
+STRINGS.ALLACHIEVE_RESET_CONFIRM = "Are you sure you want to reset?"
+STRINGS.ALLACHIEVE_RESET = [[Reset abilities and return %s%% (configurable) of achievement points. (This also applies to character re-selection.) 
+ Current remaining free reset attempts: %d 
+(Free reset attempts are earned every certain number of survival days and share the same count with attribute point resets.)]]
+
+STRINGS.ALLACHIVITEM = {
+    [catagory.ALL] = "All",
+    [catagory.KILL] = "Kill",
+    [catagory.GUIDE] = "Guide",
+    [catagory.FOOD] = "Food",
+    [catagory.MAKE] = "Make",
+    [catagory.COLLECT] = "Collect",
+    [catagory.TIME] = "Time",
+    [catagory.WORK] = "Work",
+    [catagory.DEATH] = "Death",
+    [catagory.OTHER] = "Other",
 }
 
-STRINGS.ACHIEVEMENT_FIRE_FLY_LIGHT =
-{
-   [1] = "Light on + effect on",
-   [2] = "Light on + effect off",
-   [3] = "Lighting off + effect on",
-   [4] = "Care Off + Effect Off",
+STRINGS.ACHIEVEMENT_FIRE_FLY_LIGHT = {
+    [1] = "Light On + Effect On",
+    [2] = "Light On + Effect Off",
+    [3] = "Light Off + Effect On",
+    [4] = "Light Off + Effect Off",
 }
 
-STRINGS.ACHIEVEMENT_WORMWOOD_EFFECT = 
-{
-  [1] = "wormwood effect 1",
-  [2] = "wormwood effect 2",
-  [3] = "wormwood effect 3",
-  [4] = "wormwood effect close",
+STRINGS.ACHIEVEMENT_WORMWOOD_EFFECT = {
+    [1] = "Plantman Effect 1 On",
+    [2] = "Plantman Effect 2 On",
+    [3] = "Plantman Effect 3 On",
+    [4] = "Plantman Effect Off",
 }
 
-
-STRINGS.LEVLE_INFO = "Lv.%d %d/%d +%dEXP"
-STRINGS.ACHIEVEMENT_FINISH = "%s %s achieved achievement [%s]"
-STRINGS.ACHIEVEMENT_AWARD = "[%s] got achievement points %d"
-STRINGS.ACHIEVEMENT_TOTAL_KILL_AWARD = "Hidden achievement---%s has killed [%s] %d times and gained 1 point of achievement"
-STRINGS.ACHIEVEMENT_VIEW = "View achievements"
-STRINGS.ACHIEVEMENT_EXCHANGE_ABILITY = "Exchange rewards"
-STRINGS.ACHIEVEMENT_ACHIEVEMENT_FINISHED = "Finished:"
+STRINGS.LEVLE_INFO = "Lv.%d  %d/%d +%dEXP"
+STRINGS.ACHIEVEMENT_FINISH = "%s   %s achieved 【%s】"
+STRINGS.ACHIEVEMENT_AWARD = "【%s】 achieved %d achievement points"
+STRINGS.ACHIEVEMENT_TOTAL_KILL_AWARD = "Hidden Achievement---%s total kills of 【%s】%d times, gained 1 achievement point"
+STRINGS.ACHIEVEMENT_VIEW = "View Achievements"
+STRINGS.ACHIEVEMENT_EXCHANGE_ABILITY = "Exchange Rewards"
+STRINGS.ACHIEVEMENT_ACHIEVEMENT_FINISHED = "Completed:"
 STRINGS.ACHIEVEMENT_OPTION = "Settings"
 STRINGS.ACHIEVEMENT_ENLARGE = "Enlarge"
-STRINGS.ACHIEVEMENT_SHRINK = "Zoom out"
-STRINGS.ACHIEVEMENT_RESET = "Reset reward"
-STRINGS.ACHIEVEMENT_WATER_WALK_30 = "!!!!!! The remaining time to walk on water is less than 30 seconds !!!!!!"
-STRINGS.ACHIEVEMENT_WATER_WALK_10 = "!!!WARNING!!! The remaining time of water walking ability is less than 10 seconds !!!WARNING!!!"
-STRINGS.ACHIEVEMENT_WATER_WALK_END = "Water walk time is over"
-STRINGS.ACHIEVEMENT_FAST_CHOP_END = "Fast tree cutting time is over"
-STRINGS.ACHIEVEMENT_EXTRA_DAMAGE_END = "Extra damage reduction time is over"
-STRINGS.ACHIEVEMENT_THORNS_START = "Anti-Injury On"
-STRINGS.ACHIEVEMENT_THORNS_END = "Anti-injury shutdown"
-STRINGS.ACHIEVEMENT_FREEZE_START = "Freeze on"
-STRINGS.ACHIEVEMENT_FREEZE_STOP = "Freeze Shutdown"
-STRINGS.ACHIEVEMENT_FAST_COOK_START = "Fast cooking on"
-STRINGS.ACHIEVEMENT_FAST_COOK_END = "Fast cooking off"
-STRINGS.ACHIEVEMENT_SANITY_START = "Recover sanity"
-STRINGS.ACHIEVEMENT_SANITY_END = "Sanity is temporarily zero"
-STRINGS.ACHIEVEMENT_MURLOCDISGUISE_START = "Add Murloc Disguise"
-STRINGS.ACHIEVEMENT_MURLOCDISGUISE_END = "Remove Murloc Disguise"
-STRINGS.ACHIEVEMENT_SHOW_EXP = "Experience reminder on"
-STRINGS.ACHIEVEMENT_HIDE_EXP = "Experience Tips Off"
-STRINGS.ACHIEVEMENT_NO_MOIST_START = "Rain proof on"
-STRINGS.ACHIEVEMENT_NO_MOIST_END = "Rain proof off"
-STRINGS.ACHIEVEMENT_FANCY_EFFECT_START = "Falling effect"
-STRINGS.ACHIEVEMENT_FANCY_EFFECT_END = "Effect off"
-STRINGS.ACHIEVEMENT_PROCESS = "My achievement progress [%d/%d]"
-STRINGS.ACHIEVEMENT_POINT_AMOUNT = "Achievement Points: %d"
-STRINGS.ACHIEVEMENT_KILL_AMOUNT = "Kill value: %d"
+STRINGS.ACHIEVEMENT_SHRINK = "Shrink"
+STRINGS.ACHIEVEMENT_RESET = "Reset Rewards"
+STRINGS.ACHIEVEMENT_WATER_WALK_30 = "!!!!!! Water walking ability has less than 30 seconds remaining !!!!!!"
+STRINGS.ACHIEVEMENT_WATER_WALK_10 = "!!!WARNING!!! Water walking ability has less than 10 seconds remaining !!!WARNING!!!"
+STRINGS.ACHIEVEMENT_WATER_WALK_END = "Water walking time ended"
+STRINGS.ACHIEVEMENT_FAST_CHOP_END = "Fast chopping time ended"
+STRINGS.ACHIEVEMENT_EXTRA_DAMAGE_END = "Extra damage/defense time ended"
+STRINGS.ACHIEVEMENT_THORNS_START = "Thorns activated"
+STRINGS.ACHIEVEMENT_THORNS_END = "Thorns deactivated"
+STRINGS.ACHIEVEMENT_FREEZE_START = "Freeze activated"
+STRINGS.ACHIEVEMENT_FREEZE_STOP = "Freeze deactivated"
+STRINGS.ACHIEVEMENT_FAST_COOK_START = "Fast cooking activated"
+STRINGS.ACHIEVEMENT_FAST_COOK_END = "Fast cooking deactivated"
+STRINGS.ACHIEVEMENT_SANITY_START = "Sanity recovery started"
+STRINGS.ACHIEVEMENT_SANITY_END = "Sanity temporarily zero"
+STRINGS.ACHIEVEMENT_MURLOCDISGUISE_START = "Murloc disguise added"
+STRINGS.ACHIEVEMENT_MURLOCDISGUISE_END = "Murloc disguise removed"
+STRINGS.ACHIEVEMENT_SHOW_EXP = "Show EXP enabled"
+STRINGS.ACHIEVEMENT_HIDE_EXP = "Show EXP disabled"
+STRINGS.ACHIEVEMENT_NO_MOIST_START = "Rain immunity activated"
+STRINGS.ACHIEVEMENT_NO_MOIST_END = "Rain immunity deactivated"
+STRINGS.ACHIEVEMENT_FANCY_EFFECT_START = "Fancy effect started"
+STRINGS.ACHIEVEMENT_FANCY_EFFECT_END = "Fancy effect ended"
+STRINGS.ACHIEVEMENT_PROCESS = "My achievement progress【%d/%d】"
+STRINGS.ACHIEVEMENT_POINT_AMOUNT = "Achievement points: %d"
+STRINGS.ACHIEVEMENT_KILL_AMOUNT = "Kill count: %d"
 STRINGS.ACHIEVEMENT_LEVEL_AMOUNT = "Level: %d"
 STRINGS.ACHIEVEMENT_HAS_AWARD = "Achieved: %d/%d"
 STRINGS.ACHIEVEMENT_HAS_ABILITY = "Already have this ability"
 STRINGS.ACHIEVEMENT_ABILITY_NEED = "This ability requires %d points"
 
-STRINGS.EXP = "Exp:"
+STRINGS.EXP = "EXP:"
 STRINGS.REMAIN_POINT = "Available attribute points: %d"
-STRINGS.RESET_ATTRIBUTE = "Reset attributes"
-STRINGS.RESET_ATTRIBUTE_WARING = "Reset attributes and return %s%% (configurable) attribute points\n"
+STRINGS.RESET_ATTRIBUTE = "Reset Attributes"
+STRINGS.RESET_ATTRIBUTE_WARNING = [[Reset attributes and return %s%% (configurable) of attribute points.
+Current remaining free reset attempts: %d
+(Free reset attempts are earned every certain number of survival days and share the same count with ability resets.)]]
 
-STRINGS.ACHIEVEMENT_ANNOUNCE_POINT =
-{
-  [1] = "Poor I only have %d achievement points",
-  [2] = "Unknowingly I have %d achievement points",
-  [3] = "I have accumulated %d achievement points",
-  [4] = "I have %d achievement points!"
-}
-
-STRINGS.ALLACHIVUISTRING={
-    [1] = "Achievement",
-    [2] = "Ability",
-    [3] = "Level",
+STRINGS.ACHIEVEMENT_ANNOUNCE_POINT = {
+    [1] = "Poor me, I only have %d achievement points",
+    [2] = "Unknowingly, I already have %d achievement points",
+    [3] = "I have accumulated %d achievement points!",
+    [4] = "I have %d achievement points!",
 }
 
-STRINGS.ATTRIBUTES =
-{
-   hunger = "hunger",
-   sanity = "sanity",
-   health = "health"
+STRINGS.ALLACHIVUISTRING = {
+  [1] = "Achievements",
+  [2] = "Abilities",
+  [3] = "Levels",
 }
 
-STRINGS.ACHIVABILITYNAME={
-    ["thornss"] ="Thornss",
-    ["woodieability"] ="Woody",
-    ["speedup"] ="Speed ↑",
-    ["absorbup"] ="Defense ↑",
-    ["damageup"] ="Attack ↑",
-    ["crit"] ="Crit ↑",
-    ["electric"] ="Electric",
-    ["plantfriend"] ="Wormwood",
-    ["firmarmor"] ="firmarmor",
-    ["healthregen"] ="Bloodthirsty",
-    ["fireflylight"] ="Light",
-    ["goodman"] ="Leader",
-    ["fishmaster"] ="FishingChef",
-    ["chopmaster"] ="Lumberjack",
-    ["cookmaster"] ="Cook Chef",
-    ["pickmaster"] ="DoublePicker",
-    ["nomoist"] ="Rainproof",
-    ["icebody"] ="Thermostatic",
-    ["firebody"] ="Fireproof",
-    ["doubledrop"] ="DoubleDrop",
-    ["buildmaster"] ="HalfCost",
-    ["refresh"] ="Freshness",
-    ["reader"] ="Reading",
-    ["justicerain"] = "Justicerain",
-    ["supply"] ="Supply Build",
-    ["level"] ="Level up",
-    ["fastbuild"] ="Winona",
-    ["jump"] ="Freezing",
-    ["soulhopcopy"] ="Soulhopcopy",
-    ["morestrongstomach"] ="StrongStomach",
-    ["shadowsubmissive"] ="ShadowSubmissive",
-    ["eventtechnology"] ="EventTech",
-    ["murlocdisguise"] ="Murlocdisguise",
-    ["fastcollection"] ="FastPicker",
-    ["ghostly_friend"] ="SoulPartner",
-    ["waxwellfriend"] ="MaxWell",
-    ["flashy"] ="Flashy",
-    ["fearless"] ="Fearless",
-    ["ancientstation"] ="Ancient Tech",
-    ["autorepair"] ="Autorepair",
-    ["magicpepair"] ="Magicrepair",
-    ["ignorestorm"] = "Ignorestorm",
-    ["moonstone"] = "MoonBlessing",
-    ["timemanager"] = "TimeManager",
-    ["alchemytechnology"] = "Alchemytechnology",
-    ["lunaraligned"] = "LunarAligned",
-    ["shadowaligned"] = "ShadowAligned",
+STRINGS.ATTRIBUTES = {
+  hunger = "Hunger",
+  sanity = "Sanity",
+  health = "Health",
 }
-STRINGS.ACHIVABILITYDSPC={
-    ["thornss"] ="Be beaten and wounded the enemy",
-    ["woodieability"] ="Get woody's ability",
-    ["speedup"] ="Increase movement speed by 5%",
-    ["absorbup"] ="Increase defense by 5%",
-    ["damageup"] ="Increase attack by 5%",
-    ["crit"] ="Increase the probability of double damage by 5%",
-    ["electric"] ="attack charged",
-    ["plantfriend"] ="Directly plant the seeds back to sanity",
-    ["firmarmor"] ="Increase 100 HP when equipped with thulium armor",
-    ["healthregen"] ="Healthregen and sanity when attacking",
-    ["fireflylight"] ="A certain range of light on the body",
-    ["goodman"] ="The leader of a pig bunny spider dog wearing a bee crown",
-    ["fishmaster"] ="Fish immediately hooks when fishing",
-    ["chopmaster"] ="Cut down trees in one click",
-    ["goldminer"] = "Dig the ore pile in one go",
-    ["cookmaster"] ="Quick cooking and chef ability acquisition",
-    ["pickmaster"] ="Dual product at collection time",
-    ["nomoist"] ="Won't be wet",
-    ["icebody"] ="Spring and winter are not cold, but summer and autumn are not hot",
-    ["firebody"] ="Immune to the fire and return to sanity by approaching the fire",
-    ["doubledrop"] ="One more kill reward",
-    ["buildmaster"] ="Material consumption is halved during manufacturing",
-    ["refresh"] ="Restoring freshness of items on your body",
-    ["reader"] ="Can make books and reading books",
-    ["justicerain"] = "Vick Barton exclusive, two more books",
-    ["supply"] ="Can build precise supplies and antlers",
-    ["level"] ="Achievement points can be obtained by leveling up characters",
-    ["fastbuild"] ="fast build and female construction",
-    ["jump"] ="Frozen enemies when attacked, the probability of attack is frozen",
-    ["soulhopcopy"] ="Kill the dropped soul and soul jump",
-    ["morestrongstomach"] ="Eat if you want, Ignore the freshness of monster meat to delay hunger",
-    ["shadowsubmissive"] ="Shadow monster does not actively attack the skeleton follower",
-    ["eventtechnology"] ="Technology that can produce various activities",
-    ["murlocdisguise"] ="Building fish house swamp and carpet acceleration",
-    ["fastcollection"] ="fast collection and harvest",
-    ["ghostly_friend"] ="make flowers and summon Abigail",
-    ["waxwellfriend"] ="Making Shadow Code and Summoning Shadow Clone",
-    ["flashy"] ="Walking and still with special effects, foot halo",
-    ["fearless"] ="Making a tent slingshot, telling stories, and obtaining Wobby",
-    ["ancientstation"] ="Ancient pseudo-science station can be made",
-    ["autorepair"] ="Ordinary equipment equipped with durable and slow recovery",
-    ["magicpepair"] ="The equipped magic items are durable and slow to recover",
-    ["ignorestorm"] = "Walk in the desert without fear of wind and sand in summer",
-    ["moonstone"] = "make moonstone",
-    ["timemanager"] = "time manager! wanda ability",
-    ["alchemytechnology"] = "Wilson's synthesis ability",
-    ["lunaraligned"] = "Defense against the moon camp +20%, damage against the shadow camp +%20",
-    ["shadowaligned"] = "Defense against shadow camp +20%, damage against moon camp +%20",
+
+STRINGS.ACHIVABILITYNAME = {
+  ["thornss"] = "Thorns",
+  ["woodieability"] = "Human Woodie",
+  ["speedup"] = "Speed Up",
+  ["absorbup"] = "Defense Up",
+  ["damageup"] = "Damage Up",
+  ["crit"] = "Critical Reward",
+  ["electric"] = "Electric Shock",
+  ["plantfriend"] = "Plant Friend",
+  ["firmarmor"] = "Firm Armor",
+  ["healthregen"] = "Bloodthirsty",
+  ["fireflylight"] = "Firefly Light",
+  ["goodman"] = "Leader Tag",
+  ["fishmaster"] = "Fishing Master",
+  ["chopmaster"] = "Chopping Master",
+  ["goldminer"] = "Gold Miner",
+  ["cookmaster"] = "Master Chef",
+  ["pickmaster"] = "Double Gather",
+  ["nomoist"] = "Moisture Immunity",
+  ["icebody"] = "Season Adapt",
+  ["firebody"] = "Fire Immunity",
+  ["doubledrop"] = "Double Drop",
+  ["buildmaster"] = "Material Saver",
+  ["refresh"] = "Fresh Carrier",
+  ["reader"] = "Book Reader",
+  ["justicerain"] = "Justice Rain",
+  ["supply"] = "Supply Construction",
+  ["level"] = "Character Level Up",
+  ["fastbuild"] = "Engineering Tech",
+  ["jump"] = "Freeze Ability",
+  ["soulhopcopy"] = "Soul Hop",
+  ["morestrongstomach"] = "Strong Stomach",
+  ["shadowsubmissive"] = "Shadow Submissive",
+  ["eventtechnology"] = "Event Tech",
+  ["murlocdisguise"] = "Murloc Disguise",
+  ["fastcollection"] = "Fast Collection",
+  ["ghostly_friend"] = "Ghostly Friend",
+  ["waxwellfriend"] = "Well Dressed",
+  ["flashy"] = "Flashy",
+  ["fearless"] = "Fearless",
+  ["ancientstation"] = "Ancient Tech",
+  ["autorepair"] = "Auto Repair",
+  ["magicpepair"] = "Magic Repair",
+  ["ignorestorm"] = "Ignore Storm",
+  ["moonstone"] = "Moon Blessing",
+  ["moonaltar"] = "Moon Altar",
+  ["timemanager"] = "Time Manager",
+  ["alchemytechnology"] = "Alchemy Tech",
+  ["lunaraligned"] = "Lunar Aligned",
+  ["shadowaligned"] = "Shadow Aligned",
+  ["wilson_torch"] = "Master of the Flame",
 }
+
+STRINGS.ACHIVABILITYDSPC = {
+  ["thornss"] = "Reflect damage to enemies when hit",
+  ["woodieability"] = "Fast tree chopping and damage reduction in wereform",
+  ["speedup"] = "Increase movement speed by 5%",
+  ["absorbup"] = "Increase defense by 5%",
+  ["damageup"] = "Increase attack by 5%",
+  ["crit"] = "Increase chance of double damage by 5%",
+  ["electric"] = "Electrify your attacks",
+  ["plantfriend"] = "Plant seeds to regain sanity",
+  ["firmarmor"] = "Increase armor HP by 100 when wearing thulecite armor",
+  ["healthregen"] = "Heal and regain sanity when attacking",
+  ["fireflylight"] = "Emit a small radius of light",
+  ["goodman"] = "Gain leadership over bees, pigs, rabbits, spiders, and dogs when wearing the queen's crown",
+  ["fishmaster"] = "Instantly catch fish when fishing",
+  ["chopmaster"] = "Chop down trees with one swing",
+  ["goldminer"] = "Mine rocks with one swing",
+  ["cookmaster"] = "Cook faster and gain chef abilities",
+  ["pickmaster"] = "Collect double the items",
+  ["nomoist"] = "Become immune to wetness",
+  ["icebody"] = "Adapt to seasons: no cold in spring/winter, no heat in summer/autumn",
+  ["firebody"] = "Immune to fire and regain sanity near fires",
+  ["doubledrop"] = "Gain double the rewards when killing enemies",
+  ["buildmaster"] = "Use half the materials when crafting",
+  ["refresh"] = "Keep items fresh in your inventory",
+  ["reader"] = "Read and create books, including old horticulture books",
+  ["justicerain"] = "Exclusive to Wigfrid, three additional books",
+  ["supply"] = "Build precise supplies and antler decorations",
+  ["level"] = "Gain achievement points when leveling up",
+  ["fastbuild"] = "Build faster + full Winona engineering: catapults/batteries/spotlights with all upgrades, portable structures, remote, teleport and shadow/lunar power",
+  ["jump"] = "Freeze enemies when attacked, with a chance to freeze when attacking",
+  ["soulhopcopy"] = "Drop souls and soul jump when killing",
+  ["morestrongstomach"] = "Eat anything without penalties, slow hunger drain from monster meat",
+  ["shadowsubmissive"] = "Shadows don't attack and skeletons follow",
+  ["eventtechnology"] = "Create technology from various events",
+  ["murlocdisguise"] = "Build fish houses, swamps, and carpets for speed boost",
+  ["fastcollection"] = "Collect and harvest quickly",
+  ["ghostly_friend"] = "Create flowers and summon Abigail",
+  ["waxwellfriend"] = "Create shadow codex and summon shadow minions",
+  ["flashy"] = "Leave a trail of effects when walking or standing still, with a foot halo",
+  ["fearless"] = "Create tents, slingshots, tell stories, and gain Woby",
+  ["ancientstation"] = "Create ancient pseudo-science stations",
+  ["autorepair"] = "Slowly repair equipped ordinary items",
+  ["magicpepair"] = "Slowly repair equipped magical items",
+  ["ignorestorm"] = "Walk through desert storms in summer without fear",
+  ["moonstone"] = "Create moon platforms",
+  ["timemanager"] = "Master time management with Wanda's abilities",
+  ["alchemytechnology"] = "Gain Wilson's alchemy abilities",
+  ["lunaraligned"] = "Gain 20% defense against lunar aligned entities, and deal 20% more damage to shadow aligned entities",
+  ["shadowaligned"] = "Gain 20% defense against shadow aligned entities, and deal 20% more damage to lunar aligned entities",
+  ["wilson_torch"] = "Wilson's torch skills: torches last much longer and burn brighter",
+}
+
 STRINGS.ACHIEVEMENT_LIST =
 {
-  ["intogame"] =
-  {
-    name = "Start the journey of killing",
-    desc = "Successfully entered the game",
+  ["intogame"] = 
+  { 
+    name =  "Start the Killing Journey",
+    desc =  "Successfully enter the game",
   },
-  ["firsteat"] =
-  {
-    name = "First mouth",
-    desc = "eat the first food",
+  ["firsteat"] = 
+  { 
+    name =  "First Bite",
+    desc =  "Eat the first food",
   },
-  ["supereat"] =
-  {
-    name = "Foodie",
-    desc = "Eat %d food",
+  ["supereat"] = 
+  { 
+    name =  "Gourmet",
+    desc = "Ate %d foods",
   },
-  ["danding"] =
-  {
-    name = "There is no fluctuation in my heart",
-    desc = "eat %d monster cakes",
+  ["danding"] = 
+  { 
+    name =  "My Heart is Unmoved",
+    desc = "Eat %d Monster Lasagnas",
   },
-  ["messiah"] =
-  {
-    name = "Savior",
-    desc = "Save others %d times",
+  ["messiah"] = 
+  { 
+    name =  "Messiah",
+    desc = "Revive others %d times",
   },
-  ["walkalot"] =
-  {
-    name = "Going deep in the mountains is home",
+  ["walkalot"] = 
+  { 
+    name =  "Home is Where the Mountains Are",
     desc = "Walk for more than %d seconds",
   },
-  ["stopalot"] =
-  {
-    name = "Salted Fish",
-    desc = "Stop motionless and live for %d seconds",
+  ["stopalot"] = 
+  { 
+    name =  "Salted Fish",
+    desc = "Stop moving and stay alive for %d seconds",
   },
-  ["tooyoung"] =
-  {
-    name = "You know nothing about power",
-    desc = "Dead by a stone",
+  ["tooyoung"] = 
+  { 
+    name =  "You Know Nothing About Power",
+    desc =  "Die from a rock",
   },
-  ["evil"] =
-  {
-    name = "The Fairy of the Forest",
-    desc = "Pull %d Mandela grass",
+  ["evil"] = 
+  { 
+    name =  "Forest Fairy",
+    desc = "Pull %d Mandrakes",
   },
-  ["snake"] =
-  {
-    name = "Snake skin walking position",
-    desc = "Kill %d only tentacles",
+  ["snake"] = 
+  { 
+    name =  "Snake Skin",
+    desc = "Kill %d Tentacles",
   },
-  ["deathalot"] =
-  {
-    name = "Super Ghost",
-    desc = "Died %d times",
+  ["deathalot"] = 
+  { 
+    name =  "Super Ghost",
+    desc = "Die %d times",
   },
-  ["deathfifty"] =
-  {
-    name = "Hidden Achievement---One will succeed in the end",
-    desc = "Died %d times",
+  ["deathfifty"] = 
+  { 
+    name =  "Hidden Achievement - One General's Success",
+    desc = "Die %d times",
   },
-  ["nosanity"] =
-  {
-    name = "Artificial mental retardation",
-    desc = "Empty-brained state for %d seconds",
+  ["nosanity"] = 
+  { 
+    name =  "Artificial Idiot",
+    desc = "Stay in Insanity for %d seconds",
   },
-  ["sick"] =
-  {
-    name = "Crazy-hearted",
-    desc = "Kill Grom",
+  ["sick"] = 
+  { 
+    name =  "Insane",
+    desc =  "Kill Glommer",
   },
-  ["coldblood"] =
-  {
-    name = "Cold-Blooded Animal",
-    desc = "Kill Chester",
+  ["coldblood"] = 
+  { 
+    name =  "Cold-blooded",
+    desc =  "Kill Chester",
   },
-  ["burn"] =
-  {
-    name = "Heir of Fire",
-    desc = "I am on fire",
+  ["burn"] = 
+  { 
+    name =  "Fire's Heir",
+    desc =  "Catch fire",
   },
-  ["freeze"] =
-  {
-    name = "Freeze without taking a bath",
-    desc = "Frozen",
+  ["freeze"] = 
+  { 
+    name =  "Freeze and Don't Bathe",
+    desc =  "Get frozen",
   },
-  ["pigmanfriend"] =
-  {
-    name = "You are a good person",
-    desc = "Make friends with Pigman %d times",
+  ["pigmanfriend"] = 
+  { 
+    name =  "You are a Good Person",
+    desc = "Befriend Pigmen %d times",
   },
-  ["brother"] =
-  {
-    name = "You treat me like a brother",
-    desc = "Make friends with rabbit people %d times",
+  ["brother"] = 
+  { 
+    name =  "You're Like a Brother to Me",
+    desc = "Befriend Bunnymen %d times",
   },
-  ["fishenthusiast"] =
-  {
-    name = "Fishing Master",
-    desc = "Successful fishing %d times",
+  ["fishenthusiast"] = 
+  { 
+    name =  "Fishing Enthusiast",
+    desc = "Successfully fish %d times",
   },
-  ["pickenthusiast"] =
-  {
-    name = "Scavengers",
-    desc = "Picked %d times",
+  ["pickenthusiast"] = 
+  { 
+    name =  "Scavenger",
+    desc = "Pick %d times",
   },
-  ["chopenthusiast"] =
-  {
-    name = "Lumbering Dingding Mountain is more secluded",
-    desc = "Cut down trees or dig roots %d times",
+  ["chopenthusiast"] = 
+  { 
+    name =  "Lumberjack",
+    desc = "Chop down trees or dig tree stumps %d times",
   },
-  ["cookenthusiast"] =
-  {
-    name = "French Chef",
-    desc = "%d food cooked in a pot",
+  ["cookenthusiast"] = 
+  { 
+    name =  "French Chef",
+    desc = "Cook %d foods with the pot",
   },
-  ["buildenthusiast"] =
-  {
-    name = "Awesome workmanship",
-    desc = "Made more than %d times",
+  ["buildenthusiast"] = 
+  { 
+    name =  "Master Builder",
+    desc = "Craft more than %d times",
   },
-  ["longage"] =
-  {
-    name = "Time is like an arrow",
-    desc = "survival for more than %d days",
+  ["longage"] = 
+  { 
+    name =  "Time Flies",
+    desc = "Survive more than %d days",
   },
-  ["noob"] =
-  {
-    name = "Mengxin",
-    desc = "Dying in the dark",
+  ["noob"] = 
+  { 
+    name =  "Newbie",
+    desc =  "Die in the dark",
   },
-  ["luck"] =
-  {
-    name = "European Emperor",
-    desc = "Kill a thief to drop a thief bag",
+  ["luck"] = 
+  { 
+    name =  "Lucky Emperor",
+    desc =  "Kill a Thief and get a Thief Bag",
   },
-  ["black"] =
-  {
-    name = "I have special coquettish skills",
-    desc = "Be struck to death by lightning",
+  ["black"] = 
+  { 
+    name =  "I Have Special Skills",
+    desc =  "Get struck by lightning",
   },
-  ["tank"] =
-  {
-    name = "Humanoid Tank",
-    desc = "Damage more than %d points",
+  ["tank"] = 
+  { 
+    name =  "Human Tank",
+    desc =  "Take more than %d damage",
   },
-  ["angry"] =
-  {
-    name = "Super Fierce",
-    desc = "Does damage more than %d points",
+  ["angry"] = 
+  { 
+    name =  "Very Angry",
+    desc =  "Deal more than %d damage",
   },
-  ["iceenthusiast"] =
-  {
-    name = "Frosty Constitution",
-    desc = "Overcooling state reaches %d seconds",
+  ["iceenthusiast"] = 
+  { 
+    name =  "Frosty Body",
+    desc = "Stay in Overcold for %d seconds",
   },
-  ["fireenthusiast"] =
-  {
-    name = "Lava Physique",
-    desc = "Overheating state reaches %d seconds",
+  ["fireenthusiast"] = 
+  { 
+    name =  "Lava Body",
+    desc = "Stay in Overheat for %d seconds",
   },
-  ["moist"] =
-  {
-    name = "Wet Body",
-    desc = "Full humidity for %d seconds",
+  ["moist"] = 
+  { 
+    name =  "Soaked",
+    desc = "Stay at Full Wetness for %d seconds",
   },
-  ["blackspat"] =
-  {
-    name = "Single Kill Steel Sheep",
-    desc = "Single Kill Steel Sheep",
+  ["blackspat"] = 
+  { 
+    name =  "Solo Steel Wool",
+    desc =  "Solo kill a Steel Wool",
   },
-  ["a_yingguai"] =
-  {
-    name = "Just like a shadow",
-    desc = "Kill %d shadow monsters",
+  ["a_yingguai"] = 
+  { 
+    name =  "Follow Like a Shadow",
+    desc = "Kill %d Shadow Creatures",
   },
-  ["a_worm"] =
-  {
-    name = "Evil Dragon",
-    desc = "Kill %d earth dragons",
+  ["a_worm"] = 
+  { 
+    name =  "Evil Dragon",
+    desc = "Kill %d Depth Worms",
   },
-  ["a_monkey"] =
-  {
-    name = "The funny monkey invited",
-    desc = "Kill %d monkeys",
+  ["a_monkey"] = 
+  { 
+    name =  "Clown Brought by a Monkey",
+    desc = "Kill %d Monkeys",
   },
-  ["a_buzzard"] =
-  {
-    name = "The little duck quack",
-    desc = "Kill %d ducklings",
+  ["a_buzzard"] = 
+  { 
+    name =  "Little Duck Quacks",
+    desc = "Kill %d Buzzards",
   },
-  ["a_lightninggoat"] =
-  {
-    name = "Baa Baa",
-    desc = "Kill %d electric sheep",
+  ["a_lightninggoat"] = 
+  { 
+    name =  "Baa Baa Baa",
+    desc = "Kill %d Volt Goats",
   },
-  ["a_spiderqueen"] =
-  {
-    name = "Conquer the Spider Spirit",
-    desc = "Kill %d spider queen",
+  ["a_spiderqueen"] = 
+  { 
+    name =  "Conquer the Spider Queen",
+    desc = "Kill %d Spider Queens",
   },
-  ["a_spider"] =
-  {
-    name = "Slaying Spiders",
-    desc = "Kill %d spiders",
+  ["a_spider"] = 
+  { 
+    name =  "Spider Slaughter",
+    desc = "Kill %d Spiders",
   },
-  ["a_spider_warrior"] =
-  {
-    name = "Into Pansi Hole Ⅰ",
-    desc = "Kill %d yellow spiders",
+  ["a_spider_warrior"] = 
+  { 
+    name =  "Enter Spider Lair I",
+    desc = "Kill %d Yellow Spiders",
   },
-  ["a_spider_dropper"] =
-  {
-    name = "Into Pansi Hole Ⅱ",
-    desc = "Kill %d white spider",
+  ["a_spider_dropper"] = 
+  { 
+    name =  "Enter Spider Lair II",
+    desc = "Kill %d White Spiders",
   },
-  ["a_spider_hider"] =
-  {
-    name = "Into Pansi Hole Ⅲ",
-    desc = "Kill %d Cave Spider",
+  ["a_spider_hider"] = 
+  { 
+    name =  "Enter Spider Lair III",
+    desc = "Kill %d Cave Spiders",
   },
-  ["a_spider_spitter"] =
-  {
-    name = "Into Pansi Hole Ⅳ",
-    desc = "Kill %d Jet Spider",
+  ["a_spider_spitter"] = 
+  { 
+    name =  "Enter Spider Lair IV",
+    desc = "Kill %d Spitter Spiders",
   },
-  ["a_warg"] =
-  {
-    name = "Conquer the Dog King",
-    desc = "Kill %d Dog King",
+  ["a_warg"] = 
+  { 
+    name =  "Conquer the Warg",
+    desc = "Kill %d Wargs",
   },
-  ["a_hound"] =
-  {
-    name = "Single Dog",
-    desc = "Kill %d ordinary hounds",
+  ["a_hound"] = 
+  { 
+    name =  "Single Dog",
+    desc = "Kill %d Regular Hounds",
   },
-  ["a_firehound"] =
-  {
-    name = "Enthusiastic single dog",
-    desc = "Kill %d red hounds",
+  ["a_firehound"] = 
+  { 
+    name =  "Passionate Single Dog",
+    desc = "Kill %d Red Hounds",
   },
-  ["a_icehound"] =
-  {
-    name = "Cold Single Dog",
-    desc = "Kill %d blue hounds",
+  ["a_icehound"] = 
+  { 
+    name =  "Cold Single Dog",
+    desc = "Kill %d Blue Hounds",
   },
-  ["a_koalefant_summer"] =
-  {
-    name = "Red Symbol",
-    desc = "Kill %d red elephant",
+  ["a_koalefant_summer"] = 
+  { 
+    name =  "Red Symbol",
+    desc = "Kill %d Summer Koalefants",
   },
-  ["a_koalefant_winter"] =
-  {
-    name = "Blue Symbol",
-    desc = "Kill %d blue elephants",
+  ["a_koalefant_winter"] = 
+  { 
+    name =  "Blue Symbol",
+    desc = "Kill %d Winter Koalefants",
   },
-  ["a_catcoon"] =
-  {
-    name = "I heard you have nine lives",
-    desc = "Kill %d raccoons",
+  ["a_catcoon"] = 
+  { 
+    name =  "Heard You Have Nine Lives",
+    desc = "Kill %d Catcoons",
   },
-  ["a_bunnyman"] =
-  {
-    name = "Is the rabbit hot and cute",
+  ["a_bunnyman"] = 
+  { 
+    name =  "Bunnies are Cute",
     desc = "Kill %d Bunnymen",
   },
-  ["a_leif"] =
-  {
-    name = "Conquer the Forest Guardian",
-    desc = "Kill %d tree spirits",
+  ["a_leif"] = 
+  { 
+    name =  "Conquer the Treeguard",
+    desc = "Kill %d Treeguards",
   },
-  ["a_slurtle"] =
-  {
-    name = "Snail is not a cow",
-    desc = "Kill %d snails",
+  ["a_slurtle"] = 
+  { 
+    name =  "Snail is Not a Cow",
+    desc = "Kill %d Slurtles",
   },
-  ["a_tallbird"] =
-  {
-    name = "Big Bird Kills Little Bird",
-    desc = "Kill %d tallbirds",
+  ["a_tallbird"] = 
+  { 
+    name =  "Big Bird Kills Little Bird",
+    desc = "Kill %d Tallbirds",
   },
-  ["a_walrus"] =
-  {
-    name = "Walrus Daddy",
-    desc = "Kill %d walrus",
+  ["a_walrus"] = 
+  { 
+    name =  "Walrus Daddy",
+    desc = "Kill %d Walruses",
   },
-  ["a_bat"] =
-  {
-    name = "Batman",
-    desc = "Kill %d bats",
+  ["a_bat"] = 
+  { 
+    name =  "Batman",
+    desc = "Kill %d Bats",
   },
-  ["a_butterfly"] =
-  {
-    name = "Little Butter Game",
-    desc = "Kill %d butterflies",
+  ["a_butterfly"] = 
+  { 
+    name =  "Little Butter Game",
+    desc = "Kill %d Butterflies",
   },
-  ["a_killerbee"] =
-  {
-    name = "Stoke the honeycomb",
+  ["a_killerbee"] = 
+  { 
+    name =  "Stirred Up a Hornet's Nest",
     desc = "Kill %d killer bees",
   },
-  ["a_deer"] =
-  {
-    name = "Little Deer Randomly Hit",
-    desc = "Kill %d eyeless deer",
+  ["a_deer"] = 
+  { 
+    name =  "Deer in the Headlights",
+    desc = "Kill %d no-eyed deers",
   },
-  ["a_mole"] =
-  {
-    name = "Where did the stone go",
+  ["a_mole"] = 
+  { 
+    name =  "Where Did the Rocks Go?",
     desc = "Kill %d moles",
   },
-  ["a_mosquito"] =
-  {
-    name = "Vampire",
+  ["a_mosquito"] = 
+  { 
+    name =  "The Bloodsucker",
     desc = "Kill %d mosquitoes",
   },
-  ["a_penguin"] =
-  {
-    name = "Charge the Q coins forced by Nima",
+  ["a_penguin"] = 
+  { 
+    name =  "Q Coins Stashed",
     desc = "Kill %d penguins",
   },
-  ["a_merm"] =
-  {
-    name = "'Beauty' Mermaid",
-    desc = "Kill %d murlocs",
+  ["a_merm"] = 
+  { 
+    name =  "'Merm' Maid",
+    desc = "Kill %d merms",
   },
-  ["a_frog"] =
-  {
-    name = "Frog Prince",
+  ["a_frog"] = 
+  { 
+    name =  "Frog Prince",
     desc = "Kill %d frogs",
   },
-  ["a_beefalo"] =
-  {
-    name = "Bull Head Assistant",
-    desc = "Kill %d cows",
+  ["a_beefalo"] = 
+  { 
+    name =  "Beefalo Backup",
+    desc = "Kill %d beefalos",
   },
-  ["a_perd"] =
-  {
-    name = "Good luck, eat chicken tonight",
-    desc = "Kill %d turkeys",
+  ["a_perd"] = 
+  { 
+    name =  "Winner Winner, Turkey Dinner",
+    desc = "Kill %d gobblers",
   },
-  ["a_krampus"] =
-  {
-    name = "European Emperor or Non-Chief",
-    desc = "Kill %d Camps",
+  ["a_krampus"] = 
+  { 
+    name =  "Luck or No Luck",
+    desc = "Kill %d Krampii",
   },
-  ["a_robin_crow"] =
-  {
-    name = "The crow is flying",
+  ["a_robin_crow"] = 
+  { 
+    name =  "Crows Riding Planes",
     desc = "Kill %d crows",
   },
-  ["a_robin_robin"] =
-  {
-    name = "Red Bird",
-    desc = "Kill %d Cardinals",
+  ["a_robin_robin"] = 
+  { 
+    name =  "Robin Redbreast",
+    desc = "Kill %d robins",
   },
-  ["a_robin_winter"] =
-  {
-    name = "White Bird",
-    desc = "Kill %d Snow Sparrow",
+  ["a_robin_winter"] = 
+  { 
+    name =  "Winter Robin",
+    desc = "Kill %d snowbirds",
   },
-  ["a_robin_canary"] =
-  {
-    name = "Canary",
-    desc = "Kill %d Canary",
+  ["a_robin_canary"] = 
+  { 
+    name =  "Canary",
+    desc = "Kill %d canaries",
   },
-  ["a_pigman"] =
-  {
-    name = "Butcher",
+  ["a_pigman"] = 
+  { 
+    name =  "Butcher",
     desc = "Kill %d pigmen",
   },
-  ["a_shadow_knight"] =
-  {
-    name = "Geek Ⅰ",
-    desc = "Kill the Shadow Knight",
+  ["a_shadow_knight"] = 
+  { 
+    name =  "Gay Knight I",
+    desc =  "Kill shadow knights",
   },
-  ["a_shadow_bishop"] =
-  {
-    name = "Geek Ⅱ",
-    desc = "Kill the Shadow Bishop",
+  ["a_shadow_bishop"] = 
+  { 
+    name =  "Gay Knight II",
+    desc =  "Kill shadow bishops",
   },
-  ["a_shadow_rook"] =
-  {
-    name = "Gee Ⅲ",
-    desc = "Kill the Shadow Chariot",
+  ["a_shadow_rook"] = 
+  { 
+    name =  "Gay Knight III",
+    desc =  "Kill shadow rooks",
   },
-  ["a_moose"] =
-  {
-    name = "Wet Spring",
-    desc = "Kill the deer and goose",
+  ["a_moose"] = 
+  { 
+    name =  "Wet Spring",
+    desc =  "Kill Moslings",
   },
-  ["a_dragonfly"] =
-  {
-    name = "Dragon fly",
-    desc = "Kill the dragon flies",
+  ["a_dragonfly"] = 
+  { 
+    name =  "Dragonfly",
+    desc =  "Kill Dragonfly",
   },
-  ["a_bearger"] =
-  {
-    name = "Cool Autumn",
-    desc = "Kill the big bear",
+  ["a_bearger"] = 
+  { 
+    name =  "Chilly Autumn",
+    desc =  "Kill Bearger",
   },
-  ["a_deerclops"] =
-  {
-    name = "Whoever will kill the deer",
-    desc = "Kill the Giant Deer",
+  ["a_deerclops"] = 
+  { 
+    name =  "Who Killed the Moose?",
+    desc =  "Kill Deerclops",
   },
-  ["a_stalker_forest"] =
-  {
-    name = "Forest Destruction King",
-    desc = "Kill the Forest Guardian",
+  ["a_stalker_forest"] = 
+  { 
+    name =  "Forest Wrecker",
+    desc =  "Kill Ancient Guardian",
   },
-  ["a_stalker"] =
-  {
-    name = "Hunter or prey",
-    desc = "Kill ancient hunters",
+  ["a_stalker"] = 
+  { 
+    name =  "Hunter or Hunted",
+    desc =  "Kill Ancient Hunter",
   },
-  ["a_stalker_atrium"] =
-  {
-    name = "Conquer the Darkness",
-    desc = "Kill the Ancient Shadow Weaver",
+  ["a_stalker_atrium"] = 
+  { 
+    name =  "Conquer the Dark",
+    desc =  "Kill Ancient Fuelweaver",
   },
-  ["a_klaus"] =
-  {
-    name = "Winter Gift",
-    desc = "Kill Klaus",
+  ["a_klaus"] = 
+  { 
+    name =  "Winter's Gift",
+    desc =  "Kill Klaus",
   },
-  ["a_antlion"] =
-  {
-    name = "The King of Conquering the Desert",
-    desc = "Kill the Ant Lion",
+  ["a_antlion"] = 
+  { 
+    name =  "Desert King",
+    desc =  "Kill Antlion",
   },
-  ["a_minotaur"] =
-  {
-    name = "If there is no sale, there is no killing",
-    desc = "Kill the rhino",
+  ["a_minotaur"] = 
+  { 
+    name =  "No Trade, No Killing",
+    desc =  "Kill Ancient Guardian",
   },
-  ["a_beequeen"] =
-  {
-    name = "Her Majesty the Queen",
-    desc = "Kill the Queen of Bees",
+  ["a_beequeen"] = 
+  { 
+    name =  "Queen Bee",
+    desc =  "Kill Bee Queen",
   },
-  ["a_toadstool"] =
-  {
-    name = "Try your skills",
-    desc = "Kill the Toadstool",
+  ["a_toadstool"] = 
+  { 
+    name =  "Test Your Might",
+    desc =  "Kill Toadstool",
   },
-  ["a_toadstool_dark"] =
-  {
-    name = "Show true strength",
-    desc = "Kill the Dark Toadstool",
+  ["a_toadstool_dark"] = 
+  { 
+    name =  "Show Your True Strength",
+    desc =  "Kill %d Misery Toads",
   },
-  ["all"] =
-  {
-    name = "I graduated",
-    desc = "Unlocked all achievements",
+  ["all"] = 
+  { 
+    name =  "I Graduated",
+    desc =  "Unlocked all achievements",
   },
-  ["a_1"] =
-  {
-    name = "Hidden Mission---Food World",
-    desc = "Eat %d food",
+  ["a_1"] = 
+  { 
+    name =  "Hidden Task - World of Gluttony",
+    desc = "Eat %d food items",
   },
-  ["a_2"] =
-  {
-    name = "Hidden mission---live in the world",
-    desc = "survival for more than %d days",
+  ["a_2"] = 
+  { 
+    name =  "Hidden Task - Surviving in the World",
+    desc = "Survive for more than %d days",
   },
-  ["a_3"] =
-  {
-    name = "Hidden task---production machine",
-    desc = "Made more than %d times",
+  ["a_3"] = 
+  { 
+    name =  "Hidden Task - Production Machine",
+    desc = "Craft items more than %d times",
   },
-  ["a_4"] =
-  {
-    name = "Hidden Mission --- Killing Life",
-    desc = "Does damage more than %d points",
+  ["a_4"] = 
+  { 
+    name =  "Hidden Task - Life of Killing",
+    desc =  "Deal more than %d damage",
   },
-  ["a_5"] =
-  {
-    name = "Hidden mission---Ten thousand points of damage",
-    desc = "Damage more than %d points",
+  ["a_5"] = 
+  { 
+    name =  "Hidden Task - Taking Ten Thousand Damage",
+    desc =  "Take more than %d damage",
   },
-  ["a_6"] =
-  {
-    name = "Delicious food",
-    desc = "eat %d eel dishes",
+  ["a_6"] = 
+  { 
+    name =  "Delicious Cuisine",
+    desc = "Eat %d eel dishes",
   },
-  ["a_7"] =
-  {
-    name = "Stone becomes fine",
-    desc = "Feed %d stone prawns",
+  ["a_7"] = 
+  { 
+    name =  "Living Stone",
+    desc = "Feed %d Rock Lobsters",
   },
-  ["a_8"] =
-  {
-    name = "Little Fairy Who Grinds People",
-    desc = "Kill %d nuts",
+  ["a_8"] = 
+  { 
+    name =  "Annoying Imp",
+    desc = "Kill %d Slurtles",
   },
-  ["a_9"] =
-  {
-    name = "Haki will not let it go",
-    desc = "Kill Hatch",
+  ["a_9"] = 
+  { 
+    name =  "Even Haggis Isn't Spared",
+    desc =  "Kill Hag",
   },
-  ["a_10"] =
-  {
-    name = "Little Rabbit Be Good",
+  ["a_10"] = 
+  { 
+    name =  "Good Bunny",
     desc = "Kill %d rabbits",
   },
-  ["a_11"] =
-  {
-    name = "Lonely Ghost",
+  ["a_11"] = 
+  { 
+    name =  "Lonely Ghost",
     desc = "Kill %d ghosts",
   },
-  ["a_12"] =
-  {
-    name = "Does piranha eat people?",
-    desc = "Kill %d piranha eyes",
+  ["a_12"] = 
+  { 
+    name =  "Do Lureplants Eat People?",
+    desc = "Destroy %d Eyeplants",
   },
-  ["a_13"] =
-  {
-    name = "Summer favorite",
-    desc = "eat %d ice cream",
+  ["a_13"] = 
+  { 
+    name =  "Summer's Favorite",
+    desc = "Eat %d Ice Creams",
   },
-  ["a_14"] =
-  {
+  ["a_14"] = 
+  { 
+    name = "Little troublemaker who loves to steal things",
+    desc = "Killed %d otter predators",
+  },
+  ["a_15"] = 
+  { 
+    name =  "",
+    desc =  "",
+  },
+  ["a_tallbirdegg"] = 
+  { 
+    name =  "Egg Collector",
+    desc = "Collect %d Tallbird Eggs",
+  },
+  ["a_frogglebunwich"] = 
+  { 
+    name =  "Gourmet Delight I",
+    desc = "Eat %d Froggle Bunwiches",
+  },
+  ["a_baconeggs"] = 
+  { 
+    name =  "Gourmet Delight II",
+    desc = "Eat %d Bacon and Eggs",
+  },
+  ["a_bonestew"] = 
+  { 
+    name =  "Gourmet Delight III",
+    desc = "Eat %d Meat Stews",
+  },
+  ["a_fishtacos"] = 
+  { 
+    name =  "Gourmet Delight IV",
+    desc = "Eat %d Fish Tacos",
+  },
+  ["a_turkeydinner"] = 
+  { 
+    name =  "Gourmet Delight V",
+    desc = "Eat %d Turkey Dinners",
+  },
+  ["a_fishsticks"] = 
+  { 
+    name =  "Gourmet Delight VI",
+    desc = "Eat %d Fishsticks",
+  },
+  ["a_meatballs"] = 
+  { 
+    name =  "Gourmet Delight VII",
+    desc = "Eat %d Meatballs",
+  },
+  ["a_perogies"] = 
+  { 
+    name =  "Gourmet Delight VIII",
+    desc = "Eat %d Pierogies",
+  },
+  ["a_meatysalad"] = 
+  { 
+    name =  "Balanced Diet",
+    desc = "Eat %d Meaty Stews",
+  },
+  ["a_koalefig_trunk"] = 
+  { 
+    name =  "Balanced Diet",
+    desc = "Eat %d Koalefant Trunks",
+  },
+  ["a_frozenbananadaiquiri"] = 
+  { 
+    name =  "Balanced Diet",
+    desc = "Eat %d Bananas",
+  },
+  ["a_shroomcake"] = 
+  { 
+    name =  "Balanced Diet",
+    desc = "Eat %d Mushrooms",
+  },
+  ["a_sweettea"] = 
+  { 
+    name =  "Take a Break",
+    desc = "Drink %d Sweet Teas",
+  },
+  ["a_bunnystew"] = 
+  { 
+    name =  "Balanced Diet",
+    desc = "Eat %d Bunny Stews",
+  },
+  ["a_bisque"] = 
+  { 
+    name =  "Gourmet Delight IX",
+    desc = "Eat %d Bisques",
+  },
+  ["a_surfnturf"] = 
+  { 
+    name =  "Gourmet Delight X",
+    desc = "Eat %d Surf 'n' Turfs",
+  },
+  ["a_tigershark"] = 
+  { 
+    name =  "Narrow Escape",
+    desc =  "Kill the Tiger Shark",
+  },
+  ["a_shark"] = 
+  { 
+    name =  "Wants Shark Fin Soup",
+    desc =  "Kill %d Sharks",
+  },
+  ["a_twister"] = 
+  { 
+    name =  "Caught in the Whirlwind",
+    desc =  "Kill the Tiger Shark",
+  },
+  ["a_snake"] = 
+  { 
+    name =  "Snake Skin Freak",
+    desc = "Kill %d Red Snakes",
+  },
+  ["a_snake_poison"] = 
+  { 
+    name =  "Using Poison to Fight Poison",
+    desc = "Kill %d Poison Snakes",
+  },
+  ["a_crocodog"] = 
+{ 
+    name = "Crocodog Invasion I",
+    desc = "Kill %d normal crocodogs",
+},
+["a_poisoncrocodog"] = 
+{ 
+    name = "Crocodog Invasion II",
+    desc = "Kill %d poisoned crocodogs",
+},
+["a_watercrocodog"] = 
+{ 
+    name = "Crocodog Invasion III",
+    desc = "Kill %d water crocodogs",
+},
+["a_coffee"] = 
+{ 
+    name = "Coffee Delivery",
+    desc = "Consume %d cups of coffee",
+},
+["a_a1"] = 
+{ 
     name = "",
-    desc = "",
-  },
-  ["a_15"] =
-  {
+    desc = "Consume %d",
+},
+["a_a2"] = 
+{ 
+    name = "Limited-time Achievement - True Luck",
+    desc = "Drop a thief package within 22 days",
+},
+["a_a3"] = 
+{ 
     name = "",
-    desc = "",
-  },
-  ["a_tallbirdegg"] =
-  {
-    name = "The Master of the Egg",
-    desc = "Take the eggs from the tall bird's nest %d times",
-  },
-  ["a_frogglebunwich"] =
-  {
-    name = "Famine on the Tip of the Tongue I",
-    desc = "Eat %d frog sandwiches",
-  },
-  ["a_baconeggs"] =
-  {
-    name = "Famine on the Tip of the Tongue II",
-    desc = "Eat %d bacon omelette",
-  },
-  ["a_bonestew"] =
-  {
-    name = "Famine on the Tip of the Tongue III",
-    desc = "Eat %d broth",
-  },
-  ["a_fishtacos"] =
-  {
-    name = "Famine on the Bite of the Tongue IV",
-    desc = "Eat %d fish tacos",
-  },
-  ["a_turkeydinner"] =
-  {
-    name = "Famine on the Tip of the Tongue V",
-    desc = "Eat %d turkey dinner",
-  },
-  ["a_fishsticks"] =
-  {
-    name = "Famine on the Bite of the Tongue VI",
-    desc = "Eat %d fish sticks",
-  },
-  ["a_meatballs"] =
-  {
-    name = "Famine on the Bite of the Tongue Ⅶ",
-    desc = "Eat %d meatballs",
-  },
-  ["a_perogies"] =
-  {
-    name = "Famine on the Bite of the Tongue Ⅷ",
-    desc = "Eat %d dumplings",
-  },
-  ["a_bisque"] =
-  {
-    name = "Famine on the Bite of the TongueⅨ",
-    desc = "Eat %d limpet soup",
-  },
-  ["a_surfnturf"] =
-  {
-    name = "Famine on the Bite of the TongueⅩ",
-    desc = "Eat %d seafood food stalls",
-  },
-
-  ["a_meatysalad"] =
-   {
-     name = "balanced diet",
-     desc = "Eat %d beef greens",
-   },
-   ["a_koalefig_trunk"] =
-   {
-     name = "balanced diet",
-     desc = "Eat %d fig-stuffed elephant trunks",
-   },
-
-   ["a_frozenbananadaiquiri"] =
-   {
-     name = "balanced diet",
-     desc = "Eat %d ice banana jelly lip gloss",
-   },
-
-   ["a_shroomcake"] =
-   {
-     name = "balanced diet",
-     desc = "Eat %d mushroom cakes",
-   },
-
-   ["a_sweettea"] =
-   {
-     name = "Relax",
-     desc = "Eat %d soothing tea",
-   },
-
-   ["a_bunnystew"] =
-   {
-     name = "balanced diet",
-     desc = "Eat %d stewed rabbits",
-   },
-
-  ["a_tigershark"] =
-  {
-    name = "Escape from the Tiger's Mouth",
-    desc = "Kill Tiger Shark",
-  },
-  ["a_shark"] =
-  {
-    name = "Want to eat shark fin",
-    desc = "Kill %d Shark",
-  },
-  ["a_twister"] =
-  {
-    name = "Deep in the whirlpool",
-    desc = "Kill Leopard Tornado",
-  },
-  ["a_snake"] =
-  {
-    name = "Basilisk",
-    desc = "Kill %d red snakes",
-  },
-  ["a_snake_poison"] =
-  {
-    name = "To fight poison with poison",
-    desc = "Kill %d snakes",
-  },
-  ["a_crocodog"] =
-  {
-    name = "Alligator Dog Invasion I",
-    desc = "Kill %d Common Crocodile Dog",
-  },
-  ["a_poisoncrocodog"] =
-  {
-    name = "Alligator Dog Invasion II",
-    desc = "Kill %d crocodile dogs",
-  },
-  ["a_watercrocodog"] =
-  {
-    name = "Alligator Dog Invasion III",
-    desc = "Kill %d crocodile dogs",
-  },
-  ["a_coffee"] =
-  {
-    name = "Coffee Express",
-    desc = "Eat %d coffee",
-  },
-  ["a_a1"] =
-  {
-    name = "",
-    desc = "Eat %d",
-  },
-  ["a_a2"] =
-  {
-    name = "Limited Achievement---True·European Emperor",
-    desc = "Thief bag dropped within 22 days",
-  },
-  ["a_a3"] =
-  {
-    name = "",
-    desc = "Eat %d",
-  },
-  ["a_a4"] =
-  {
-    name = "Reward a little",
-    desc = "Level Up",
-  },
-  ["a_a5"] =
-  {
-    name = "Famine on the Bite of the TongueⅩⅠ",
-    desc = "Eat %d honey-glazed ham",
-  },
-  ["a_a6"] =
-  {
-    name = "Mechanical BiologyⅠ",
+    desc = "Consume %d",
+},
+["a_a4"] = 
+{ 
+    name = "Reward Point",
+    desc = "Level up",
+},
+["a_a5"] = 
+{ 
+    name = "Hunger on the Tongue XI",
+    desc = "Consume %d honey ham",
+},
+["a_a6"] = 
+{ 
+    name = "Mechanical Beings I",
     desc = "Kill %d knights",
-  },
-  ["a_a7"] =
-  {
-    name = "Mechanical BiologyⅡ",
+},
+["a_a7"] = 
+{ 
+    name = "Mechanical Beings II",
     desc = "Kill %d bishops",
-  },
-  ["a_a8"] =
-  {
-    name = "Mechanical Creature III",
-    desc = "Kill %d tanks",
-  },
-  ["a_a9"] =
-  {
-    name = "Death gathering place",
-    desc = "Kill %d vultures",
-  },
-  ["a_a10"] =
-  {
-    name = "Eat Peas",
-    desc = "Kill %d only eater",
-  },
-  ["a_a11"] =
-  {
-    name = "Hard to panic",
-    desc = "Equip the eater for %d seconds",
-  },
-  ["a_a12"] =
-  {
-    name = "Want to sing me to you",
-    desc = "Equipped solo instrument %d seconds",
-  },
-  ["a_a13"] =
-  {
-    name = "No pain or itching",
-    desc = "Make %d marble armor",
-  },
-  ["a_a14"] =
-  {
-    name = "Ancient Three-piece Suit Ⅰ",
-    desc = "Make %d thulium crown",
-  },
-  ["a_a15"] =
-  {
-    name = "Ancient three-piece suit Ⅱ",
-    desc = "Make %d thulium armor",
-  },
-  ["a_a16"] =
-  {
-    name = "Ancient three-piece suit Ⅲ",
-    desc = "Make %d thulium rods",
-  },
-  ["a_a17"] =
-  {
-    name = "Sulphur, Dinitrogen and Three Charcoal",
-    desc = "Make %d gunpowder",
-  },
-  ["a_a18"] =
-  {
-    name = "Black Fuel",
-    desc = "Make %d nightmare fuel",
-  },
-  ["a_a19"] =
-  {
+},
+["a_a8"] = 
+{ 
+    name = "Mechanical Beings III",
+    desc = "Kill %d rooks",
+},
+["a_a9"] = 
+{ 
+    name = "Gathering of Death",
+    desc = "Kill %d buzzards",
+},
+["a_a10"] = 
+{ 
+    name = "Eating Beans",
+    desc = "Kill %d lureplants",
+},
+["a_a11"] = 
+{ 
+    name = "Feeling Stuffed",
+    desc = "Equip a lureplant for %d seconds",
+},
+["a_a12"] = 
+{ 
+    name = "Want to Sing for You",
+    desc = "Equip a musical instrument for %d seconds",
+},
+["a_a13"] = 
+{ 
+    name = "Neither Pain Nor Itch",
+    desc = "Craft %d marble suits",
+},
+["a_a14"] = 
+{ 
+    name = "Ancient Three-piece Set I",
+    desc = "Craft %d thulecite crowns",
+},
+["a_a15"] = 
+{ 
+    name = "Ancient Three-piece Set II",
+    desc = "Craft %d thulecite suits",
+},
+["a_a16"] = 
+{ 
+    name = "Ancient Three-piece Set III",
+    desc = "Craft %d thulecite clubs",
+},
+["a_a17"] = 
+{ 
+    name = "One Sulfur, Two Nitres, Three Charcoals",
+    desc = "Craft %d gunpowder",
+},
+["a_a18"] = 
+{ 
+    name = "Dark Fuel",
+    desc = "Craft %d nightmare fuels",
+},
+["a_a19"] = 
+{ 
     name = "Halloween",
-    desc = "Make %d pumpkin lanterns",
-  },
-  ["a_a20"] =
-  {
-    name = "Small injuries are not hindered",
-    desc = "Make %d healing ointments",
-  },
-  ["a_a21"] =
-  {
+    desc = "Craft %d pumpkin lanterns",
+},
+["a_a20"] = 
+{ 
+    name = "Minor Injuries",
+    desc = "Craft %d healing salves",
+},
+["a_a21"] = 
+{ 
     name = "Sweet Bandage",
-    desc = "Make %d honey ointment",
+    desc = "Craft %d honey poultices",
+},
+["a_a22"] = 
+{ 
+    name = "Thorny Hands",
+    desc = "Harvest %d cacti",
+},
+["a_a23"] = 
+{ 
+    name = "My Life Relies on Waves",
+    desc = "Maintain 1 HP for %d seconds",
+},
+["a_a24"] = 
+{ 
+    name = "Hidden Achievement - Truly Unfortunate",
+    desc = "Die by moleworm or bunnyman",
+},
+["a_a25"] = 
+{ 
+    name = "Hidden Achievement - Junior Chef",
+    desc = "Cook %d food items",
+},
+["a_a26"] = 
+{ 
+    name = "Blowgun Weaponry",
+    desc = "Craft %d blow darts",
+},
+["a_a27"] = 
+{ 
+    name = "Sedative Weaponry",
+    desc = "Craft %d tranquilizer darts",
+},
+["a_a28"] = 
+{ 
+    name = "Electromagnetic Weaponry",
+    desc = "Craft %d electric darts",
+},
+["a_a29"] = 
+{ 
+    name = "Incendiary Weaponry",
+    desc = "Craft %d fire darts",
+},
+["a_a30"] = 
+  { 
+    name =  "Shadow Blade",
+    desc = "Craft %d Shadow Swords",
   },
-  ["a_a22"] =
-  {
-    name = "Handsome",
-    desc = "Collect cactus %d times",
+  ["a_a31"] = 
+  { 
+    name =  "Rise and Fight Again",
+    desc = "Craft %d Life Amulets",
   },
-  ["a_a23"] =
-  {
-    name = "My life depends on the waves",
-    desc = "1 blood for %d seconds",
+  ["a_a32"] = 
+  { 
+    name =  "Sleep Tight",
+    desc = "Craft %d Pan Flutes",
   },
-  ["a_a24"] =
-  {
-    name = "Hidden task---There is really no one else",
-    desc = "Dead to a mole or a little rabbit",
-  },
-  ["a_a25"] =
-  {
-    name = "Hidden Mission---Chinese Little Master",
-    desc = "%d food cooked",
-  },
-  ["a_a26"] =
-  {
-    name = "Blowing arrows hidden weapon",
-    desc = "Make %d blow arrows",
-  },
-  ["a_a27"] =
-  {
-    name = "Anesthesia Concealed Device",
-    desc = "Make %d anesthesia blow arrows",
-  },
-  ["a_a28"] =
-  {
-    name = "Electromagnetic Concealed Weapon",
-    desc = "Make %d electromagnetic blow arrows",
-  },
-  ["a_a29"] =
-  {
-    name = "Burning Hidden Weapon",
-    desc = "Make %d burning blow arrows",
-  },
-  ["a_a30"] =
-  {
-    name = "Shadow Blade",
-    desc = "Make %d Shadow Knife",
-  },
-  ["a_a31"] =
-  {
-    name = "Stand up and fight again",
-    desc = "Make %d life charms",
-  },
-  ["a_a32"] =
-  {
-    name = "Go to sleep, go to sleep",
-    desc = "Make %d panpipes",
-  },
-  ["a_a33"] =
-  {
-    name = "Planting afforestation",
+  ["a_a33"] = 
+  { 
+    name =  "Green Thumb",
     desc = "Plant %d trees",
   },
-  ["a_a34"] =
-  {
-    name = "Flower Butterfly",
+  ["a_a34"] = 
+  { 
+    name =  "Flower Lover",
     desc = "Plant %d flowers",
   },
-  ["a_a35"] =
-  {
-    name = "Red Mushroom Picker",
-    desc = "Gather red mushrooms %d times",
+  ["a_a35"] = 
+  { 
+    name =  "Red Mushroom Harvester",
+    desc = "Harvest %d Red Mushrooms",
   },
-  ["a_a36"] =
-  {
-    name = "Blue Mushroom Picker",
-    desc = "Collect blue mushrooms %d times",
+  ["a_a36"] = 
+  { 
+    name =  "Blue Mushroom Harvester",
+    desc = "Harvest %d Blue Mushrooms",
   },
-  ["a_a37"] =
-  {
-    name = "A green mushroom picker",
-    desc = "Gather green mushrooms %d times",
+  ["a_a37"] = 
+  { 
+    name =  "Green Mushroom Harvester",
+    desc = "Harvest %d Green Mushrooms",
   },
-  ["a_a38"] =
-  {
-    name = "Worry-free night vision",
-    desc = "Make %d mole hats",
+  ["a_a38"] = 
+  { 
+    name =  "Night Vision",
+    desc = "Craft %d Moleworm Hats",
   },
-  ["a_a39"] =
-  {
-    name = "I think you need an injection",
-    desc = "Make %d a strong heart needle",
+  ["a_a39"] = 
+  { 
+    name =  "I Think You Need a Shot",
+    desc = "Craft %d Booster Shots",
   },
-  ["a_a40"] =
-  {
-    name = "Sleep warm",
-    desc = "Make %d fur bedding",
+  ["a_a40"] = 
+  { 
+    name =  "Warm Sleep",
+    desc = "Craft %d Fur Rolls",
   },
-  ["a_a41"] =
-  {
-    name = "Bloodthirsty",
-    desc = "Make %d bat axe sticks",
+  ["a_a41"] = 
+  { 
+    name =  "Bloodlust",
+    desc = "Craft %d Bat Batons",
   },
-  ["a_a42"] =
-  {
-    name = "Sand without hindrance",
-    desc = "Make %d desert goggles",
+  ["a_a42"] = 
+  { 
+    name =  "Sandstorm Protection",
+    desc = "Craft %d Desert Goggles",
   },
-  ["a_a43"] =
-  {
-    name = "Don't want to get in the rain",
-    desc = "Make %d rain hats",
+  ["a_a43"] = 
+  { 
+    name =  "Rainy Day Avoidance",
+    desc = "Craft %d Rain Hats",
   },
-  ["a_a44"] =
-  {
-    name = "Little Helper",
-    desc = "Make %d whirlwind",
+  ["a_a44"] = 
+  { 
+    name =  "Little Helper",
+    desc = "Craft %d Whirligigs",
   },
-  ["a_a45"] =
-  {
-    name = "Electric stick cool in rainy days",
-    desc = "Make %d morning stars",
+  ["a_a45"] = 
+  { 
+    name =  "Rainy Day Electrification",
+    desc = "Craft %d Morning Stars",
   },
-  ["a_a46"] =
-  {
-    name = "Glowing and accelerating",
-    desc = "Make %d magic light",
+  ["a_a46"] = 
+  { 
+    name =  "Glowing and Accelerating",
+    desc = "Craft %d Light Orbs",
   },
-  ["a_a47"] =
-  {
-    name = "Cut down trees and mine",
-    desc = "Make %d pickaxe and axe",
+  ["a_a47"] = 
+  { 
+    name =  "Tree Cutting and Mining",
+    desc = "Craft %d Pickaxe Axes",
   },
-  ["a_a48"] =
-  {
-    name = "Producing mushrooms",
-    desc = "Build %d mushroom farms",
+  ["a_a48"] = 
+  { 
+    name =  "Mushroom Farming",
+    desc = "Build %d Mushroom Farms",
   },
-  ["a_a49"] =
-  {
-    name = "Beekeeper",
-    desc = "Build %d beehives",
+  ["a_a49"] = 
+  { 
+    name =  "Beekeeper",
+    desc = "Build %d Bee Boxes",
   },
-  ["a_a50"] =
-  {
-    name = "Decorative coffee table",
-    desc = "Build %d coffee tables",
+  ["a_a50"] = 
+  { 
+    name =  "Decorate with Coffee Tables",
+    desc = "Build %d Coffee Tables",
   },
-  ["a_a51"] =
-  {
-    name = "Decorative Potted Plants",
-    desc = "Build %d potted succulents",
+  ["a_a51"] = 
+  { 
+    name =  "Decorate with Potted Plants",
+    desc = "Build %d Potted Succulents",
   },
-  ["a_a52"] =
-  {
-    name = "Self-help without worry",
-    desc = "Build %d meat statues",
+  ["a_a52"] = 
+  { 
+    name =  "Self-Rescue",
+    desc = "Build %d Meat Effigies",
   },
-  ["a_a53"] =
-  {
-    name = "Taunting the enemy",
-    desc = "Make %d Bernie",
+  ["a_a53"] = 
+  { 
+    name =  "Taunt Enemies",
+    desc = "Craft %d Bernies",
   },
-  ["a_a54"] =
-  {
-    name = "Sewing and Mending",
-    desc = "Make %d tape",
+  ["a_a54"] = 
+  { 
+    name =  "Patchwork",
+    desc = "Craft %d Duct Tapes",
   },
-  ["a_a55"] =
-  {
-    name = "Lei Gong help me",
-    desc = "Make %d doomsday book",
+  ["a_a55"] = 
+  { 
+    name =  "Thundergod Help Me",
+    desc = "Craft %d Doomsday Books",
   },
-  ["a_a56"] =
-  {
-    name = "Golden Helmet",
-    desc = "Make %d combat helmets",
+  ["a_a56"] = 
+  { 
+    name =  "Golden Helmet",
+    desc = "Craft %d Battle Helmets",
   },
-  ["a_a57"] =
-  {
-    name = "Fluorescent Fruit",
-    desc = "Collect fluorescent fruit %d times",
+  ["a_a57"] = 
+  { 
+    name =  "Glow Berry",
+    desc = "Harvest %d Glow Berries",
   },
-  ["a_a58"] =
-  {
-    name = "Famine on the Bite of the TongueⅨ",
-    desc = "Eat %d dragon fruit pie",
+  ["a_a58"] = 
+  { 
+    name =  "On the Tip of the Tongue IX",
+    desc = "Eat %d Dragonpie",
   },
-  ["a_a59"] =
-  {
-    name = "Famine on the Bite of the TongueⅩ",
-    desc = "Eat %d flower salad",
+  ["a_a59"] = 
+  { 
+    name =  "On the Tip of the Tongue X",
+    desc = "Eat %d Flower Salad",
   },
-  ["a_a60"] =
-  {
-    name = "Famine on the Bite of the TongueⅩⅡ",
-    desc = "Eat %d jerky",
+  ["a_a60"] = 
+  { 
+    name =  "On the Tip of the Tongue XII",
+    desc = "Eat %d Jerky",
   },
-  ["a_a61"] =
-  {
-    name = "Accumulate less into more",
-    desc = "Synthesis %d thulium ore",
+  ["a_a61"] = 
+  { 
+    name =  "Little by Little",
+    desc = "Smelt %d Thulecite",
   },
-  ["a_a62"] =
-  {
-    name = "Half price and half price",
-    desc = "Make %d construction charms",
+  ["a_a62"] = 
+  { 
+    name =  "Half Price",
+    desc = "Craft %d Construction Amulets",
   },
-  ["a_a63"] =
-  {
-    name = "Call the stars and call the moon",
-    desc = "Make %d Star Staff",
+  ["a_a63"] = 
+  { 
+    name =  "Call the Stars and Moon",
+    desc = "Craft %d Star Staffs",
   },
-  ["a_a64"] =
-  {
-    name = "Eat Set Rainbow",
-    desc = "Consumption %d jelly beans",
+  ["a_a64"] = 
+  { 
+    name =  "Eating Rainbow",
+    desc = "Consume %d Jellybeans",
   },
-  ["a_a65"] =
-  {
-    name = "PY transaction",
-    desc = "Trade %d times with Pig King",
+  ["a_a65"] = 
+  { 
+    name =  "Piggy Trade",
+    desc = "Trade with Pig King %d times",
   },
-  ["a_a66"] =
-  {
-    name = "Recycling",
-    desc = "Feed the bird %d times",
+  ["a_a66"] = 
+  { 
+    name =  "Recycling",
+    desc = "Feed Birds %d times",
   },
-  ["a_a67"] =
-  {
-    name = "Basic three-piece suit Ⅰ",
-    desc = "Make %d big meat sticks",
+  ["a_a67"] = 
+  { 
+    name =  "Basic Three-piece Suit I",
+    desc = "Craft %d Big Jerkies",
   },
-  ["a_a68"] =
-  {
-    name = "Basic three-piece suit Ⅱ",
-    desc = "Make %d pigskin helmets",
+  ["a_a68"] = 
+  { 
+    name =  "Basic Three-piece Suit II",
+    desc = "Craft %d Pigskin Helmets",
   },
-  ["a_a69"] =
-  {
-    name = "Basic three-piece suit Ⅲ",
-    desc = "Make %d wooden armor",
+  ["a_a69"] = 
+  { 
+    name =  "Basic Three-piece Suit III",
+    desc = "Craft %d Log Armors",
   },
-  ["a_a70"] =
-  {
-    name = "What do you want",
-    desc = "Pick up %d tumbleweed",
+  ["a_a70"] = 
+  { 
+    name =  "Ask and You Shall Receive",
+    desc = "Pick %d Tumbleweeds",
   },
-  ["a_a71"] =
-  {
-    name = "Gold Miner",
-    desc = "Mining %d mines",
+  ["a_a71"] = 
+  { 
+    name =  "Gold Miner",
+    desc = "Mine %d Gold Veins",
   },
-  ["a_a72"] =
-  {
-    name = "Icebreaker",
-    desc = "Dig %d glaciers",
+  ["a_a72"] = 
+  { 
+    name =  "Icebreaker",
+    desc = "Mine %d Glaciers",
   },
-  ["moon_01"] =
-  {
-    name = "Are you hungry?",
-    desc = "Equipped with Hunger Belt %d seconds",
+  ["moon_01"] = 
+  { 
+    name =  "Are You Hungry",
+    desc = "Equip Starvation Belt for %d seconds",
   },
-  ["moon_02"] =
-  {
-    name = "Sky Monkey",
-    desc = "Make %d flare",
+  ["moon_02"] = 
+  { 
+    name =  "Leap Monkey",
+    desc = "Craft %d Signal Flares",
   },
-  ["moon_03"] =
-  {
-    name = "Boat without paddle",
-    desc = "Make %d masts",
+  ["moon_03"] = 
+  { 
+    name =  "Rowing Without Oars",
+    desc = "Craft %d masts",
   },
-  ["moon_04"] =
-  {
-    name = "When an oar is not an oar",
-    desc = "Make %d driftwood oars",
+  ["moon_04"] = 
+  { 
+    name =  "When Paddle Isn't a Paddle",
+    desc = "Craft %d paddle oars",
   },
-  ["moon_05"] =
-  {
-    name = "Lens Knife",
-    desc = "Make %d lens knife",
+  ["moon_05"] = 
+  { 
+    name =  "Lens Blade",
+    desc = "Craft %d lens blades",
   },
-  ["moon_06"] =
-  {
-    name = "One hundred miles",
-    desc = "Use germinated stone fruit to plant %d stone fruit shrubs",
+  ["moon_06"] = 
+  { 
+    name =  "Picking the Best",
+    desc = "Plant %d sprouting stone fruits",
   },
-  ["moon_07"] =
-  {
-    name = "Puffin",
-    desc = "Kill %d puffins",
+  ["moon_07"] = 
+  { 
+    name =  "Seagull",
+    desc = "Kill %d seagulls",
   },
-  ["moon_08"] =
-  {
-    name = "Into Pansi Hole V",
-    desc = "Kill %d fragment spiders",
+  ["moon_08"] = 
+  { 
+    name =  "Into the Spider's Lair V",
+    desc = "Kill %d shard spiders",
   },
-  ["moon_09"] =
-  {
-    name = "Yaozi plant trees",
-    desc = "Plant %d half moon trees",
+  ["moon_09"] = 
+  { 
+    name =  "Planting Little Trees",
+    desc = "Plant %d crescent trees",
   },
-  ["moon_10"] =
-  {
-    name = "Is it a stone or a fruit",
-    desc = "Gather stone fruit shrubs %d times",
+  ["moon_10"] = 
+  { 
+    name =  "Stone or Fruit?",
+    desc = "Harvest %d stone fruit bushes",
   },
-  ["moon_11"] =
-  {
-    name = "It's so cruel",
-    desc = "Kill the little tallbird",
+  ["moon_11"] = 
+  { 
+    name =  "Just That Cruel",
+    desc =  "Kill little tallbirds",
   },
-  ["moon_12"] =
-  {
-    name = "This calf is not obedient",
-    desc = "Kill the calf",
+  ["moon_12"] = 
+  { 
+    name =  "This Little Cow Won't Listen",  
+    desc =  "Kill little beefalo",
   },
-  ["moon_13"] =
-  {
-    name = "Those licked by frogs cannot take care of themselves",
-    desc = "Licked %d times by a frog",
+  ["moon_13"] = 
+  { 
+    name =  "Licked by Frogs, Can't Help Yourself",   
+    desc = "Get licked by frogs %d times",
   },
-  ["moon_14"] =
-  {
-    name = "Big Fish and Meat",
-    desc = "Eat cooked meat or cooked fish or cooked chicken thigh %d times",
+  ["moon_14"] = 
+  { 
+    name =  "Feast on Fish and Meat",
+    desc = "Eat cooked meat or fish or drumsticks %d times",
   },
-  ["moon_15"] =
-  {
-    name = "Taffy is finally sugar",
-    desc = "Eat %d toffee",
+  ["moon_15"] = 
+  { 
+    name =  "Toffee Finally Sweetened",
+    desc = "Eat %d toffees",
   },
-  ["moon_16"] =
-  {
-    name = "Cute new wreath",
-    desc = "Put the wreath on %d seconds",
+  ["moon_16"] = 
+  { 
+    name =  "Novice Floral Crown",  
+    desc = "Wear a floral wreath for %d seconds", 
   },
-  ["moon_17"] =
-  {
-    name = "Cute new buddy",
-    desc = "Cooked %d failed dishes",
+  ["moon_17"] = 
+  { 
+    name =  "Novice Cook",
+    desc = "Cook %d failed dishes",
   },
-  ["moon_18"] =
-  {
-    name = "One pot end",
-    desc = "Dismantle %d third-level spider nests",
+  ["moon_18"] = 
+  { 
+    name =  "A Pot Carried",
+    desc = "Dismantle %d tier-3 spider dens",
   },
-  ["moon_19"] =
-  {
-    name = "Go back and make banana jelly",
-    desc = "Gather banana %d times",
+  ["moon_19"] = 
+  { 
+    name =  "Back to Making Banana Popsicles",
+    desc = "Harvest bananas %d times",
   },
-  ["moon_20"] =
-  {
-    name = "Who can help me make luminous berry mousse",
-    desc = "Collect small glowing berries %d times",
+  ["moon_20"] = 
+  { 
+    name =  "Who Can Help Me Make Glow Berry Mousse",
+    desc = "Harvest %d glow berries",
   },
-  ["moon_21"] =
-  {
-    name = "Clean up the ruins",
-    desc = "Dig ancient statue %d seat",
+  ["moon_21"] = 
+  { 
+    name =  "Clearing Ruins",
+    desc = "Dig up %d ancient statues",
   },
-  ["moon_22"] =
-  {
-    name = "Where is the entrance",
-    desc = "Kill the cave tentacle %d times",
+  ["moon_22"] = 
+  { 
+    name =  "Where's the Entrance",
+    desc = "Kill %d cave tentacles",
   },
-  ["moon_23"] =
-  {
-    name = "I will kill the living",
-    desc = "Kill the little tentacle %d only",
+  ["moon_23"] = 
+  { 
+    name =  "Anything Alive Shall Be Killed", 
+    desc = "Kill %d little tentacles",
   },
-  ["moon_24"] =
-  {
-    name = "One pot can't fit in",
-    desc = "Kill the albatross",
+  ["moon_24"] = 
+  { 
+    name =  "One Pot Can't Fit All",
+    desc =  "Kill a Malbatross",
   },
-  ["moon_25"] =
-  {
-    name = "Free pigskin is here",
-    desc = "Full moon kills mad pig %d head",
+  ["moon_25"] = 
+  { 
+    name =  "Free Pig Skin is Here",
+    desc = "Kill %d wild boars during full moon",
   },
-  ["moon_26"] =
-  {
-    name = "Magic Bean",
+  ["moon_26"] = 
+  { 
+    name =  "Magic Beans",
     desc = "Plant marble beans %d times",
   },
-  ["moon_27"] =
-  {
-    name = "Sojourner",
-    desc = "Equip the snail shell for %d seconds",
+  ["moon_27"] = 
+  { 
+    name =  "Houseguest", 
+    desc = "Equip a snail shell for %d seconds",
   },
-  ["moon_28"] =
-  {
-    name = "I killed me",
-    desc = "Dead by a boomerang",
+  ["moon_28"] = 
+  { 
+    name =  "I Killed Myself",
+    desc =  "Die from a boomerang",
   },
-  ["moon_29"] =
-  {
-    name = "Perfect Disguise",
-    desc = "Equipped Jungle Hat%d seconds",
+  ["moon_29"] = 
+  { 
+    name =  "Perfect Disguise",
+    desc = "Equip a jungle hat for %d seconds",
   },
-  ["moon_30"] =
-  {
-    name = "The Power of Witnessing the Moon",
-    desc = "The full moon is close to the platform with the star-calling rod inserted for %d seconds",
+  ["moon_30"] = 
+  { 
+    name =  "Witness the Power of the Moon",
+    desc = "Stay near a moon altar with a celestial staff inserted for %d seconds",
   },
-  ["moon_31"] =
-  {
-    name = "Natural GPS",
-    desc = "Carry the celestial spirit orb for %d seconds",
+  ["moon_31"] = 
+  { 
+    name =  "Natural GPS",
+    desc = "Carry a celestial orb for %d seconds",
   },
-  ["moon_32"] =
-  {
-    name = "Mengxin streaking",
-    desc = "Keep the equipment slot without any equipment for %d seconds",
+  ["moon_32"] = 
+  { 
+    name =  "Novice Streaking",
+    desc = "Keep all equipment slots empty for %d seconds",
   },
-  ["moon_33"] =
-  {
-    name = "Mobile refrigerator",
-    desc = "Carry ice and cut %d seconds",
+  ["moon_33"] = 
+  { 
+    name =  "Moving Refrigerator",
+    desc = "Carry an ice flingomatic for %d seconds",
   },
-  ["moon_34"] =
-  {
-    name = "Stone Fruit Draw",
-    desc = "Knock %d stone fruit",
+  ["moon_34"] = 
+  { 
+    name =  "Stone Fruit Lottery",
+    desc = "Crack open %d stone fruits",
   },
-  ["moon_35"] =
-  {
-    name = "Space Move",
-    desc = "Jump into %d wormhole",
+  ["moon_35"] = 
+  { 
+    name =  "Space Travel",
+    desc = "Jump into wormholes %d times",
   },
-  ["moon_36"] =
-  {
-    name = "Deep into the big pit",
-    desc = "Jump into the cave tentacle cave %d times",
+  ["moon_36"] = 
+  { 
+    name =  "Into the Deep Pit",
+    desc = "Jump into cave tentacle holes %d times",
   },
-  ["moon_37"] =
-  {
-    name = "Delicious Waffles",
+  ["moon_37"] = 
+  { 
+    name =  "Delicious Waffles",
     desc = "Cook %d waffles",
   },
-  ["moon_38"] =
-  {
-    name = "Mengxin Melaleuca",
-    desc = "Cook %d monster cakes",
+  ["moon_38"] = 
+  { 
+    name =  "Novice Layered Cake",
+    desc = "Cook %d monster layered cakes",
   },
-  ["moon_39"] =
-  {
-    name = "Sense Banana Jelly",
-    desc = "Cook %d banana jelly",
+  ["moon_39"] = 
+  { 
+    name =  "Sanity Banana Split",
+    desc = "Cook %d banana popsicles",
   },
-  ["moon_40"] =
-  {
-    name = "Mengxin Stew Soup",
-    desc = "Cook %d bone soup",
+  ["moon_40"] = 
+  { 
+    name =  "Novice Stew",
+    desc = "Cook %d bone soups",
   },
-  ["moon_41"] =
-  {
-    name = "Chef Exclusive",
-    desc = "Cook %d electric croissant jelly",
+  ["moon_41"] = 
+  { 
+    name =  "Exclusive Chef",
+    desc = "Cook %d volt goat jellies",
   },
-  ["moon_42"] =
-  {
-    name = "Modify yourself",
+  ["moon_42"] = 
+  { 
+    name =  "Modify Yourself",
     desc = "Eat %d gears",
   },
-  ["moon_43"] =
-  {
-    name = "Reed paper making",
+  ["moon_43"] = 
+  { 
+    name =  "Reed Paper",
     desc = "Collect %d reeds",
   },
-  ["moon_44"] =
-  {
-    name = "Space Miner",
-    desc = "Digging %d moon lens mine or hot spring",
+  ["moon_44"] = 
+  { 
+    name =  "Space Miner",
+    desc = "Mine %d moon rock or moon glass nodes",
   },
-  ["moon_45"] =
-  {
-    name = "Starfish is OK",
-    desc = "Plant starfish %d times",
+  ["moon_45"] = 
+  { 
+    name =  "Starfish Alright",
+    desc = "Plant %d starfish",
   },
-  ["moon_46"] =
-  {
-    name = "Pull the carrot",
-    desc = "Pull the carrot rat %d times",
+  ["moon_46"] = 
+  { 
+    name =  "Pulling Radishes",
+    desc = "Pull %d carrot tails",
   },
-  ["moon_47"] =
-  {
-    name = "Mechanic",
+  ["moon_47"] = 
+  { 
+    name =  "Mechanic",
     desc = "Repair %d mechanical ruins",
   },
-  ["moon_48"] =
-  {
-    name = "Complete Altar",
+  ["moon_48"] = 
+  { 
+    name =  "Complete Altar",
     desc = "Repair %d ancient altars",
   },
-  ["moon_49"] =
-  {
-    name = "Pond irrigation",
-    desc = "Mosquito blood bag filled %d times",
-  },
-  ["moon_50"] =
-  {
-    name = "Prodigal",
-    desc = "Achievement points, %d group (40) amethyst for four points, hehe",
-  },
-  ["moon_51"] =
-  {
-    name = "Take up the courage to say something",
-    desc = "Any sentence typed and spoken",
-  },
-  ["moon_52"] =
-  {
-    name = "Ink on the face",
-    desc = "Kill %d only fast-moving squid",
-  },
-  ["moon_53"] =
-  {
-    name = "Famine on the Bite of the TongueⅩⅢ",
-    desc = "Eat %d seafood soup",
-  },
-  ["moon_54"] =
-  {
-    name = "Famine on the Bite of the TongueⅩⅣ",
-    desc = "Eat %d seafood steak",
-  },
-  ["moon_55"] =
-  {
-    name = "Famine on the Bite of the TongueⅩⅤ",
-    desc = "Eat %d California rolls",
-  },
-  ["moon_56"] =
-  {
-    name = "The author's holy light surrounds you",
-    desc = "Hidden achievements---pray to the author and never collapse",
-  },
-  ["moon_57"] =
-  {
-    name = "Want to eat dragon fruit",
-    desc = "Hidden achievement---kill %d salad salamanders",
-  },
-  ["moon_58"] =
-  {
-    name = "Ambush on Ten Sides",
-    desc = "Make %d dogtooth traps",
-  },
-  ["moon_59"] =
-  {
-    name = "",
-    desc = "",
-  },
-  ["moon_60"] =
-  {
-    name = "",
-    desc = "",
-  },
-  ["seas_01"] =
-  {
-    name = "Red Spore",
-    desc = "Have %d red spores",
-  },
-  ["seas_02"] =
-  {
-    name = "Green Spore",
-    desc = "Have %d green spores",
-  },
-  ["seas_03"] =
-  {
-    name = "Blue Spore",
-    desc = "Have %d blue spores",
-  },
-  ["seas_04"] =
-  {
-    name = "Youren sleeps in the night before the young",
-    desc = "Accumulated sleeping %d seconds",
-  },
-  ["seas_05"] =
-  {
-    name = "Food is poisonous",
-    desc = "Dying from food",
-  },
-  ["seas_06"] =
-  {
-    name = "Never stop dying",
-    desc = "Cause %d times",
-  },
-  ["seas_07"] =
-  {
-    name = "Flowers can be folded straight and must be folded",
-    desc = "Collect %d roses",
-  },
-  ["seas_08"] =
-  {
-    name = "Bald raccoon",
-    desc = "Make friends with %d raccoons",
-  },
-  ["seas_09"] =
-  {
-    name = "Spider Army",
-    desc = "Buy %d little spider brother",
-  },
-  ["seas_10"] =
-  {
-    name = "Is really hard",
-    desc = "Kill 1 stone shrimp",
-  },
-  ["seas_11"] =
-  {
-    name = "Green pig is okay",
-    desc = "Cuckold the pig",
-  },
-  ["seas_12"] =
-  {
-    name = "Sacrifice to you",
-    desc = "Give Antlion %d a toy",
-  },
-  ["seas_13"] =
-  {
-    name = "Mobile teleportation rustling",
-    desc = "The staff teleported %d times",
-  },
-  ["seas_14"] =
-  {
-    name = "Riding King",
-    desc = "Riding a bull%d seconds",
-  },
-  ["seas_15"] =
-  {
-    name = "Eye of the Moon",
-    desc = "Have red, blue, purple, yellow, orange, and green moon eyes at the same time",
-  },
-  ["seas_16"] =
-  {
-    name = "Ranking General",
-    desc = "Kill the King Crab",
-  },
-  ["seas_17"] =
-  {
-    name = "Famine on the Bite of the TongueⅩⅥ",
-    desc = "Eat %d lobster soup",
-  },
-  ["seas_18"] =
-  {
-    name = "Famine on the Bite of the TongueⅩⅦ",
-    desc = "Eat %d lobster dinner",
-  },
-  ["seas_19"] =
-  {
-    name = "Sea King Poseidon",
-    desc = "Make a trident",
-  },
-  ["seas_20"] =
-  {
-    name = "Change Change Change",
-    desc = "Make a cleaning broom",
-  },
-  ["boss_01"] =
-  {
-    name = "Cumulative Kills",
-    desc = "Kill",
-  },
-  ["boss_02"] =
-  {
-    name = "Cumulative Kills",
-    desc = "Kill",
-  },
-  ["boss_03"] =
-  {
-    name = "Cumulative Kills",
-    desc = "Kill",
-  },
-  ["boss_04"] =
-  {
-    name = "Cumulative Kills",
-    desc = "Kill",
-  },
-  ["boss_05"] =
-  {
-    name = "Cumulative Kills",
-    desc = "Kill",
-  },
-  ["boss_06"] =
-  {
-    name = "Cumulative Kills",
-    desc = "Kill",
-  },
-  ["boss_07"] =
-  {
-    name = "Cumulative Kills",
-    desc = "Kill",
-  },
-  ["boss_08"] =
-  {
-    name = "Cumulative Kills",
-    desc = "Kill",
-  },
-  ["boss_09"] =
-  {
-    name = "Cumulative Kills",
-    desc = "Kill",
-  },
-  ["boss_10"] =
-  {
-    name = "Cumulative Kills",
-    desc = "Kill",
-  },
-  ["boss_11"] =
-  {
-    name = "Cumulative Kills",
-    desc = "Kill",
-  },
-  ["boss_12"] =
-  {
-    name = "Cumulative Kills",
-    desc = "Kill",
-  },
-  ["boss_13"] =
-  {
-    name = "Cumulative Kills",
-    desc = "Kill",
-  },
-  ["boss_14"] =
-  {
-    name = "Cumulative Kills",
-    desc = "Kill",
-  },
-  ["boss_15"] =
-  {
-    name = "Cumulative Kills",
-    desc = "Kill",
-  },
-  ["boss_16"] =
-  {
-    name = "Cumulative Kills",
-    desc = "Kill",
-  },
-  ["boss_17"] =
-  {
-    name = "Cumulative Kills",
-    desc = "Kill",
-  },
-  ["boss_18"] =
-  {
-    name = "Cumulative Kills",
-    desc = "Kill",
-  },
-  ["boss_19"] =
-  {
-    name = "Cumulative Kills",
-    desc = "Kill",
-  },
-  ["boss_20"] =
-  {
-    name = "Cumulative Kills",
-    desc = "Kill",
-  },
-  ["boss_21"] =
-  {
-    name = "Cumulative Kills",
-    desc = "Kill",
-  },
-  ["boss_22"] =
-  {
-    name = "Cumulative Kills",
-    desc = "Kill",
-  },
-  ["boss_23"] =
-  {
-    name = "Cumulative Kills",
-    desc = "Kill",
-  },
-  ["boss_24"] =
-  {
-    name = "Cumulative Kills",
-    desc = "Kill",
-  },
-  ["boss_25"] =
-  {
-    name = "Cumulative Kills",
-    desc = "Kill",
-  },
-  ["boss_26"] =
-  {
-    name = "Cumulative Kills",
-    desc = "Kill",
-  },
-  ["boss_27"] =
-  {
-    name = "Cumulative Kills",
-    desc = "Kill",
-  },
-  ["boss_28"] =
-  {
-    name = "Cumulative Kills",
-    desc = "Kill",
-  },
-  ["killbyrose"] =
-  {
-    name = "The rose is dead",
-    desc = "Dying under a rose, and being a ghost is also romantic",
-  },
-  ["eatleafymeatsouffle"] =
-  {
-    name = "Q bullet",
-    desc = "Eat %d jelly salad",
-  },
-  ["reviveamulet"] =
-  {
-    name = "Don't ask if Qikuo is dead or alive",
-    desc = "Life Amulet resurrected %d times",
-  },
-  ["getbathbomb"] =
-  {
-    name = "Bath Salt Bomb",
-    desc = "Have %d explosive bath salts",
-  },
-  ["killshadowknight3"] =
-  {
-    name = "Shadow Knight",
-    desc = "Kill the third-level shadow knight",
-  },
-  ["killshadowbishop3"] =
-  {
-    name = "Shadow Bishop",
-    desc = "Kill the third-level Shadow Bishop",
-  },
-  ["killshadowrook3"] =
-  {
-    name = "Shadow Chariot",
-    desc = "Kill the third-level shadow chariot",
-  },
-  ["starvedeath"] =
-  {
-    name = "Famine",
-    desc = "Dead of hunger",
-  },
+  ["moon_49"] = 
+  { 
+    name =  "Pond Irrigation",
+    desc = "Fill mosquito sacks %d times",
+  },
+  ["moon_50"] = 
+  { 
+    name =  "Spendthrift",
+    desc = "Achievement points, %d sets (40) of purple gems exchange for four points, hehe",
+  },
+  ["moon_51"] = 
+  { 
+    name =  "Summon Courage to Speak",
+    desc =  "Say a sentence by typing",
+  },
+  ["moon_52"] = 
+  { 
+    name =  "Ink Face",
+    desc = "Kill %d swift skittersquids",
+  },
+  ["moon_53"] = 
+  { 
+    name =  "Don't Starve on the Tongue XIII",
+    desc = "Eat %d seafood gumbo",
+  },
+  ["moon_54"] = 
+  { 
+    name =  "Don't Starve on the Tongue XIV",
+    desc = "Eat %d seafood dinner",
+  },
+  ["moon_55"] = 
+  { 
+    name =  "Don't Starve on the Tongue XV",
+    desc = "Eat %d california rolls",
+  },
+  ["moon_56"] = 
+  { 
+    name =  "The Author's Holy Light Surrounds You",
+    desc =  "Hidden achievement - Pray to the author, never crash",
+  },
+  ["moon_57"] = 
+  { 
+    name =  "Craving Dragon Fruit",
+    desc =  "Hidden achievement - Kill %d saladmanders",
+  },
+  ["moon_58"] = 
+  { 
+    name =  "Ambush on All Sides",
+    desc =  "Craft %d tooth traps",
+  },
+  ["moon_59"] = 
+  { 
+    name =  "",
+    desc =  "",
+  },
+  ["moon_60"] = 
+  { 
+    name =  "",
+    desc =  "",
+  },
+  ["seas_01"] = 
+  { 
+    name =  "Red Spores",
+    desc =  "Own %d red spores",
+  },
+  ["seas_02"] = 
+  { 
+    name =  "Green Spores",
+    desc =  "Own %d green spores",
+  },
+  ["seas_03"] = 
+  { 
+    name =  "Blue Spores",
+    desc =  "Own %d blue spores",
+  },
+  ["seas_04"] = 
+  { 
+    name =  "Sleepless Nights",
+    desc = "Accumulate %d seconds of sleep",
+  },
+  ["seas_05"] = 
+  { 
+    name =  "Toxic Food",
+    desc =  "Die from food poisoning",
+  },
+  ["seas_06"] = 
+  { 
+    name =  "Never Cease to Die",
+    desc = "Haunt %d times",
+  },
+  ["seas_07"] = 
+  { 
+    name =  "Pluck Flowers When They Bloom",
+    desc = "Pick %d roses",
+  },
+  ["seas_08"] = 
+  { 
+    name =  "Bare Bear Hugs",
+    desc = "Befriend %d bears",
+  },
+  ["seas_09"] = 
+  { 
+    name =  "Spider Army",
+    desc = "Bribe %d spider henchmen",
+  },
+  ["seas_10"] = 
+  { 
+    name =  "Truly Hard",
+    desc =  "Kill 1 stone lobster",
+  },
+  ["seas_11"] = 
+  { 
+    name =  "Turning Pigs Green is Fine",
+    desc =  "Put green hats on pigs",
+  },
+  ["seas_12"] = 
+  { 
+    name =  "Offering to You",
+    desc = "Give %d toys to mant lions",
+  },
+  ["seas_13"] = 
+  { 
+    name =  "Instant Teleportation Whoosh Whoosh",
+    desc = "Teleport %d times with a telestaff",
+  },
+  ["seas_14"] = 
+  { 
+    name =  "King of Riding",
+    desc = "Ride a beefalo for %d seconds",
+  },
+  ["seas_15"] = 
+  { 
+    name =  "Eye of the Moon",
+    desc =  "Possess red, blue, purple, yellow, orange, and green Moon Eyes simultaneously",
+  },
+  ["seas_16"] = 
+  { 
+    name =  "Commander",
+    desc =  "Kill a Royal Crab",
+  },
+  ["seas_17"] = 
+  { 
+    name =  "Don't Starve on the Tongue XVI",
+    desc = "Eat %d lobster bisques",
+  },
+  ["seas_18"] = 
+  { 
+    name =  "Don't Starve on the Tongue XVII",
+    desc = "Eat %d lobster dinners",
+  },
+  ["seas_19"] = 
+  { 
+    name =  "Poseidon, King of the Sea",
+    desc =  "Craft 1 trident",
+  },
+  ["seas_20"] = 
+  { 
+    name =  "Change, Change, Change",
+    desc =  "Craft 1 tidy broom",
+  },
+  ["boss_01"] = 
+  { 
+    name =  "Cumulative Kills",
+    desc =  "Kill",
+  },
+  ["boss_02"] = 
+  { 
+    name =  "Cumulative Kills",
+    desc =  "Kill",
+  },
+  ["boss_03"] = 
+  { 
+    name =  "Cumulative Kills",
+    desc =  "Kill",
+  },
+  ["boss_04"] = 
+  { 
+    name =  "Cumulative Kills",
+    desc =  "Kill",
+  },
+  ["boss_05"] = 
+  { 
+    name =  "Cumulative Kills",
+    desc =  "Kill",
+  },
+  ["boss_06"] = 
+  { 
+    name =  "Cumulative Kills",
+    desc =  "Kill",
+  },
+  ["boss_07"] = 
+  { 
+    name =  "Cumulative Kills",
+    desc =  "Kill",
+  },
+  ["boss_08"] = 
+  { 
+    name =  "Cumulative Kills",
+    desc =  "Kill",
+  },
+  ["boss_09"] = 
+  { 
+    name =  "Cumulative Kills",
+    desc =  "Kill",
+  },
+  ["boss_10"] = 
+  { 
+    name =  "Cumulative Kills",
+    desc =  "Kill",
+  },
+  ["boss_11"] = 
+  { 
+    name =  "Cumulative Kills",
+    desc =  "Kill",
+  },
+  ["boss_12"] = 
+  { 
+    name =  "Cumulative Kills",
+    desc =  "Kill",
+  },
+  ["boss_13"] = 
+  { 
+    name =  "Cumulative Kills",
+    desc =  "Kill",
+  },
+  ["boss_14"] = 
+  { 
+    name =  "Cumulative Kills",
+    desc =  "Kill",
+  },
+  ["boss_15"] = 
+  { 
+    name =  "Cumulative Kills",
+    desc =  "Kill",
+  },
+  ["boss_16"] = 
+  { 
+    name =  "Cumulative Kills",
+    desc =  "Kill",
+  },
+  ["boss_17"] = 
+  { 
+    name =  "Cumulative Kills",
+    desc =  "Kill",
+  },
+  ["boss_18"] = 
+  { 
+    name =  "Cumulative Kills",
+    desc =  "Kill",
+  },
+  ["boss_19"] = 
+  { 
+    name =  "Cumulative Kills",
+    desc =  "Kill",
+  },
+  ["boss_20"] = 
+  { 
+    name =  "Cumulative Kills",
+    desc =  "Kill",
+  },
+  ["boss_21"] = 
+  { 
+    name =  "Cumulative Kills",
+    desc =  "Kill",
+  },
+  ["boss_22"] = 
+  { 
+    name =  "Cumulative Kills",
+    desc =  "Kill",
+  },
+  ["boss_23"] = 
+  { 
+    name =  "Cumulative Kills",
+    desc =  "Kill",
+  },
+  ["boss_24"] = 
+  { 
+    name =  "Cumulative Kills",
+    desc =  "Kill",
+  },
+  ["boss_25"] = 
+  { 
+    name =  "Cumulative Kills",
+    desc =  "Kill",
+  },
+  ["boss_26"] = 
+  { 
+    name =  "Cumulative Kills",
+    desc =  "Kill",
+  },
+  ["boss_27"] = 
+  { 
+    name =  "Cumulative Kills",
+    desc =  "Kill",
+  },
+  ["boss_28"] = 
+  { 
+    name =  "Cumulative Kills",
+    desc =  "Kill",
+  },
+  ["boss_29"] = 
+  { 
+    name =  "Cumulative Kills",
+    desc =  "Kill",
+  },
+  ["boss_30"] = 
+  { 
+    name =  "Cumulative Kills",
+    desc =  "Kill",
+  },
+  ["boss_31"] = 
+  { 
+    name =  "Cumulative Kills",
+    desc =  "Kill",
+  },
+  ["boss_32"] = 
+  { 
+    name =  "Cumulative Kills",
+    desc =  "Kill",
+  },
+  ["boss_33"] = 
+  { 
+    name =  "Cumulative Kills",
+    desc =  "Kill",
+  },
+  ["boss_34"] = 
+  { 
+    name =  "Cumulative Kills",
+    desc =  "Kill",
+  },
+  ["killbyrose"] = 
+  { 
+    name =  "Under the Rose",
+    desc =  "To die under the rose, even as a ghost, is graceful",
+  },
+  ["eatleafymeatsouffle"] = 
+  { 
+    name =  "Q Elastic",
+    desc =  "Eat %d leafy meat soufflés",
+  },
+  ["reviveamulet"] = 
+  { 
+    name =  "Bound in Life and Death",
+    desc =  "Revive %d times with a life-giving amulet",
+  },  
+  ["getbathbomb"] = 
+  { 
+    name =  "Bath Salt Bomb",
+    desc =  "Own %d explosive bath salts",
+  },
+  ["killshadowknight3"] = 
+  { 
+    name =  "Shadow Knight",
+    desc =  "Kill a level 3 Shadow Knight",
+  },    
+  ["killshadowbishop3"] = 
+  { 
+    name =  "Shadow Bishop",
+    desc =  "Kill a level 3 Shadow Bishop",
+  },
+  ["killshadowrook3"] = 
+  { 
+    name =  "Shadow Rook",
+    desc =  "Kill a level 3 Shadow Rook",
+  },  
+  ["starvedeath"] = 
+  { 
+    name =  "Starvation",
+    desc =  "Die of hunger",
+  },  
   ["killlordfruitfly"] = 
   { 
-    name =  "果蝇王",
-    desc =  "孟德尔的杂交实验",
+    name =  "Lord Fruit Fly",
+    desc =  "Mendel's hybrid experiment",
   },
   ["killalterguardian_phase1"] = 
   { 
-    name =  "天体守卫",
-    desc =  "击杀天体守卫形态1",
+    name =  "Celestial Guardian",
+    desc =  "Kill Celestial Guardian phase 1",
   },
   ["killalterguardian_phase2"] = 
   { 
-    name =  "天体守卫-再战",
-    desc =  "击杀天体守卫形态2",
+    name =  "Celestial Guardian - Revisited",
+    desc =  "Kill Celestial Guardian phase 2",
   },
   ["killalterguardian_phase3"] = 
   { 
-    name =  "天体守卫-本来面目",
-    desc =  "击杀天体守卫形态3",
+    name =  "Celestial Guardian - True Form",
+    desc =  "Kill Celestial Guardian phase 3",
   },
   ["killeyeofterror"] = 
   { 
-    name =  "恐怖之眼",
-    desc =  "击杀恐怖之眼",
+    name =  "Eye of Terror",
+    desc =  "Kill Eye of Terror",
   },
   ["killtwinofterror1"] = 
   { 
-    name =  "激光眼",
-    desc =  "击杀双子魔眼-激光眼",
+    name =  "Laser Eye",
+    desc =  "Kill Twin Terror - Laser Eye",
   },
   ["killtwinofterror2"] = 
   { 
-    name =  "魔焰眼",
-    desc =  "击杀双子魔眼-魔焰眼",
+    name =  "Flame Eye",
+    desc =  "Kill Twin Terror - Flame Eye",
   },
 
   ["killshadowthrall_hands"] = 
   { 
-    name =  "墨荒-手",
-    desc =  "击杀墨荒-手",
+    name =  "Ink Wilderness - Hand",
+    desc =  "Kill Ink Wilderness - Hand",
   },
   ["killshadowthrall_wings"] = 
   { 
-    name =  "墨荒-翅膀",
-    desc =  "击杀墨荒-翅膀",
+    name =  "Ink Wilderness - Wing",
+    desc =  "Kill Ink Wilderness - Wing",
   },
   ["killshadowthrall_horns"] = 
   { 
-    name =  "墨荒-头",
-    desc =  "击杀墨荒-头",
+    name =  "Ink Wilderness - Head",
+    desc =  "Kill Ink Wilderness - Head",
   },
 
   ["killdaywalker"] = 
   { 
-    name =  "梦魇疯猪",
-    desc =  "击杀梦魇疯猪",
+    name =  "Nightmare Crazy Pig",
+    desc =  "Kill Nightmare Crazy Pig",
   },
   ["killdaywalker2"] = 
   { 
-    name =  "拾荒疯猪",
-    desc =  "击杀拾荒疯猪",
+    name =  "Scavenger Crazy Pig",
+    desc =  "Kill Scavenger Crazy Pig",
   },
   ["killsharkboi"] = 
   { 
-    name =  "大霜鲨",
-    desc =  "击杀大霜鲨",
+    name =  "Frost Shark",
+    desc =  "Kill Frost Shark",
   },
   ["killarchive_centipede"] = 
   { 
-    name =  "远古哨兵蜈蚣",
-    desc =  "击杀远古哨兵蜈蚣",
+    name =  "Ancient Sentinel Centipede",
+    desc =  "Kill Ancient Sentinel Centipede",
   },
 
   ["killlunarthrall_plant"] = 
   { 
-    name =  "致命亮茄",
-    desc =  "让你寄生我的植物！",
+    name =  "Deadly Bright Eggplant",
+    desc =  "Let your parasitic plants do the job!",
+  },
+  
+  ["killmutatedbearger"] = 
+  { 
+    name =  "Armored Bearger",
+    desc =  "This meat is armored",
+  },
+  
+  ["killmutateddeerclops"] = 
+  { 
+    name =  "Crystal Cyclops",
+    desc =  "There's something in its eye",
+  },
+  
+  ["killmutatedwarg"] =
+  {
+    name =  "Possessed Varg",
+    desc =  "It's not a good little dog!",
+  },
+  ["killwagboss_robot"] =
+  {
+    name =  "W.A.R.B.O.T.",
+    desc =  "Pulled the plug on Wagstaff's masterpiece.",
+  },
+  ["killworm_boss"] =
+  {
+    name =  "Great Depths Worm",
+    desc =  "Something big was lurking down there.",
   },
 
-
 }
+
 STRINGS.TITLE_INFO = "%s\nLv.%d EXP:%d/%d\n%s\n"
-STRINGS.HAS_ABILITY = "Already have ability [%s]"
-STRINGS.NO_ABILITY = "Has not learned the ability [%s]"
-STRINGS.HAS_ABILITY_PROCESS = "Already possessed ability [%s]:(%d/%d)"
-STRINGS.SINGLE_ACHIVEMENT_PROCESS = "[%s] Progress: (%d/%d)"
+STRINGS.HAS_ABILITY = "Has ability [%s]"
+STRINGS.NO_ABILITY = "Hasn't learned ability [%s]"
+STRINGS.HAS_ABILITY_PROCESS = "Has ability [%s]:(%d/%d)"
+STRINGS.SINGLE_ACHIVEMENT_PROCESS = "【%s】progress:(%d/%d)"
 STRINGS.TITLE=
 {
-     "[Life is hanging by a thread]",
-     "[As Walking on Thin Ice]",
-     "[Unsatisfactory]",
-     "[Driving with ease]",
-     "[Practice makes perfect]",
-     "[Handy]",
-     "[Hands over]",
-     "[There is a clear mind]",
-     "[Swivel freely]",
-     "[Do whatever you want]",
-     "[Do whatever you want]",
+    "【On the edge】",
+    "【Walking on thin ice】",
+    "【Passable】",
+    "【Skillful】",
+    "【Practice makes perfect】",
+    "【Skillful】",
+    "【With ease】",
+    "【Confident】",
+    "【Fluent】",
+    "【As you like】",
+    "【Do as you please】",
 }
+
 STRINGS.ALLACHIVINFODESC={
-    [1] =[[●The upper limit of speed defense attack learning can be manually configured
-    ●Passive anti-injury: triggers a higher anti-injury to the boss when being hit
-    ●Woody: You can make 3 Woody totems and gain the corresponding abilities after eating them, not transforming
-    ●Electric: The effect of the charged attack is the same as that of the electric sheep jelly
-    ●Wormwood: Plant seeds directly to regain their senses, and at the same time make thorns, thorns, traps, and fertilizers wrapped in the battle bar
-    ●Firmarmor: Put on thulium armor, the blood limit plus 100 is similar to the furnace
-    ●Bloodthirsty: similar to the Valkyrie, but can also make weapons, helmets and potions for the Valkyrie
-    ●Winona: make technology similar to female workers while making female workers, in the science column
-    ●Leader: You need to wear the bee crown to have the effect, the leader of the pigman, the bunny, the dog, and the spider
-    ●Keep Temperature: summer and autumn will not be too hot (but spring and winter can be too hot), spring and winter will not be too cold (summer and autumn can be too cold)
-    ●No taboos: You can eat food that you can't eat (Valkyrie, Wally, Water, etc.), eat food regardless of freshness, eat monster meat without side effects, and slow down your hunger speed (not superimposed with the hunger belt)
-    ●Fire Immunity: Immune to fire but will overheat and quickly extinguish the fire. Close to the fire and return to sanity to make a lighter and Bernie
-    ●Level up: Fight monsters and eat to gain experience, upgrade to get achievement points
-    ●Cooking Master: fast cooking and chef ability acquisition
-    ●Freezing ability: chance to freeze the enemy when attacking, and certainly freeze the enemy when hit
-    ●Soulhopcopy: drop soul when killed and can consume soul to regenerate blood and jump
-    ●Reading: You can make a book and a reading book, two books containing the power of justice from heaven
-    ●Justicerain: Exclusive to Vic Barton, can make two additional books: Meteor Shower and Petrified Trees
-    ●Maxwell: Maxwell ability
-    ●Flashy: walking and stationary with special effects, halo on the soles of the feet
-    ●Ancient Tech: can make ancient pseudo-science stations
-    When killing large creatures, players who have attacked within a radius of 1.5 in the last 5 seconds are considered effective kills."
-    ]]
-    }
+[1] = 
+[[●Speed defense attack each limit 5 times, critical hit limit 20 times
+●Passive counterattack: Trigger higher counterattack against BOSS when hit
+●Humanoid Woody: Can craft Woody's 3 totems and gain corresponding abilities after eating them, not a transformation
+●Electric Kid: Attack with the same effect as electric and electric sheep's jelly, not stacking, with an electric effect added to the body
+●Plant Friend: Directly planting seeds returns sanity, and can also be made into thorn armor, thorn traps, and fertilizer packs in the combat column
+●Steadfast Armor: Wearing Thule armor increases blood limit by 100, similar to a forge
+●Battle Bloodthirsty: Similar to Valkyrie, can also make Valkyrie's weapons, helmets, and potions
+●Engineering Technology: Similar to Engineer, can also make Engineer's technology in the science column
+●Boss Tag: Requires wearing the Bee Queen Crown to be effective, Boss of Pigmen, Bunnyman, Hound, and Spider
+●Season Adaptation: Summer and autumn will not overheat (but spring and winter can overheat), spring and winter will not freeze (summer and autumn can freeze)
+●Taboo: Can eat food that originally cannot be eaten (Valkyrie, Wolly, Walleye, etc.), eating food ignores freshness, eating monster meat has no side effects, and hunger slows down (does not stack with hunger belts)
+●Flame Immunity: Immune to burning but will overheat, extinguish quickly near the fire, regain sanity, and can make lighters and Bernie
+●Character Upgrade: Gain experience from killing monsters and eating things, leveling up can gain achievement points
+●Cooking Master: Quick cooking and chef abilities obtained
+●Freezing Ability: Probability of freezing enemies when attacking, and enemies are guaranteed to freeze when hit
+●Soul Jump: Drop souls when killed and can consume souls to heal and jump
+●Book Reading: Can make books and read books, including two books with the ability of Divine Justice
+●Divine Justice: Exclusive to Wickerbottom, can make two additional books: Meteor Shower and Petrified Trees
+●All show and no substance: Walking and standing still have special effects, foot halo
+●Ancient Technology: Can make Ancient Pseudoscience Station
+When killing a large creature, the last 5 seconds within a radius of 1.5 turf where the attacking player is counted as a valid kill"
+]]
+}

@@ -9,8 +9,10 @@ local achievement_config = require("Achievement.achievement_config")
 local achievement_ability_config = require("Achievement.achievement_ability_config")
 local id2ability = achievement_ability_config.id2ability
 
-local modname = KnownModIndex:GetModActualName("New Achivement")
+local modname = KnownModIndex:GetModActualName("New Achievement")
 local killAmountFinishAchievement = GetModConfigData("killamount_can_finish_achievement",modname)
+local CanUseAttributePoint = GetModConfigData("can_use_attribute_point",modname)
+
 local uiachievement = Class(Widget, function(self, owner)
 	Widget._ctor(self, "uiachievement")
 	self.owner = owner
@@ -452,11 +454,10 @@ local uiachievement = Class(Widget, function(self, owner)
 	self.mainbutton.removeinfo:SetScale(.95,.95,1)
 	
 	self.mainbutton.removeinfo.title = self.mainbutton.removeinfo:AddChild(Text(NEWFONT_OUTLINE, 45, STRINGS.ALLACHIEVE_RESET_CONFIRM))
-	self.mainbutton.removeinfo.title:SetPosition(-90, 110, 0)
+	self.mainbutton.removeinfo.title:SetPosition(-80, 110, 0)
 	self.mainbutton.removeinfo.title:SetColour(1, 0, 0, 1)
-
-	self.mainbutton.removeinfo.lable = self.mainbutton.removeinfo:AddChild(Text(NEWFONT_OUTLINE, 30, string.format(STRINGS.ALLACHIEVE_RESET,TUNING.RETRUN_POINT * 100)))
-	self.mainbutton.removeinfo.lable:SetPosition(-80, 80, 0)
+	self.mainbutton.removeinfo.lable = self.mainbutton.removeinfo:AddChild(Text(NEWFONT_OUTLINE, 30, string.format(STRINGS.ALLACHIEVE_RESET,TUNING.RETRUN_POINT * 100, self.owner.currentresetamount:value() - self.owner.currentusedresetamount:value() )))
+	self.mainbutton.removeinfo.lable:SetPosition(-80, 60, 0)
 	self.mainbutton.removeinfo.lable:SetRegionSize(300,80)
 	self.mainbutton.removeinfo:Hide()
 	self.mainbutton.configremove = self.mainbutton:AddChild(ImageButton("images/button/config_remove.xml", "config_remove.tex"))
@@ -466,6 +467,7 @@ local uiachievement = Class(Widget, function(self, owner)
 	self.mainbutton.configremove:SetFocusScale(1.1,1.1,1)
 	self.mainbutton.configremove:SetHoverText(STRINGS.ACHIEVEMENT_RESET)
 	self.mainbutton.configremove:SetOnClick(function()
+		self.mainbutton.removeinfo.lable:SetString(string.format(STRINGS.ALLACHIEVE_RESET,TUNING.RETRUN_POINT * 100, self.owner.currentresetamount:value() - self.owner.currentusedresetamount:value() ))
 		self.mainbutton.removeinfo:Show()
 		self.mainbutton.removeyes:Show()
 		self.mainbutton.removeno:Show()
@@ -706,6 +708,7 @@ function uiachievement:OnUpdate(dt)
 	self.mainui.bg.coinamount:SetString(string.format(STRINGS.ACHIEVEMENT_POINT_AMOUNT, self.owner.currentcoinamount:value()))
 	self.mainui.bg.killamount:SetString(string.format(STRINGS.ACHIEVEMENT_KILL_AMOUNT, self.owner.currentkillamount:value()))
 	self.mainui.bg.levelamount:SetString(string.format(STRINGS.ACHIEVEMENT_LEVEL_AMOUNT, self.owner.currenta_a4amount:value()))
+
 	self:loadlist()
 	self.listitem = {}
 	for a = 1, #self.achivlist do
@@ -858,9 +861,10 @@ function uiachievement:levelbuild()
 	self.mainui.bg.alllevel.remainpoints:SetPosition(10, 200, 0)
 	self.mainui.bg.alllevel.remainpoints:SetHAlign(ANCHOR_MIDDLE)
 	self.mainui.bg.alllevel.remainpoints:SetString(string.format(STRINGS.REMAIN_POINT,  self.owner.currentattributepointamount:value()))
-	self:initattribute("hunger", -55, 140, "+1")
-	self:initattribute("sanity", -55, 100, "+1")
-	self:initattribute("health", -55, 60, "+1")
+	self:initattribute("hunger", -55, 140, "+1","+10","all")
+	self:initattribute("sanity", -55, 100, "+1","+10","all")
+	self:initattribute("health", -55, 60, "+1","+10","all")
+
 
 	self.mainui.bg.alllevel.resetyes = self.mainui.bg.alllevel:AddChild(ImageButton("images/button/remove_yes.xml", "remove_yes.tex"))
 	self.mainui.bg.alllevel.resetyes:SetPosition(-60, -10, 0)
@@ -887,13 +891,14 @@ function uiachievement:levelbuild()
 
 	self.mainui.bg.alllevel.reset = self.mainui.bg.alllevel:AddChild(ImageButton("images/button/config_remove.xml", "config_remove.tex"))
 	self.mainui.bg.alllevel.reset.desc = self.mainui.bg.alllevel.reset:AddChild(Text(NEWFONT_OUTLINE, 30, STRINGS.RESET_ATTRIBUTE, {1,0,0,1} ))
-	self.mainui.bg.alllevel.reset.warning = self.mainui.bg.alllevel.reset:AddChild(Text(NEWFONT_OUTLINE, 30,string.format(STRINGS.RESET_ATTRIBUTE_WARING,TUNING.RETRUN_ATTRIBUTE_POINT * 100), {0.6,0,0,1} ))
-	self.mainui.bg.alllevel.reset.warning:SetPosition(-100,-60,0)
+	self.mainui.bg.alllevel.reset.warning = self.mainui.bg.alllevel.reset:AddChild(Text(NEWFONT_OUTLINE, 30,string.format(STRINGS.RESET_ATTRIBUTE_WARNING,TUNING.RETRUN_ATTRIBUTE_POINT * 100,self.owner.currentresetamount:value() - self.owner.currentusedresetamount:value()), {0.6,0,0,1} ))
+	self.mainui.bg.alllevel.reset.warning:SetPosition(-100,-80,0)
 	self.mainui.bg.alllevel.reset.warning:Hide()
 	self.mainui.bg.alllevel.reset.desc:SetPosition(0,-30,0)
 	self.mainui.bg.alllevel.reset:SetPosition(100, 0, 0)
 	self.mainui.bg.alllevel.reset:SetScale(1,1,1)
 	self.mainui.bg.alllevel.reset:SetOnClick(function()
+		self.mainui.bg.alllevel.reset.warning:SetString(string.format(STRINGS.RESET_ATTRIBUTE_WARNING,TUNING.RETRUN_ATTRIBUTE_POINT * 100,self.owner.currentresetamount:value() - self.owner.currentusedresetamount:value()))
 		self.mainui.bg.alllevel.resetyes:Show()
 		self.mainui.bg.alllevel.resetno:Show()
 		self.mainui.bg.alllevel.reset.warning:Show()
@@ -910,39 +915,77 @@ end
 
 function uiachievement:updateattribute(name)
 	self.mainui.bg.alllevel.attributelabels[name]:SetString(string.format("%s:  %d", STRINGS.ATTRIBUTES[name],self.owner["current" .. name .."up"]:value()) )
-	if  self.owner.currentattributepointamount:value() <= 0 then
+	if  self.owner.currentattributepointamount:value() <= 0 or not CanUseAttributePoint then
 		self.mainui.bg.alllevel.levelupbuttons[name]:ClearFocus()
 		self.mainui.bg.alllevel.levelupbuttons[name]:Disable()
+		self.mainui.bg.alllevel.levelupbuttons10[name]:ClearFocus()
+		self.mainui.bg.alllevel.levelupbuttons10[name]:Disable()
+		self.mainui.bg.alllevel.levelupbuttonsall[name]:ClearFocus()
+		self.mainui.bg.alllevel.levelupbuttonsall[name]:Disable()
 	else
 		self.mainui.bg.alllevel.levelupbuttons[name]:Enable()
+		self.mainui.bg.alllevel.levelupbuttons10[name]:Enable()
+		self.mainui.bg.alllevel.levelupbuttonsall[name]:Enable()
 	end
 	
 end
 
-function uiachievement:initattribute(name, posx, posy, desc)
+function uiachievement:initattribute(name, posx, posy, desc, desc1, desc2)
 
 	if self.mainui.bg.alllevel.attributelabels == nil then
 		self.mainui.bg.alllevel.attributelabels = {}
 	end
 	if self.mainui.bg.alllevel.levelupbuttons == nil then
 		self.mainui.bg.alllevel.levelupbuttons = {}
+		self.mainui.bg.alllevel.levelupbuttons10 = {}
+		self.mainui.bg.alllevel.levelupbuttonsall = {}
 	end
 
 	self.mainui.bg.alllevel.attributelabels[name] = self.mainui.bg.alllevel:AddChild(Text(NEWFONT_OUTLINE, 45))
 	self.mainui.bg.alllevel.attributelabels[name]:SetPosition(posx, posy, 0)
 	self.mainui.bg.alllevel.attributelabels[name]:SetHAlign(ANCHOR_MIDDLE)
+
 	self.mainui.bg.alllevel.levelupbuttons[name] = self.mainui.bg.alllevel:AddChild(ImageButton("images/button/button_normal.xml", "button_normal.tex"))
 	self.mainui.bg.alllevel.levelupbuttons[name]:SetImageDisabledColour(0.75,0.75,0.75,0.9)
 	self.mainui.bg.alllevel.levelupbuttons[name]:SetPosition(posx + 140, posy, 0)
 	self.mainui.bg.alllevel.levelupbuttons[name].label = self.mainui.bg.alllevel.levelupbuttons[name]:AddChild(Text(NEWFONT_OUTLINE, 45, desc))
 	self.mainui.bg.alllevel.levelupbuttons[name].label:SetHAlign(ANCHOR_MIDDLE)
+	
+	self.mainui.bg.alllevel.levelupbuttons10[name] = self.mainui.bg.alllevel:AddChild(ImageButton("images/button/button_normal.xml", "button_normal.tex"))
+	self.mainui.bg.alllevel.levelupbuttons10[name]:SetImageDisabledColour(0.75,0.75,0.75,0.9)
+	self.mainui.bg.alllevel.levelupbuttons10[name]:SetPosition(posx + 240, posy, 0)
+	self.mainui.bg.alllevel.levelupbuttons10[name].label = self.mainui.bg.alllevel.levelupbuttons10[name]:AddChild(Text(NEWFONT_OUTLINE, 45, desc1))
+	self.mainui.bg.alllevel.levelupbuttons10[name].label:SetHAlign(ANCHOR_MIDDLE)
+
+	self.mainui.bg.alllevel.levelupbuttonsall[name] = self.mainui.bg.alllevel:AddChild(ImageButton("images/button/button_normal.xml", "button_normal.tex"))
+	self.mainui.bg.alllevel.levelupbuttonsall[name]:SetImageDisabledColour(0.75,0.75,0.75,0.9)
+	self.mainui.bg.alllevel.levelupbuttonsall[name]:SetPosition(posx + 340, posy, 0)
+	self.mainui.bg.alllevel.levelupbuttonsall[name].label = self.mainui.bg.alllevel.levelupbuttonsall[name]:AddChild(Text(NEWFONT_OUTLINE, 45, desc2))
+	self.mainui.bg.alllevel.levelupbuttonsall[name].label:SetHAlign(ANCHOR_MIDDLE)
 	self:updateattribute(name)
 	self.mainui.bg.alllevel.levelupbuttons[name]:SetOnClick(function()
 		SendModRPCToServer(MOD_RPC["DSTAchievement"][name .. "up"])
 	end)
+	self.mainui.bg.alllevel.levelupbuttons10[name]:SetOnClick(function()
+		SendModRPCToServer(MOD_RPC["DSTAchievement"][name .. "up10"])
+	end)
+	self.mainui.bg.alllevel.levelupbuttonsall[name]:SetOnClick(function()
+		SendModRPCToServer(MOD_RPC["DSTAchievement"][name .. "upall"])
+	end)
 end
 
 function uiachievement:coinbuild()
+	local maxSpeedUp =  GetModConfigData("max_speedup",modname)
+	local maxDamageUp = GetModConfigData("max_damageup",modname)
+	local maxAbsorbUp = GetModConfigData("max_absorbup",modname)
+	local maxCritUp = GetModConfigData("max_crit",modname)
+	local maxCount = 
+	{
+		maxSpeedUp,
+		maxDamageUp,
+		maxAbsorbUp,
+		maxCritUp,
+	}
 	self.mainui.bg.allcoin:KillAllChildren()
 	local x = -313
 	local y = 260
@@ -978,10 +1021,8 @@ function uiachievement:coinbuild()
     		SendModRPCToServer(MOD_RPC["DSTAchievement"][self.coinlist[i].name])
     		self.owner:DoTaskInTime(.3, function()
     			self:loadcoinlist()
-    			if i>=1 and i <=3 then
-    				self.coinlistbutton[i]:SetHoverText(string.format(STRINGS.ACHIEVEMENT_HAS_AWARD,self.coinlist[i].current,5))
-    			elseif i==4 then
-    				self.coinlistbutton[i]:SetHoverText(string.format(STRINGS.ACHIEVEMENT_HAS_AWARD,self.coinlist[i].current,20))
+    			if i>=1 and i <= 4 then
+    				self.coinlistbutton[i]:SetHoverText(string.format(STRINGS.ACHIEVEMENT_HAS_AWARD,self.coinlist[i].current, maxCount[i]))
     			else
     				if  self.coinlist[i].current ~= nil and  self.coinlist[i].current >=  1 then
     					self.coinlistbutton[i]:SetHoverText(STRINGS.ACHIEVEMENT_HAS_ABILITY)
@@ -1059,10 +1100,8 @@ function uiachievement:coinbuild()
 			self.coinlistbutton[i]:SetFocusScale(1,1,1)
 			self.coinlistbutton[i].line:Hide()
 		end)
-		if i>=1 and i <=3 then
-    		self.coinlistbutton[i]:SetHoverText(string.format(STRINGS.ACHIEVEMENT_HAS_AWARD,self.coinlist[i].current,5))
-    	elseif i==4 then
-    		self.coinlistbutton[i]:SetHoverText(string.format(STRINGS.ACHIEVEMENT_HAS_AWARD,self.coinlist[i].current,20))
+		if i>=1 and i <=4 then
+    		self.coinlistbutton[i]:SetHoverText(string.format(STRINGS.ACHIEVEMENT_HAS_AWARD,self.coinlist[i].current, maxCount[i]))
     	else
     		if  self.coinlist[i].current ~= nil and  self.coinlist[i].current ==  1 then
     			self.coinlistbutton[i]:SetHoverText(STRINGS.ACHIEVEMENT_HAS_ABILITY)

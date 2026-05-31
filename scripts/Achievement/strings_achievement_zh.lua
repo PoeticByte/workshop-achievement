@@ -155,31 +155,9 @@ STRINGS.NAMES.ACHIEVEMENT_MOONBASE = "月台"
 STRINGS.RECIPE_DESC.ACHIEVEMENT_MOONBASE = "拥有月之力的的月台"
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIEVEMENT_MOONBASE = "月台"
 
----------温蒂的---------------------------------------------------
-STRINGS.NAMES.ACHIV_GHOSTLYELIXIR_SLOWREGEN = STRINGS.NAMES.GHOSTLYELIXIR_SLOWREGEN
-STRINGS.NAMES.ACHIV_GHOSTLYELIXIR_FASTREGEN = STRINGS.NAMES.GHOSTLYELIXIR_FASTREGEN
-STRINGS.NAMES.ACHIV_GHOSTLYELIXIR_SHIELD = STRINGS.NAMES.GHOSTLYELIXIR_SHIELD
-STRINGS.NAMES.ACHIV_GHOSTLYELIXIR_RETALIATION = STRINGS.NAMES.GHOSTLYELIXIR_RETALIATION
-STRINGS.NAMES.ACHIV_GHOSTLYELIXIR_ATTACK = STRINGS.NAMES.GHOSTLYELIXIR_ATTACK
-STRINGS.NAMES.ACHIV_GHOSTLYELIXIR_SPEED = STRINGS.NAMES.GHOSTLYELIXIR_SPEED
-
-STRINGS.RECIPE_DESC.ACHIV_GHOSTLYELIXIR_SLOWREGEN = STRINGS.RECIPE_DESC.GHOSTLYELIXIR_SLOWREGEN
-STRINGS.RECIPE_DESC.ACHIV_GHOSTLYELIXIR_FASTREGEN = STRINGS.RECIPE_DESC.GHOSTLYELIXIR_FASTREGEN
-STRINGS.RECIPE_DESC.ACHIV_GHOSTLYELIXIR_SHIELD = STRINGS.RECIPE_DESC.GHOSTLYELIXIR_SHIELD
-STRINGS.RECIPE_DESC.ACHIV_GHOSTLYELIXIR_RETALIATION = STRINGS.RECIPE_DESC.GHOSTLYELIXIR_RETALIATION
-STRINGS.RECIPE_DESC.ACHIV_GHOSTLYELIXIR_ATTACK = STRINGS.RECIPE_DESC.GHOSTLYELIXIR_ATTACK
-STRINGS.RECIPE_DESC.ACHIV_GHOSTLYELIXIR_SPEED = STRINGS.RECIPE_DESC.GHOSTLYELIXIR_SPEED
-
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIV_GHOSTLYELIXIR_SLOWREGEN = STRINGS.CHARACTERS.GENERIC.DESCRIBE.GHOSTLYELIXIR_SLOWREGEN
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIV_GHOSTLYELIXIR_FASTREGEN = STRINGS.CHARACTERS.GENERIC.DESCRIBE.GHOSTLYELIXIR_FASTREGEN
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIV_GHOSTLYELIXIR_SHIELD = STRINGS.CHARACTERS.GENERIC.DESCRIBE.GHOSTLYELIXIR_SHIELD
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIV_GHOSTLYELIXIR_RETALIATION = STRINGS.CHARACTERS.GENERIC.DESCRIBE.GHOSTLYELIXIR_RETALIATION
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIV_GHOSTLYELIXIR_ATTACK = STRINGS.CHARACTERS.GENERIC.DESCRIBE.GHOSTLYELIXIR_ATTACK
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ACHIV_GHOSTLYELIXIR_SPEED = STRINGS.CHARACTERS.GENERIC.DESCRIBE.GHOSTLYELIXIR_SPEED
-
 --------------------------------------------------------------------------------------------------------------------------
 STRINGS.ALLACHIEVE_RESET_CONFIRM = "确定重置？"
-STRINGS.ALLACHIEVE_RESET = "重置能力，并返换%s%%(可配置)的成就点\n（重选角色也也一样）"
+STRINGS.ALLACHIEVE_RESET = "重置能力，并返换%s%%(可配置)的成就点\n（重选角色也也一样）\n 当前剩余无损重置次数：%d\n（无损重置次数每生存一定天数获得一次，与重置属性点共用次数）"
 
 STRINGS.ALLACHIVITEM={
 [catagory.ALL] = "全部",
@@ -253,7 +231,7 @@ STRINGS.ACHIEVEMENT_ABILITY_NEED = "该能力需%d点"
 STRINGS.EXP = "经验："
 STRINGS.REMAIN_POINT = "可用属性点：%d"
 STRINGS.RESET_ATTRIBUTE = "重置属性"
-STRINGS.RESET_ATTRIBUTE_WARING = "重置属性，并返换%s%%(可配置)的属性点\n"
+STRINGS.RESET_ATTRIBUTE_WARNING = "重置属性，并返换%s%%(可配置)的属性点\n当前剩余无损重置次数：%d\n（无损重置次数每生存一定天数获得一次,与重置能力共用次数）"
 
 STRINGS.ACHIEVEMENT_ANNOUNCE_POINT =
 {
@@ -327,6 +305,7 @@ STRINGS.ACHIVABILITYNAME={
 ["alchemytechnology"] = "炼金科技",
 ["lunaraligned"] = "月影忠臣",
 ["shadowaligned"] = "暗影忠魂",
+["wilson_torch"] = "驭火大师",
 }
 
 STRINGS.ACHIVABILITYDSPC={
@@ -337,7 +316,7 @@ STRINGS.ACHIVABILITYDSPC={
 ["damageup"] ="增加5%攻击",
 ["crit"] ="增加5%双次伤害概率",
 ["electric"] ="攻击带电",
-["plantfriend"] ="直接中种子种植回理智",
+["plantfriend"] ="直接种植种子回理智",
 ["firmarmor"] ="装备铥甲时增加100HP",
 ["healthregen"] ="攻击时回血和理智",
 ["fireflylight"] ="身上一定范围的光照",
@@ -357,7 +336,7 @@ STRINGS.ACHIVABILITYDSPC={
 ["justicerain"] = "维克巴顿专属，多三本书",
 ["supply"] ="可建造精确补给和鹿角",
 ["level"] ="人物升级可获得成就点",
-["fastbuild"] ="快速建造和女工建筑",
+["fastbuild"] ="快速建造 + 完整薇诺娜工程: 投石机/电池/聚光灯及全部升级、便携建筑、遥控器、传送、暗影/月亮充能",
 ["jump"] ="受到攻击冰冻敌人，攻击概率冰冻",
 ["soulhopcopy"] ="击杀掉落灵魂和灵魂跳跃",
 ["morestrongstomach"] ="想吃就吃 无视新鲜度怪物肉延缓饥饿",
@@ -379,6 +358,7 @@ STRINGS.ACHIVABILITYDSPC={
 ["alchemytechnology"] = "威尔逊的合成能力",
 ["lunaraligned"] = "对月亮阵营防御+20%，对暗影阵营伤害+%20",
 ["shadowaligned"] =  "对暗影阵营防御+20%，对月亮阵营伤害+%20",
+["wilson_torch"] = "威尔逊火把技能：火把持续更久、照明更亮",
 }
 
 STRINGS.ACHIEVEMENT_LIST =
@@ -905,8 +885,8 @@ STRINGS.ACHIEVEMENT_LIST =
   },
   ["a_14"] = 
   { 
-    name =  "",
-    desc =  "",
+    name =  "爱偷东西的小捣蛋",
+    desc =  "击杀%d只水獭掠夺者",
   },
   ["a_15"] = 
   { 
@@ -1948,6 +1928,36 @@ STRINGS.ACHIEVEMENT_LIST =
     name =  "累计击杀",
     desc =  "击杀",
   },
+  ["boss_29"] = 
+  { 
+    name =  "累计击杀",
+    desc =  "击杀",
+  },
+  ["boss_30"] = 
+  { 
+    name =  "累计击杀",
+    desc =  "击杀",
+  },
+  ["boss_31"] = 
+  { 
+    name =  "累计击杀",
+    desc =  "击杀",
+  },
+  ["boss_32"] = 
+  { 
+    name =  "累计击杀",
+    desc =  "击杀",
+  },
+  ["boss_33"] = 
+  { 
+    name =  "累计击杀",
+    desc =  "击杀",
+  },
+  ["boss_34"] = 
+  { 
+    name =  "累计击杀",
+    desc =  "击杀",
+  },
   ["killbyrose"] = 
   { 
     name =  "玫瑰花下死",
@@ -2067,6 +2077,34 @@ STRINGS.ACHIEVEMENT_LIST =
     desc =  "让你寄生我的植物！",
   },
   
+  ["killmutatedbearger"] = 
+  { 
+    name =  "装甲熊獾",
+    desc =  "这块肉装了盔甲",
+  },
+  
+  ["killmutateddeerclops"] = 
+  { 
+    name =  "晶体独眼巨鹿",
+    desc =  "它的眼睛里有一点东西",
+  },
+  
+  ["killmutatedwarg"] =
+  {
+    name =  "附身座狼",
+    desc =  "它不是一只乖小狗！",
+  },
+  ["killwagboss_robot"] =
+  {
+    name =  "战争瓦器人",
+    desc =  "给瓦格斯塔夫的杰作拔了电源。",
+  },
+  ["killworm_boss"] =
+  {
+    name =  "巨大洞穴蠕虫",
+    desc =  "深处潜伏着庞然大物。",
+  },
+
 }
 
 STRINGS.TITLE_INFO = "%s\nLv.%d EXP:%d/%d\n%s\n"

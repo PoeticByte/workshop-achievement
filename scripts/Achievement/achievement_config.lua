@@ -30,7 +30,7 @@ local config =
         return inst.components.age:GetAgeInDays() - self[v.current] >= 1 end, need_amount = 70,catagory = Catagory.TIME,point = 5,},
     {id = "luck",need_amount = 1,catagory = Catagory.OTHER,point = 10,},
     {id = "black",finish_type = "death",cause = "lightning",need_amount = 1,point = 7,},
-    {id = "blackspat",finish_type = "kill",victim = "spat",special_condition = function(victim,inst) local single = true local pos = Vector3(victim.Transform:GetWorldPosition()) local ents = TheSim:FindEntities(pos.x,pos.y,pos.z, 40)  for k,v in pairs(ents) do if v:HasTag("player") and v ~= inst then single = false end end return single end, need_amount = 1,catagory = Catagory.KILL,point = 5,},
+    {id = "blackspat",finish_type = "kill",victim = "spat",special_condition = function(victim,inst) local single = true local pos = Vector3(victim.Transform:GetWorldPosition()) local ents = TheSim:FindEntities(pos.x,pos.y,pos.z, 20)  for k,v in pairs(ents) do if v:HasTag("player") and v ~= inst then single = false end end return single end, need_amount = 1,catagory = Catagory.KILL,point = 5,},
     {id = "buildenthusiast",finish_type = "consumeingredients",need_amount = 1000,catagory = Catagory.MAKE,point = 5,},
     {id = "tank",need_amount = 3000,catagory = Catagory.KILL,point = 5,},
     {id = "angry",need_amount = 100000,catagory = Catagory.KILL,point = 5,},
@@ -48,7 +48,7 @@ local config =
     {id = "a_spider_dropper",finish_type = "kill",victim = "spider_dropper",need_amount = 22,catagory = Catagory.KILL,point = 1,},
     {id = "a_spider_hider",finish_type = "kill",victim = "spider_hider",need_amount = 22,catagory = Catagory.KILL,point = 1,},
     {id = "a_spider_spitter",finish_type = "kill",victim = "spider_spitter",need_amount = 22,catagory = Catagory.KILL,point = 1,},
-    {id = "a_warg",finish_type = "kill",victim = {"warg","mutatedwarg"},need_amount = 2,catagory = Catagory.KILL,point = 2,},
+    {id = "a_warg",finish_type = "kill",victim = {"warg"},need_amount = 2,catagory = Catagory.KILL,point = 2,},
     {id = "a_hound",finish_type = "kill",victim = "hound",need_amount = 200,catagory = Catagory.KILL,point = 2,},
     {id = "a_firehound",finish_type = "kill",victim = "firehound",need_amount = 88,catagory = Catagory.KILL,point = 2,},
     {id = "a_icehound",finish_type = "kill",victim = "icehound",need_amount = 88,catagory = Catagory.KILL,point = 2,},
@@ -137,7 +137,7 @@ local config =
     {id = "a_11",finish_type = "kill",victim = "ghost",need_amount = 10,catagory = Catagory.KILL,point = 1,},
     {id = "a_12",finish_type = "kill",victim = "eyeplant",need_amount = 30,catagory = Catagory.KILL,point = 1,},
     {id = "a_13",finish_type = "eat", food = "icecream_ai",need_amount = 22,point = 1,},
-    {id = "a_14",need_amount = 1,point = 1,},
+    {id = "a_14",finish_type = "kill",victim = "otter",need_amount = 12,catagory = Catagory.KILL,point = 1,},
     {id = "a_15",need_amount = 1,point = 1,},
     {id = "a_coffee",finish_type = "eat", food = "coffee",need_amount = 200,point = 1,},
     {id = "a_a1",finish_type = "eat",need_amount = 2000,point = 1,},
@@ -172,7 +172,7 @@ local config =
     {id = "a_a30",finish_type = "builditem",builditem = "nightsword",need_amount = 30,catagory = Catagory.MAKE,point = 1,},
     {id = "a_a31",finish_type = "builditem",builditem = "amulet",need_amount = 6,catagory = Catagory.MAKE,point = 1,},
     {id = "a_a32",finish_type = "builditem",builditem = "panflute",need_amount = 1,catagory = Catagory.MAKE,point = 1,},
-    {id = "a_a33",finish_type = "deployitem",deployitem = {"pinecone","pinecone_seed","acorn","twiggy_nut", "jungletreeseed","coconut","teatree_nut","burr",},need_amount = 500,catagory = Catagory.WORK,point = 2,},
+    {id = "a_a33",finish_type = "deployitem",deployitem = {"pinecone","pinecone_seed","acorn","twiggy_nut", "jungletreeseed","coconut","teatree_nut","burr","palmcone_seed"},need_amount = 500,catagory = Catagory.WORK,point = 2,},
     {id = "a_a34",finish_type = "deployitem",deployitem = "butterfly",need_amount = 60,catagory = Catagory.WORK,point = 1,},
     {id = "a_a35",finish_type = "picksomething", pickitem = "red_mushroom",need_amount = 60,catagory = Catagory.COLLECT,point = 1,},
     {id = "a_a36",finish_type = "picksomething", pickitem = "blue_mushroom",need_amount = 60,catagory = Catagory.COLLECT,point = 1,},
@@ -232,7 +232,7 @@ local config =
     {id = "moon_18",finish_type = "kill",victim = {"spiderden","spiderden_2","spiderden_3"},special_condition = function(victim) return victim.components.upgradeable and not victim.components.upgradeable:CanUpgrade() end,need_amount = 6,catagory = Catagory.OTHER,point = 1,},
     {id = "moon_19",finish_type = "picksomething", pickitem = {"cave_banana_tree","bananabush"},need_amount = 40,catagory = Catagory.COLLECT,point = 1,},
     {id = "moon_20",finish_type = "picksomething", pickitem = "wormlight_plant",need_amount = 40,catagory = Catagory.COLLECT,point = 1,},
-    {id = "moon_21",finish_type = "finishedwork",prefab = {"ruins_statue_head","ruins_statue_head_nogem","ruins_statue_mage","ruins_statue_mage_nogem"},need_amount = 30,catagory = Catagory.WORK,point = 1,},
+    {id = "moon_21",finish_type = "finishedwork",prefab = {"ruins_statue_head","ruins_statue_head_nogem","ruins_statue_mage","ruins_statue_mage_nogem", "archive_moon_statue"},need_amount = 30,catagory = Catagory.WORK,point = 1,},
     {id = "moon_22",finish_type = "kill",victim = "tentacle_pillar",need_amount = 9,catagory = Catagory.KILL,point = 1,},
     {id = "moon_23",finish_type = "kill",victim = "tentacle_pillar_arm",need_amount = 30,catagory = Catagory.KILL,point = 1,},
     {id = "moon_24",finish_type = "kill",victim = "malbatross",need_amount = 1,catagory = Catagory.GUIDE,point = 3,},
@@ -324,7 +324,7 @@ local config =
     {id = "boss_30",finish_type = "kill",victim = "sharkboi",need_amount = {2,3,4,5},point = 1,},
     {id = "boss_31",finish_type = "kill",victim = "mutatedbearger",need_amount = {2,4,5},point = 1,},
     {id = "boss_32",finish_type = "kill",victim = "mutateddeerclops",need_amount = {2,4,5},point = 1,},
-
+    {id = "boss_33",finish_type = "kill",victim = "mutatedwarg",need_amount = {2,4,5},point = 1,},
 
 
     {id = "killbyrose",finish_type = "death",cause = "flower",catagory  = Catagory.DEATH, need_amount = 1,point = 1,},
@@ -343,7 +343,6 @@ local config =
     {id = "killeyeofterror",finish_type = "kill",victim = "eyeofterror",need_amount = 1,catagory = Catagory.GUIDE,point = 2,},
     {id = "killtwinofterror1",finish_type = "kill",victim = "twinofterror1",need_amount = 1,catagory = Catagory.GUIDE,point = 3,},
     {id = "killtwinofterror2",finish_type = "kill",victim = "twinofterror2",need_amount = 1,catagory = Catagory.GUIDE,point = 4,},
-    
 
     {id = "killshadowthrall_hands",finish_type = "kill",victim = "shadowthrall_hands",need_amount = 1,catagory = Catagory.GUIDE,point = 1,},
     {id = "killshadowthrall_wings",finish_type = "kill",victim = "shadowthrall_wings",need_amount = 1,catagory = Catagory.GUIDE,point = 1,},
@@ -354,6 +353,12 @@ local config =
     {id = "killarchive_centipede",finish_type = "kill",victim = "archive_centipede",need_amount = 1,catagory = Catagory.GUIDE,point = 2,},
     {id = "killlunarthrall_plant",finish_type = "kill",victim = "lunarthrall_plant",need_amount = 12,catagory = Catagory.GUIDE,point = 1,},
     
+    {id = "killmutatedbearger",finish_type = "kill",victim = "mutatedbearger",need_amount = 1,catagory = Catagory.GUIDE,point = 3,},
+    {id = "killmutateddeerclops",finish_type = "kill",victim = "mutateddeerclops",need_amount = 1,catagory = Catagory.GUIDE,point = 3,},
+    {id = "killmutatedwarg",finish_type = "kill",victim = "mutatedwarg",need_amount = 1,catagory = Catagory.GUIDE,point = 3,},
+    {id = "killwagboss_robot",finish_type = "kill",victim = "wagboss_robot",need_amount = 1,catagory = Catagory.GUIDE,point = 3,},
+    {id = "killworm_boss",finish_type = "kill",victim = "worm_boss",need_amount = 1,catagory = Catagory.GUIDE,point = 3,},
+
     {id = "all",need_amount = 1,catagory = Catagory.OTHER,point = 10,},
 }
 
@@ -416,7 +421,7 @@ local specific_achievement =
 
 local achievement_config_id2value = {}
 local category_config = {}
-local modname = KnownModIndex:GetModActualName("New Achivement")
+local modname = KnownModIndex:GetModActualName("New Achievement")
 local need_amount_ratio  = GetModConfigData("coindifficulty",modname)
 local function PretreatmentAchievementConfig()
     for _,v in pairs(config) do
