@@ -9,6 +9,43 @@ local achievement_config = require("Achievement.achievement_config")
 local achievement_ability_config = require("Achievement.achievement_ability_config")
 local id2ability = achievement_ability_config.id2ability
 
+-- 悬停文字按字数手动换行(UTF-8安全,拉丁文优先在空格处断词); 配合不传 region 参数 → 背景按内容自适应大小、窄而多行。
+local function wrap_hover_text(s, maxchars)
+	if s == nil or s == "" then return s end
+	maxchars = maxchars or 16
+	local segs, start = {}, 1
+	while true do
+		local nl = s:find("\n", start, true)
+		if nl then
+			table.insert(segs, s:sub(start, nl - 1))
+			start = nl + 1
+		else
+			table.insert(segs, s:sub(start))
+			break
+		end
+	end
+	local out = {}
+	for _, seg in ipairs(segs) do
+		local len = seg:utf8len()
+		if len <= maxchars then
+			table.insert(out, seg)
+		else
+			local i = 1
+			while i <= len do
+				local j = math.min(i + maxchars - 1, len)
+				if j < len then
+					local k = j
+					while k > i and seg:utf8sub(k, k) ~= " " do k = k - 1 end
+					if k > i then j = k end
+				end
+				table.insert(out, (seg:utf8sub(i, j):gsub("%s+$", "")))
+				i = j + 1
+			end
+		end
+	end
+	return table.concat(out, "\n")
+end
+
 local modname = KnownModIndex:GetModActualName("New Achievement")
 local killAmountFinishAchievement = GetModConfigData("killamount_can_finish_achievement",modname)
 local CanUseAttributePoint = GetModConfigData("can_use_attribute_point",modname)
@@ -1035,6 +1072,24 @@ function uiachievement:coinbuild()
 			end)
 		end)
 
+		-- 悬停说明: 给本按钮的 SetHoverText 包一层,自动在状态文字前加"能力名+说明"。所有原有 SetHoverText 调用(初始/购买后)自动生效,无需逐处改。
+		do
+			local _btn = self.coinlistbutton[i]
+			local _aname = self.coinlist[i].name
+			local _base_sethover = _btn.SetHoverText
+			_btn.SetHoverText = function(w, text, params)
+				-- 悬停只显示 能力名 + 说明(不显示花费/"需要成就点"等状态,那些已在按钮上以数字/图标体现)。
+				local full = STRINGS.ACHIVABILITYNAME[_aname] or _aname
+				local desc = STRINGS.ACHIVABILITYDSPC[_aname]
+				if desc and desc ~= "" then full = full .. "\n" .. desc end
+				-- 手动换窄行 + 不传 region → 文字按自身大小布局; 再按文字实际尺寸收紧背景 → 窄而自适应。
+				_base_sethover(w, wrap_hover_text(full, 14), params)
+				if w.hovertext ~= nil and w.hovertext_bg ~= nil then
+					local tw, th = w.hovertext:GetRegionSize()
+					w.hovertext_bg:SetSize(tw * 1.1 + 20, th * 1.1 + 16)
+				end
+			end
+		end
 		self.coinlistbutton[i].name = self.coinlistbutton[i]:AddChild(Text(NEWFONT, 40, STRINGS.ACHIVABILITYNAME[self.coinlist[i].name]))
 		self.coinlistbutton[i].name:SetPosition(8, 10, 0)
 		self.coinlistbutton[i].name:SetHAlign(ANCHOR_LEFT)

@@ -23,7 +23,17 @@ local achievement_ability_config = {
         {ability = "buildmaster", cost = 88, default_value = false,},
         {ability = "refresh", cost = 60, default_value = false,},
         {ability = "icebody", cost = 50, default_value = false,},
-        {ability = "firebody", cost = 40, default_value = false,},
+        -- 火焰免疫(Willow基底): firebodyfn 已给 pyromaniac(造打火机+伯尼)/bernieowner/火免疫。这里再授予 Willow 技能树:
+        -- 打火机/火焰(打火机读持有者技能,Route B 同步)+ 伯尼升级。排除暗影/月亮阵营(与现有 aligned 能力重叠)。
+        {ability = "firebody", cost = 40, default_value = false, skilltree = {char = "willow", skills = {
+            -- 打火机/火焰
+            "willow_controlled_burn_1","willow_controlled_burn_2","willow_controlled_burn_3",
+            "willow_attuned_lighter","willow_embers","willow_fire_burst","willow_fire_ball","willow_fire_frenzy",
+            "willow_lightradius_1","willow_lightradius_2",
+            -- 伯尼
+            "willow_bernieregen_1","willow_bernieregen_2","willow_berniesanity_1","willow_berniesanity_2","willow_bernieai",
+            "willow_berniespeed_1","willow_berniespeed_2","willow_berniehealth_1","willow_berniehealth_2","willow_burnignbernie",
+        }}},
         {ability = "supply", cost = 50, default_value = false,},
         {ability = "reader", cost = 75, default_value = false,},
         {ability = "justicerain", cost = 20, default_value = false,},
@@ -78,7 +88,8 @@ local achievement_ability_config = {
         {ability = "lunaraligned", cost = 40, default_value = false,},
         {ability = "shadowaligned", cost = 40, default_value = false,},
         -- ===== 技能树移植能力 (Phase 0 原型) =====
-        {ability = "wilson_torch", cost = 15, default_value = false, skilltree = {char = "wilson", skills = {"wilson_torch_1","wilson_torch_2","wilson_torch_3","wilson_torch_4","wilson_torch_5","wilson_torch_6"}},},
+        -- 驭火大师: 火把时长/亮度(wilson_torch_1..6) + 扔火把(wilson_torch_7,火把本身已可投掷,只需 modmain 接 TOSS 点动作)。
+        {ability = "wilson_torch", cost = 15, default_value = false, skilltree = {char = "wilson", skills = {"wilson_torch_1","wilson_torch_2","wilson_torch_3","wilson_torch_4","wilson_torch_5","wilson_torch_6","wilson_torch_7"}},},
     },
     ability_ratio=
     {

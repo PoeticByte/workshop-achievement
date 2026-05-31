@@ -2290,6 +2290,10 @@ function achievementability:firebodycoin(inst)
         self.firebody = true
         self:coinDoDelta(-ability_cost["firebody"].cost)
         self:firebodyfn(inst)
+        -- 直接给一个打火机,免去找配方;火焰技能挂在打火机上,余烬由上面的监听从击杀生成。
+        if inst.components.inventory ~= nil then
+            inst.components.inventory:GiveItem(SpawnPrefab("lighter"), nil, inst:GetPosition())
+        end
         self:ongetcoin(inst)
     end
 end
@@ -2306,6 +2310,15 @@ function achievementability:firebodyfn(inst)
         end
         inst.components.temperature.inherentsummerinsulation = TUNING.INSULATION_SMALL
         inst.components.temperature:SetOverheatHurtRate(0.5)  --过热伤害
+        -- 授予 Willow 技能树技能(打火机/火焰 + 伯尼)。打火机读持有者技能树,客户端经 currentfirebody netvar 反查(Route B)。
+        local _willow_st = ability_cost["firebody"].skilltree
+        if _willow_st ~= nil then
+            AchivGrantSkills(inst, _willow_st.char, _willow_st.skills)
+        end
+        -- 复刻 Willow 余烬生成监听(火焰技能弹药来源,官方仅对 Willow 注册)。内部查 willow_embers,撤销后自动失效。
+        if AchivWillowEmberListen ~= nil then
+            AchivWillowEmberListen(inst)
+        end
     end
 end
 
@@ -3854,6 +3867,8 @@ function achievementability:resetbuff(inst)
         inst:RemoveTag("pyromaniac")
         inst:RemoveTag("bernieowner")
         inst:RemoveTag("heatresistant")
+        inst:RemoveTag("controlled_burner") -- Willow 技能 onactivate 加的标签(无 ondeactivate),重置时手动摘除
+        inst:RemoveTag("ember_master")
         inst.components.health.fire_damage_scale = 1
         inst.components.sanity.custom_rate_fn = nil
         inst.components.temperature.inherentsummerinsulation = 0

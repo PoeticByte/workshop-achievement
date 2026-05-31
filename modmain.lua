@@ -615,6 +615,69 @@ function GLOBAL.AchivRevokeSkills(inst, char, skills, recipes)
     inst:PushEvent("ondeactivateskill_server", {})
 end
 
+-- Willow 余烬生成(火焰技能的弹药来源): 官方在 willow.lua 监听世界 entity_droploot/entity_death 从尸体生成余烬,且只对 Willow 注册。
+-- 非 Willow 玩家学了 firebody 也不会产生余烬 → 火焰技能没弹药可用(这是"学了却没火焰"的根因)。这里为 firebody 玩家复刻该监听,
+-- 逻辑/范围照搬 willow.lua,内部查 IsActivated("willow_embers"),故撤销 firebody 后自动失效,无需反注册(注册一次即可)。
+local willow_ember_common = require("prefabs/willow_ember_common")
+local function _AchivIsEmberVictim(victim, explosive)
+    return willow_ember_common.HasEmbers(victim) and (victim.components.health:IsDead() or explosive)
+end
+function GLOBAL.AchivWillowEmberListen(inst)
+    if inst._achiv_willowember then return end
+    inst._achiv_willowember = true
+    local function OnDropLoot(player, data)
+        local victim = data ~= nil and data.inst or nil
+        local stu = player.components.skilltreeupdater
+        if stu ~= nil and stu:IsActivated("willow_embers") and
+            victim ~= nil and victim.noembertask == nil and victim:IsValid() and
+            (victim == player or
+                (player.components.health ~= nil and not player.components.health:IsDead() and
+                 _AchivIsEmberVictim(victim, data.explosive) and
+                 player:IsNear(victim, GLOBAL.TUNING.WILLOW_EMBERDROP_RANGE)))
+        then
+            victim.noembertask = victim:DoTaskInTime(5, function(v) v.noembertask = nil end)
+            willow_ember_common.SpawnEmbersAt(victim, willow_ember_common.GetNumEmbers(victim))
+        end
+    end
+    inst:ListenForEvent("entity_droploot", function(src, data) OnDropLoot(inst, data) end, GLOBAL.TheWorld)
+    inst:ListenForEvent("entity_death", function(src, data)
+        if data ~= nil and data.inst ~= nil then
+            data.inst._embersource = data.afflicter
+            if data.inst.components.lootdropper == nil or data.explosive then
+                OnDropLoot(inst, data)
+            end
+        end
+    end, GLOBAL.TheWorld)
+end
+
+-- Wilson 驭火大师·扔火把(wilson_torch_7): 火把本身已是可投掷的 complexprojectile 且带 special_action_toss 标签(torch.lua),
+-- 只缺右键 TOSS 点动作(官方在 wilson.lua 提供)。这里为非 wilson 玩家包裹 pointspecialactionsfn 补上,
+-- 仅当持火把且 IsActivated("wilson_torch_7")(经 Route B 客户端同步)时生效;扔出后的时长/亮度由火把读投掷者技能。
+AddPlayerPostInit(function(inst)
+    if inst.prefab == "wilson" then return end -- wilson 原生自带扔火把
+    inst:DoTaskInTime(0, function(inst)
+        local pap = inst.components.playeractionpicker
+        if pap == nil then return end
+        local old = pap.pointspecialactionsfn
+        pap.pointspecialactionsfn = function(inst, pos, useitem, right, usereticulepos)
+            if right then
+                local item = useitem
+                if item == nil and inst.replica.inventory ~= nil then
+                    item = inst.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
+                end
+                if item ~= nil and item.prefab == "torch" and item:HasTag("special_action_toss")
+                    and inst.components.skilltreeupdater ~= nil
+                    and inst.components.skilltreeupdater:IsActivated("wilson_torch_7")
+                then
+                    return { GLOBAL.ACTIONS.TOSS }
+                end
+            end
+            if old ~= nil then return old(inst, pos, useitem, right, usereticulepos) end
+            return {}
+        end
+    end)
+end)
+
 AddPlayerPostInit(function(inst)
     inst._achiv_skills = {}
     _init_ability_net_var(inst)
