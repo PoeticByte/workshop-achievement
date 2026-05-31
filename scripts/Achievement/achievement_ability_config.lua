@@ -56,7 +56,19 @@ local achievement_ability_config = {
         {ability = "ghostly_friend", cost = 70, default_value = false,},
         {ability = "waxwellfriend", cost = 50, default_value = false,},
         {ability = "flashy", cost = 20, default_value = false,canswitch = true,},
-        {ability = "fearless", cost = 50, default_value = false,},
+        -- 无畏(Walter基底): warlter_common_postinit 已给 woby/弹弓/基础弹药/pebblemaker。这里再授予 Walter 技能树技能:
+        -- 弹弓改装+多弹种(builder_skill,TECH.NONE,Route B 客户端同步即可造)、Woby 升级、露营通用项。排除暗影/月亮阵营(与 mod 现有 aligned 能力重叠)。
+        -- skip_generic_remove=true: fearless 有手写 fearlessRemove(woby清理+1.5s延迟防竞态),不走 resetbuff 通用 Remove 循环,改由延迟路径 revoke。
+        {ability = "fearless", cost = 50, default_value = false, skilltree = {char = "walter", skip_generic_remove = true, skills = {
+            -- 弹弓改装
+            "walter_slingshot_modding","walter_slingshot_handles","walter_slingshot_bands","walter_slingshot_frames",
+            -- 弹药
+            "walter_ammo_shattershots","walter_ammo_lucky","walter_ammo_utility","walter_ammo_efficiency","walter_ammo_bag",
+            -- Woby
+            "walter_woby_sprint","walter_woby_dash","walter_woby_endurance","walter_woby_taskaid","walter_woby_foraging","walter_woby_itemfetcher",
+            -- 露营
+            "walter_camp_fire","walter_camp_rope","walter_camp_firstaid","walter_camp_walterhat","walter_camp_wobytreat","walter_camp_wobyholder","walter_camp_wobycourier",
+        }}},
         {ability = "ancientstation", cost = 20, default_value = false,},
         {ability = "autorepair", cost = 40, default_value = false,},
         {ability = "magicpepair", cost = 30, default_value = false,},

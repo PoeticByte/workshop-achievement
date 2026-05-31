@@ -783,18 +783,18 @@ AddPlayerPostInit(function(inst)
         inst:ListenForEvent("weremodedirty", OnSetSpecialActions)
         inst:ListenForEvent("ms_respawnedfromghost", OnSetSpecialActions)
     end
-    if inst.prefab ~= "walter" then
-        --inst:AddTag("pebblemaker")
-        inst:AddTag("slingshot_sharpshooter")
-    end
-
-    if inst.prefab ~= "wanda" then
-        inst:AddTag("pocketwatchcaster")
-    end
-
-    if inst.prefab ~= "winona" then
-        inst:AddTag("handyperson")
-    end
+    -- 修复: 这些"能力专属"建造标签曾被无条件加给所有非本角色玩家(依赖 dealSpecialTags 事后移除,但新角色/未触发load时不可靠),
+    -- 导致人人能造对应物品(如 handyperson→薇诺娜胶带/电池/投石机)。已注释: 各标签由其能力自身授予并在重置时移除:
+    --   handyperson←fastbuild(fastbuildfn), slingshot_sharpshooter←fearless(warlter_common_postinit), pocketwatchcaster←timemanager。
+    -- if inst.prefab ~= "walter" then
+    --     inst:AddTag("slingshot_sharpshooter")
+    -- end
+    -- if inst.prefab ~= "wanda" then
+    --     inst:AddTag("pocketwatchcaster")
+    -- end
+    -- if inst.prefab ~= "winona" then
+    --     inst:AddTag("handyperson")
+    -- end
 
     if inst.OnNewSpawn then
         local function OnPlayerNewSpawn(inst)

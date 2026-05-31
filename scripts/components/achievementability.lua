@@ -3242,34 +3242,18 @@ function achievementability:playHalofn(inst)
 end
 
 local function SpawnWoby(inst)
-    local player_check_distance = 40
-    local attempts = 0
-    local max_attempts = 30
     local x, y, z = inst.Transform:GetWorldPosition()
     local woby = SpawnPrefab(TUNING.WALTER_STARTING_WOBY)
 	inst.woby = woby
 	woby:LinkToPlayer(inst)
     inst:ListenForEvent("onremove", inst._woby_onremove, woby)
-    while true do
-        local offset = FindWalkableOffset(inst:GetPosition(), math.random() * PI, player_check_distance + 1, 10)
-        if offset then
-            local spawn_x = x + offset.x
-            local spawn_z = z + offset.z
-            if attempts >= max_attempts then
-                woby.Transform:SetPosition(spawn_x, y, spawn_z)
-                break
-            elseif not IsAnyPlayerInRange(spawn_x, 0, spawn_z, player_check_distance) then
-                woby.Transform:SetPosition(spawn_x, y, spawn_z)
-                break
-            else
-                attempts = attempts + 1
-            end
-        elseif attempts >= max_attempts then
-            woby.Transform:SetPosition(x, y, z)
-            break
-        else
-            attempts = attempts + 1    
-        end
+    -- 在玩家身边生成。原逻辑用半径 ~41(>屏幕范围)且要求附近无玩家,等于把 woby 丢到屏幕外,玩家"没获得"。
+    -- 改为取附近可行走点(半径2),找不到就就地生成。
+    local offset = FindWalkableOffset(inst:GetPosition(), math.random() * 2 * PI, 20, 8, false, true)
+    if offset then
+        woby.Transform:SetPosition(x + offset.x, y, z + offset.z)
+    else
+        woby.Transform:SetPosition(x, y, z)
     end
 
     return woby
@@ -3390,6 +3374,12 @@ end
 function achievementability:fearlessfn(inst)
     if self.fearless then
         warlter_common_postinit(inst)
+        -- 授予 Walter 技能树技能(弹弓改装/弹药/Woby/露营): 服务端置 _achiv_skills + 跑 onactivate;
+        -- 客户端经 currentfearless netvar 反查 IsActivated(modmain Route B)。配方均 builder_skill+TECH.NONE,无需 AddRecipe。
+        local _walter_st = ability_cost["fearless"].skilltree
+        if _walter_st ~= nil then
+            AchivGrantSkills(inst, _walter_st.char, _walter_st.skills)
+        end
         -- if inst.prefab == "wolfgang" then
         --     inst:ListenForEvent("onhitother", Wolfgang_OnHitOther)
         -- end
@@ -3401,6 +3391,12 @@ end
 function achievementability:fearlessRemove()
     local inst = self.inst
     --if self.fearless then
+        -- 收回 Walter 技能树技能(跑 ondeactivate 摘 slingshotammocontaineruser/portable_campfire_user/fasthealer 等)。
+        -- 经延迟路径调用(resetbuff 1.5s 防 woby 竞态),不走通用 Remove 循环。
+        local _walter_st = ability_cost["fearless"].skilltree
+        if _walter_st ~= nil then
+            AchivRevokeSkills(inst, _walter_st.char, _walter_st.skills)
+        end
         if inst.woby ~= nil and inst.woby.components.container ~= nil then
             inst.woby.components.container:DropEverything()
         end
@@ -3960,8 +3956,9 @@ function achievementability:resetbuff(inst)
     end
 
     -- 技能树移植能力的通用重置(此时 flag 仍为 true,在 removecoin 置 false 之前)
+    -- skip_generic_remove 的(如 fearless)有自己的特殊拆除路径(woby 清理+延迟防竞态),不在此处立即调,避免重踩竞态。
     for _an, _cfg in pairs(ability_cost) do
-        if _cfg.skilltree ~= nil and self[_an] then
+        if _cfg.skilltree ~= nil and not _cfg.skilltree.skip_generic_remove and self[_an] then
             self[_an.."Remove"](self, inst)
         end
     end
