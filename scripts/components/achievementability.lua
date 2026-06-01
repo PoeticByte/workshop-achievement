@@ -708,6 +708,11 @@ function achievementability:soulhopcopyfn(inst)
         inst:DoTaskInTime(0.5, TryToOnRespawnedFromGhost)
         inst:ListenForEvent("ms_respawnedfromghost", OnRespawnedFromGhost)
         inst:ListenForEvent("ms_becameghost", OnBecameGhost)
+        -- 授予 Wortox 技能树(灵魂护盾/振奋/偷窃/诱饵/灵魂罐/抓取袋/复活器)。灵魂生成已由上方监听复刻; 物品配方经 Route B 可造。
+        local _wortox_st = ability_cost["soulhopcopy"].skilltree
+        if _wortox_st ~= nil then
+            AchivGrantSkills(inst, _wortox_st.char, _wortox_st.skills)
+        end
     end
 end
 
@@ -734,6 +739,11 @@ function achievementability:soulhopcopyRemove(inst)
         end
         inst:RemoveEventCallback("murdered", OnMurdered)
         inst:RemoveEventCallback("harvesttrapsouls", OnHarvestTrapSouls)
+        -- 收回 Wortox 技能(经延迟/显式 soulhopcopyRemove 路径,skip_generic_remove 已让通用循环跳过避免双调)。
+        local _wortox_st = ability_cost["soulhopcopy"].skilltree
+        if _wortox_st ~= nil then
+            AchivRevokeSkills(inst, _wortox_st.char, _wortox_st.skills)
+        end
     end
 end
 
@@ -1491,6 +1501,12 @@ function achievementability:plantfriendfn(inst)
     if inst and self.plantfriend and inst.prefab ~= "wormwood" then
         inst:AddTag("plantkin")
         inst:AddTag("healonfertilize")
+        -- 授予 Wormwood 造物技能树: 上面的 *crafter 旧标签rework后已失效,造物配方现为 builder_skill,
+        -- 靠授予 wormwood_*crafting 技能 + Route B 客户端同步才能造(sapling/berrybush/reeds/lureplant/syrup 等)。
+        local _wormwood_st = ability_cost["plantfriend"].skilltree
+        if _wormwood_st ~= nil then
+            AchivGrantSkills(inst, _wormwood_st.char, _wormwood_st.skills)
+        end
         inst:AddTag("farmplantidentifier")
         inst:AddTag("saplingcrafter")
         inst:AddTag("berrybushcrafter")
@@ -2838,6 +2854,11 @@ function achievementability:ghostly_friendfn(inst)
             inst.components.ghostlybond.summoned = false
             inst.components.ghostlybond.notsummoned = true
         end
+        -- 授予 Wendy 技能树(阿比盖尔形态/指令/姊妹龛/灵药/幽花/墓碑升级)。阿比盖尔由 ghostlybond 提供; onactivate 均带 ghost 守卫。
+        local _wendy_st = ability_cost["ghostly_friend"].skilltree
+        if _wendy_st ~= nil then
+            AchivGrantSkills(inst, _wendy_st.char, _wendy_st.skills)
+        end
         inst.OnDespawn = OnDespawn
         inst.OnSave = OnSave
         inst.OnLoad = OnLoad
@@ -2865,6 +2886,11 @@ function achievementability:ghostly_friendRemove()
        --inst:RemoveComponent("pethealthbar")
        inst.components.achievementability.ghostly_friend_maxhealth =  150
        inst.components.achievementability.ghostly_friend_curhealth=1
+       -- 收回 Wendy 技能(经显式 ghostly_friendRemove 路径,skip_generic_remove 已让通用循环跳过避免双调)。
+       local _wendy_st = ability_cost["ghostly_friend"].skilltree
+       if _wendy_st ~= nil then
+           AchivRevokeSkills(inst, _wendy_st.char, _wendy_st.skills)
+       end
     end
 end
 

@@ -306,6 +306,7 @@ STRINGS.ACHIVABILITYNAME={
 ["lunaraligned"] = "月影忠臣",
 ["shadowaligned"] = "暗影忠魂",
 ["wilson_torch"] = "驭火大师",
+["wigfridgear"] = "瓦尔基里军备",
 }
 
 STRINGS.ACHIVABILITYDSPC={
@@ -316,7 +317,7 @@ STRINGS.ACHIVABILITYDSPC={
 ["damageup"] ="提升攻击力，每级 +5%，可多次叠加",
 ["crit"] ="攻击有概率造成双倍伤害，每级 +5%，可多次叠加",
 ["electric"] ="近战攻击附带额外的电击伤害",
-["plantfriend"] ="可徒手种植种子，且种植时恢复理智(沃姆伍德植物亲和)",
+["plantfriend"] ="徒手种植种子、种植回理智、可造活木/荆棘 + 沃姆伍德造物树：种植树苗/浆果丛/芦苇/捕草，吐根糖浆，蘑菇planter升级(沃姆伍德)",
 ["firmarmor"] ="装备铥矿盔甲时，额外提供 100 点护甲生命值",
 ["healthregen"] ="攻击命中时，少量回复自身生命与理智",
 ["fireflylight"] ="身体周围持续散发一小片光亮，黑暗中也能视物",
@@ -338,13 +339,13 @@ STRINGS.ACHIVABILITYDSPC={
 ["level"] ="角色升级时获得成就点(默认开启)",
 ["fastbuild"] ="快速建造 + 完整薇诺娜工程：投石机/电池/聚光灯及全部升级、便携建筑、遥控器、传送、暗影/月亮充能",
 ["jump"] ="受到攻击时冰冻敌人；主动攻击也有概率冰冻目标",
-["soulhopcopy"] ="击杀生物会掉落灵魂，可拾取并进行灵魂跳跃传送(沃拓克斯)",
+["soulhopcopy"] ="击杀掉落灵魂、灵魂跳跃传送 + 沃拓克斯技能树：灵魂护盾、治疗强化、偷窃、灵魂诱饵、灵魂罐与抓取袋(沃拓克斯)",
 ["morestrongstomach"] ="百无禁忌：可食用任何食物且无负面，吃怪物肉也减缓饥饿流失",
 ["shadowsubmissive"] ="暗影生物不再主动攻击你，骷髅怪会跟随你",
 ["eventtechnology"] ="解锁各类节日活动的科技与制作物",
 ["murlocdisguise"] ="可建造鱼人屋、沼泽地皮与地毯(在地毯上移动加速)",
 ["fastcollection"] ="采集、收获等动作大幅加快",
-["ghostly_friend"] ="可制作恶月花并召唤幽灵阿比盖尔协助战斗(温蒂)",
+["ghostly_friend"] ="召唤幽灵阿比盖尔 + 温蒂技能树：阿比形态/指令、姊妹龛、灵药、幽花、墓碑升级(温蒂)",
 ["waxwellfriend"] ="可制作暗影法典，召唤暗影分身为你战斗与劳作(麦斯威尔)",
 ["flashy"] ="移动和静止时留下华丽特效，脚下带有光环",
 ["fearless"] ="帐篷/弹弓/沃比 + Walter技能树：弹弓改装、多种特殊弹药、沃比升级、露营增益",
@@ -359,6 +360,7 @@ STRINGS.ACHIVABILITYDSPC={
 ["lunaraligned"] ="月亮阵营：对月亮生物减伤 20%，对暗影生物增伤 20%",
 ["shadowaligned"] ="暗影阵营：对暗影生物减伤 20%，对月亮生物增伤 20%",
 ["wilson_torch"] ="威尔逊驭火技能：火把燃烧更久、火光更亮，并可投掷火把(右键)",
+["wigfridgear"] ="薇格弗德军备：制作闪电长矛、指挥官头盔、战斗圆盾及全部升级，获得位面防御与护甲牛鞍(战歌需灵感系统，暂不含)",
 }
 
 STRINGS.ACHIEVEMENT_LIST =

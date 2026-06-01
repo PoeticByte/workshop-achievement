@@ -304,6 +304,7 @@ STRINGS.ACHIVABILITYNAME = {
   ["lunaraligned"] = "Lunar Aligned",
   ["shadowaligned"] = "Shadow Aligned",
   ["wilson_torch"] = "Master of the Flame",
+  ["wigfridgear"] = "Valkyrie Arsenal",
 }
 
 STRINGS.ACHIVABILITYDSPC = {
@@ -314,7 +315,7 @@ STRINGS.ACHIVABILITYDSPC = {
   ["damageup"] = "Increase attack power by 5% per level, stacks multiple times",
   ["crit"] = "Chance to deal double damage, +5% per level, stacks",
   ["electric"] = "Your melee attacks deal extra electric damage",
-  ["plantfriend"] = "Plant seeds by hand and regain sanity when planting (Wormwood)",
+  ["plantfriend"] = "Plant seeds by hand, regain sanity when planting, craft living logs/bramble + Wormwood crafting tree: grow saplings/berry bushes/reeds/lureplant, syrup, mushroom planter upgrades (Wormwood)",
   ["firmarmor"] = "Wearing thulecite armor grants +100 armor durability",
   ["healthregen"] = "Heal a little health and sanity whenever you land an attack",
   ["fireflylight"] = "Emit a small radius of light around you, letting you see in the dark",
@@ -336,13 +337,13 @@ STRINGS.ACHIVABILITYDSPC = {
   ["level"] = "Gain achievement points when your character levels up (on by default)",
   ["fastbuild"] = "Build faster + full Winona engineering: catapults/batteries/spotlights with all upgrades, portable structures, remote, teleport and shadow/lunar power",
   ["jump"] = "Freeze enemies when you are attacked; also a chance to freeze on hit",
-  ["soulhopcopy"] = "Kills drop souls you can absorb and soul-hop teleport (Wortox)",
+  ["soulhopcopy"] = "Kills drop souls, soul-hop teleport + Wortox skill tree: soul shields, healing boosts, thieving, soul decoys, soul jars and nab bags (Wortox)",
   ["morestrongstomach"] = "Eat anything with no penalty; monster meat drains hunger slower",
   ["shadowsubmissive"] = "Shadow creatures stop attacking you and skeletons follow you",
   ["eventtechnology"] = "Unlock tech and craftables from the various seasonal events",
   ["murlocdisguise"] = "Build merm houses, marsh turf and carpet (move faster on carpet)",
   ["fastcollection"] = "Greatly speed up gathering and harvesting actions",
-  ["ghostly_friend"] = "Craft Abigail's flower and summon ghost Abigail to fight (Wendy)",
+  ["ghostly_friend"] = "Summon ghost Abigail + Wendy skill tree: Abigail forms/commands, sisturn, elixirs, ghost flowers and gravestone upgrades (Wendy)",
   ["waxwellfriend"] = "Craft the shadow codex and summon shadow minions to fight and work (Maxwell)",
   ["flashy"] = "Leave flashy effects while moving or standing still, with a glowing halo at your feet",
   ["fearless"] = "Tents, slingshot & Woby + Walter skills: slingshot mods, many ammo types, Woby upgrades and camping perks",
@@ -356,6 +357,7 @@ STRINGS.ACHIVABILITYDSPC = {
   ["lunaraligned"] = "Lunar aligned: 20% less damage from lunar foes, 20% more damage to shadow foes",
   ["shadowaligned"] = "Shadow aligned: 20% less damage from shadow foes, 20% more damage to lunar foes",
   ["wilson_torch"] = "Wilson's fire mastery: torches last much longer, burn brighter, and can be thrown (right-click)",
+  ["wigfridgear"] = "Wigfrid's arsenal: craft the Lightning Spear, Commander's Helm and Battle Rond with all upgrades, gain planar defense and a protective beefalo saddle (battle songs need the inspiration system, not included)",
 }
 
 STRINGS.ACHIEVEMENT_LIST =

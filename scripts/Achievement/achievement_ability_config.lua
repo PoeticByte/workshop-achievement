@@ -10,7 +10,15 @@ local achievement_ability_config = {
         {ability = "firmarmor", cost = 25, default_value = 0,},
         {ability = "woodieability", cost = 50, default_value = false,},
         {ability = "healthregen", cost = 25, default_value = 0,},
-        {ability = "plantfriend", cost = 40, default_value = false,canswitch = true,},
+        -- 植物人能力(Wormwood基底): plantfriendfn 已给 plantkin(造活木/荆棘/堆肥包)+healonfertilize。这里再授予 Wormwood 技能树:
+        -- 造物分支(builder_skill,TECH.NONE,Route B 自动可造) + farm 识别/快采安全标签。排除开花bloom(需 bloomness 角色组件)与暗影/月亮阵营。
+        {ability = "plantfriend", cost = 40, default_value = false,canswitch = true, skilltree = {char = "wormwood", skills = {
+            "wormwood_saplingcrafting","wormwood_berrybushcrafting","wormwood_juicyberrybushcrafting",
+            "wormwood_reedscrafting","wormwood_lureplantbulbcrafting","wormwood_syrupcrafting",
+            "wormwood_mushroomplanter_ratebonus1","wormwood_mushroomplanter_ratebonus2","wormwood_mushroomplanter_upgrade",
+            "wormwood_moon_cap_eating",
+            "wormwood_identify_plants2","wormwood_blooming_farmrange1",
+        }}},
         {ability = "fireflylight", cost = 50, default_value = false,canswitch = true,},
         {ability = "nomoist", cost = 25, default_value = false,canswitch = true,},
         {ability = "doubledrop", cost = 80, default_value = false,},
@@ -57,13 +65,33 @@ local achievement_ability_config = {
         -- TECH.LOST 配方(builder_skill 放行后仍被科技门挡住,因 LOST=MAGIC/SCIENCE/ANCIENT各10不可达):
         -- 授予时 builder:AddRecipe 加入已学列表绕过科技门(官方 winona.lua 用 RemoveRecipe 反向门控同理),收回时 RemoveRecipe。
         recipes = {"winona_storage_robot", "winona_telebrella", "winona_teleport_pad_item"}}},
-        {ability = "soulhopcopy", cost = 55, default_value = false,},
+        -- 灵魂跳跃(Wortox基底): 已复刻灵魂系统(击杀生成灵魂 wortox_soul_common + 灵魂跳跃)。这里再授予 Wortox 技能树:
+        -- 治疗者/灵魂护盾/振奋(nice)+ 偷窃/灵魂诱饵/抓取袋/灵魂罐(naughty)。物品(灵魂罐/抓取袋/复活器)经 builder_skill+Route B 可造。
+        -- 排除: souljar_2(onactivate 调 Wortox 专属 DoCheckSoulsAdded 会崩)、排箫(需 timer 组件,非Wortox没有)、暗影/月亮阵营(重叠)。
+        {ability = "soulhopcopy", cost = 55, default_value = false, skilltree = {char = "wortox", skip_generic_remove = true, skills = {
+            "wortox_lifebringer_1","wortox_lifebringer_2","wortox_lifebringer_3",
+            "wortox_soulprotector_1","wortox_soulprotector_2","wortox_soulprotector_3","wortox_soulprotector_4",
+            "wortox_liftedspirits_1","wortox_liftedspirits_2","wortox_liftedspirits_3","wortox_liftedspirits_4",
+            "wortox_nabbag","wortox_souljar_1","wortox_souljar_3",
+            "wortox_thief_1","wortox_thief_2","wortox_thief_3","wortox_thief_4",
+            "wortox_souldecoy_1","wortox_souldecoy_2","wortox_souldecoy_3",
+        }}},
         {ability = "morestrongstomach", cost = 25, default_value = false,},
         {ability = "shadowsubmissive", cost = 45, default_value = false,canswitch = true,},
         {ability = "eventtechnology", cost = 30, default_value = false,},
         {ability = "murlocdisguise", cost = 45, default_value = false,canswitch = true,},
         {ability = "fastcollection", cost = 35, default_value = false,},
-        {ability = "ghostly_friend", cost = 70, default_value = false,},
+        -- 灵魂伙伴(Wendy基底): 已给 ghostlybond(阿比盖尔)+elixirbrewer。这里再授予 Wendy 技能树: 姊妹龛/灵药/小阿比/幽花/墓碑/阿比指令升级。
+        -- 排除: wendy_sisturn_2(onactivate 调 sanityauraadjuster,非Wendy无此组件会崩)、暗影/月亮阵营(重叠)。skip_generic_remove=true(有手写Remove含阿比清理)。
+        {ability = "ghostly_friend", cost = 70, default_value = false, skilltree = {char = "wendy", skip_generic_remove = true, skills = {
+            "wendy_sisturn_1","wendy_sisturn_3",
+            "wendy_potion_container","wendy_potion_revive","wendy_potion_duration","wendy_potion_yield",
+            "wendy_avenging_ghost",
+            "wendy_smallghost_1","wendy_smallghost_2","wendy_smallghost_3",
+            "wendy_ghostflower_butterfly","wendy_ghostflower_hat","wendy_ghostflower_grave",
+            "wendy_gravestone_1","wendy_makegravemounds",
+            "wendy_ghostcommand_1","wendy_ghostcommand_2","wendy_ghostcommand_3",
+        }}},
         {ability = "waxwellfriend", cost = 50, default_value = false,},
         {ability = "flashy", cost = 20, default_value = false,canswitch = true,},
         -- 无畏(Walter基底): warlter_common_postinit 已给 woby/弹弓/基础弹药/pebblemaker。这里再授予 Walter 技能树技能:
@@ -90,6 +118,15 @@ local achievement_ability_config = {
         -- ===== 技能树移植能力 (Phase 0 原型) =====
         -- 驭火大师: 火把时长/亮度(wilson_torch_1..6) + 扔火把(wilson_torch_7,火把本身已可投掷,只需 modmain 接 TOSS 点动作)。
         {ability = "wilson_torch", cost = 15, default_value = false, skilltree = {char = "wilson", skills = {"wilson_torch_1","wilson_torch_2","wilson_torch_3","wilson_torch_4","wilson_torch_5","wilson_torch_6","wilson_torch_7"}},},
+        -- 瓦尔基里军备(Wigfrid 军备分支): 全新独立纯技能树能力(无现成基底)。装备类齐装可移植: 闪电长矛/指挥官头盔/战斗圆盾(均 builder_skill+TECH.NONE,Route B 可造)+ 升级 + 位面防御 + 护甲牛鞍。
+        -- 排除战歌/灵感分支(需 Wigfrid 专属 inspiration 子系统,mod 未实现)、beefalo_1(onactivate 调 _riding_music 网变会崩)、beefalo_3(需灵感)、暗影/月亮阵营。
+        {ability = "wigfridgear", cost = 40, default_value = false, skilltree = {char = "wathgrithr", skills = {
+            "wathgrithr_arsenal_spear_3","wathgrithr_arsenal_spear_4","wathgrithr_arsenal_spear_5",
+            "wathgrithr_arsenal_helmet_1","wathgrithr_arsenal_helmet_2","wathgrithr_arsenal_helmet_3","wathgrithr_arsenal_helmet_4","wathgrithr_arsenal_helmet_5",
+            "wathgrithr_arsenal_shield_1","wathgrithr_arsenal_shield_2","wathgrithr_arsenal_shield_3",
+            "wathgrithr_combat_defense",
+            "wathgrithr_beefalo_2","wathgrithr_beefalo_saddle",
+        }}},
     },
     ability_ratio=
     {
