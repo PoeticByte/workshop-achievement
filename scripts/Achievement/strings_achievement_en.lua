@@ -304,7 +304,7 @@ STRINGS.ACHIVABILITYNAME = {
   ["lunaraligned"] = "Lunar Aligned",
   ["shadowaligned"] = "Shadow Aligned",
   ["wilson_torch"] = "Master of the Flame",
-  ["wigfridgear"] = "Valkyrie Arsenal",
+  ["wigfridgear"] = "War God's Arsenal",
 }
 
 STRINGS.ACHIVABILITYDSPC = {
@@ -357,7 +357,7 @@ STRINGS.ACHIVABILITYDSPC = {
   ["lunaraligned"] = "Lunar aligned: 20% less damage from lunar foes, 20% more damage to shadow foes",
   ["shadowaligned"] = "Shadow aligned: 20% less damage from shadow foes, 20% more damage to lunar foes",
   ["wilson_torch"] = "Wilson's fire mastery: torches last much longer, burn brighter, and can be thrown (right-click)",
-  ["wigfridgear"] = "Wigfrid's arsenal: craft the Lightning Spear, Commander's Helm and Battle Rond with all upgrades, gain planar defense and a protective beefalo saddle (battle songs need the inspiration system, not included)",
+  ["wigfridgear"] = "Wigfrid's arsenal: craft the Elding Spear, Commander's Helm and Battle Rönd with all upgrades, gain planar defense and a protective beefalo saddle (battle songs need the inspiration system, not included)",
 }
 
 STRINGS.ACHIEVEMENT_LIST =

@@ -306,7 +306,7 @@ STRINGS.ACHIVABILITYNAME={
 ["lunaraligned"] = "月影忠臣",
 ["shadowaligned"] = "暗影忠魂",
 ["wilson_torch"] = "驭火大师",
-["wigfridgear"] = "瓦尔基里军备",
+["wigfridgear"] = "武神军备",
 }
 
 STRINGS.ACHIVABILITYDSPC={
@@ -360,7 +360,7 @@ STRINGS.ACHIVABILITYDSPC={
 ["lunaraligned"] ="月亮阵营：对月亮生物减伤 20%，对暗影生物增伤 20%",
 ["shadowaligned"] ="暗影阵营：对暗影生物减伤 20%，对月亮生物增伤 20%",
 ["wilson_torch"] ="威尔逊驭火技能：火把燃烧更久、火光更亮，并可投掷火把(右键)",
-["wigfridgear"] ="薇格弗德军备：制作闪电长矛、指挥官头盔、战斗圆盾及全部升级，获得位面防御与护甲牛鞍(战歌需灵感系统，暂不含)",
+["wigfridgear"] ="薇格弗德军备：制作奔雷矛、统帅头盔、战斗圆盾及全部升级，获得位面防御与护甲牛鞍(战歌需灵感系统，暂不含)",
 }
 
 STRINGS.ACHIEVEMENT_LIST =
