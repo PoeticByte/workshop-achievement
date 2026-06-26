@@ -1,5 +1,5 @@
-GLOBAL.CHEATS_ENABLED = true
-GLOBAL.require( 'debugkeys' )
+--GLOBAL.CHEATS_ENABLED = true
+--GLOBAL.require( 'debugkeys' )
 GLOBAL.setmetatable(env, {
     __index = function(t, k)
         return GLOBAL.rawget(GLOBAL, k)
@@ -24,8 +24,15 @@ local achievement_ability_config = require("Achievement.achievement_ability_conf
 local ability_cost = achievement_ability_config.ability_cost
 local language  = GetModConfigData("language")
 local can_hide_hud = GetModConfigData("can_hide_hud")
-local language_package = "Achievement.strings_achievement_" .. language
-require(language_package)
+-- 语言加载:先加载英文作为兜底基板,再用所选语言覆盖;
+-- 这样新语言文件缺失/漏译的条目会自动回退到英文而不是 nil 报错。
+require "Achievement.strings_achievement_en"
+if language ~= nil and language ~= "en" then
+    local ok, err = _G.pcall(require, "Achievement.strings_achievement_" .. language)
+    if not ok then
+        print("[Achievement] failed to load language '" .. tostring(language) .. "', fallback to en: " .. tostring(err))
+    end
+end
 require "Achievement.allachivrpc"
 -- GM 控制台命令: 文件返回函数表,这里注册到真全局表 GLOBAL,控制台才能调用(详见该文件注释)。
 local _gm_commands = require 'achievement_debugcommands'

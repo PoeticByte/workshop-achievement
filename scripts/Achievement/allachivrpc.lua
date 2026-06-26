@@ -156,6 +156,14 @@ AddModRPCHandler("DSTAchievement", "fastcollection", function(player)
 	player.components.achievementability:fastcollectioncoin(player)
 end)
 
+AddModRPCHandler("DSTAchievement", "balloonmaster", function(player)
+	player.components.achievementability:balloonmastercoin(player)
+end)
+
+AddModRPCHandler("DSTAchievement", "spiderfriend", function(player)
+	player.components.achievementability:spiderfriendcoin(player)
+end)
+
 AddModRPCHandler("DSTAchievement", "ghostly_friend", function(player)
 	player.components.achievementability:ghostly_friendcoin(player)
 end)

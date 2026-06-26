@@ -236,35 +236,201 @@ end
 local function SortByStackSize(l, r)
     return GetStackSize(l) < GetStackSize(r)
 end
-local function CheckSoulsAdded(inst)
+
+local function IsSoulJar(item)
+    return item ~= nil and item.prefab == "wortox_souljar"
+end
+
+local function GetSoulJarCapIncrease()
+    return TUNING.SKILLS ~= nil
+        and TUNING.SKILLS.WORTOX ~= nil
+        and TUNING.SKILLS.WORTOX.FILLED_SOULJAR_SOULCAP_INCREASE_PER
+        or 5
+end
+
+local function CountHeldSoulJars(inst)
+    local inventory = inst.components.inventory
+    local souljars = 0
+    inventory:ForEachItemSlot(function(item)
+        if IsSoulJar(item) then
+            souljars = souljars + 1
+        end
+    end)
+    local activeitem = inventory:GetActiveItem()
+    if IsSoulJar(activeitem) then
+        souljars = souljars + 1
+    end
+    return souljars
+end
+
+local function CountStoredSoulJarSouls(inst)
+    local inventory = inst.components.inventory
+    local count = 0
+    inventory:ForEachItemSlot(function(item)
+        if IsSoulJar(item) then
+            count = count + (item.soulcount or 0)
+        end
+    end)
+    local activeitem = inventory:GetActiveItem()
+    if IsSoulJar(activeitem) then
+        count = count + (activeitem.soulcount or 0)
+    end
+    return count
+end
+
+local function GetAchivSoulMaxCount(inst)
+    local max_count = TUNING.WORTOX_MAX_SOULS or 20
+    if inst.components.skilltreeupdater ~= nil
+        and inst.components.skilltreeupdater:IsActivated("wortox_souljar_2") then
+        max_count = max_count + CountHeldSoulJars(inst) * GetSoulJarCapIncrease()
+    end
+    return max_count
+end
+
+local function DropSouls(inst, souls, dropcount)
+    if dropcount <= 0 then
+        return 0
+    end
+    local dropped = 0
+    table.sort(souls, SortByStackSize)
+    local pos = inst:GetPosition()
+    for i, v in ipairs(souls) do
+        local vcount = GetStackSize(v)
+        if vcount < dropcount then
+            inst.components.inventory:DropItem(v, true, true, pos)
+            dropcount = dropcount - vcount
+            dropped = dropped + vcount
+        else
+            if vcount == dropcount then
+                inst.components.inventory:DropItem(v, true, true, pos)
+            else
+                v = v.components.stackable:Get(dropcount)
+                v.Transform:SetPosition(pos:Get())
+                v.components.inventoryitem:OnDropped(true)
+            end
+            dropped = dropped + dropcount
+            break
+        end
+    end
+    return dropped
+end
+
+local function ClearAchivSoulOverloadTask(inst)
+    inst._achiv_souloverloadtask = nil
+end
+
+local function DestroyAchivOverloadingFX(inst)
+    if inst.wortox_souloverload_stoppertask ~= nil then
+        inst.wortox_souloverload_stoppertask:Cancel()
+        inst.wortox_souloverload_stoppertask = nil
+    end
+    if inst.wortox_souloverload_fx ~= nil then
+        if inst.wortox_souloverload_fx:IsValid() then
+            inst.wortox_souloverload_fx:Remove()
+        end
+        inst.wortox_souloverload_fx = nil
+    end
+end
+
+local function RecalculateAchivWortoxInclination(inst)
+    local old_inclination = inst.wortox_inclination
+    local new_inclination
+    local skilltreeupdater = inst.components.skilltreeupdater
+    if skilltreeupdater ~= nil then
+        local custom = require("prefabs/skilltree_defs").CUSTOM_FUNCTIONS.wortox
+        local nice = skilltreeupdater:CountSkillTag("nice")
+        local naughty = skilltreeupdater:CountSkillTag("naughty")
+        local affinitytype = skilltreeupdater:IsActivated("wortox_allegiance_lunar") and "lunar"
+            or skilltreeupdater:IsActivated("wortox_allegiance_shadow") and "shadow"
+            or nil
+        new_inclination = custom.CalculateInclination(nice, naughty, affinitytype)
+    end
+    if new_inclination ~= old_inclination then
+        inst.wortox_inclination = new_inclination
+        inst:PushEvent("wortox_inclination_changed", {old_inclination = old_inclination, new_inclination = new_inclination})
+    end
+end
+
+local CheckAchivSoulOverload
+
+local function ForceAchivSoulOverload(inst)
+    DestroyAchivOverloadingFX(inst)
+    inst.wortox_souloverload_forceoverloading = true
     local souls = inst.components.inventory:FindItems(IsSoul)
     local count = 0
     for i, v in ipairs(souls) do
         count = count + GetStackSize(v)
     end
-    if count > 30 then
-        --convert count to drop count
-        count = count - math.floor(20) + math.random(0, 2) - 1
-        table.sort(souls, SortByStackSize)
-        local pos = inst:GetPosition()
-        for i, v in ipairs(souls) do
-            local vcount = GetStackSize(v)
-            if vcount < count then
-                inst.components.inventory:DropItem(v, true, true, pos)
-                count = count - vcount
-            else
-                if vcount == count then
-                    inst.components.inventory:DropItem(v, true, true, pos)
-                else
-                    v = v.components.stackable:Get(count)
-                    v.Transform:SetPosition(pos:Get())
-                    v.components.inventoryitem:OnDropped(true)
-                end
-                break
+    CheckAchivSoulOverload(inst, souls, count)
+    inst.wortox_souloverload_forceoverloading = nil
+end
+
+local function CreateAchivOverloadingFX(inst)
+    if inst.wortox_souloverload_stoppertask == nil then
+        local stop_time = TUNING.SKILLS ~= nil
+            and TUNING.SKILLS.WORTOX ~= nil
+            and TUNING.SKILLS.WORTOX.NAUGHTY_OVERLOAD_STOP_TIME
+            or 10
+        inst.wortox_souloverload_stoppertask = inst:DoTaskInTime(stop_time, ForceAchivSoulOverload)
+        inst.wortox_souloverload_fx = SpawnPrefab("wortox_overloading_fx")
+        if inst.wortox_souloverload_fx ~= nil then
+            inst.wortox_souloverload_fx.entity:SetParent(inst.entity)
+            if inst.wortox_souloverload_fx.Follower ~= nil and inst.components.combat ~= nil then
+                inst.wortox_souloverload_fx.Follower:FollowSymbol(inst.GUID, inst.components.combat.hiteffectsymbol, 0, 0, 0)
             end
         end
-        inst.components.sanity:DoDelta(-TUNING.SANITY_MEDLARGE*2)
+        inst:PushEvent("souloverloadwarning")
     end
+end
+
+function CheckAchivSoulOverload(inst, souls, count)
+    RecalculateAchivWortoxInclination(inst)
+    local max_count = GetAchivSoulMaxCount(inst)
+    if count > max_count then
+        local dooverload = true
+        -- soulhopcopy 同时授予多项 naughty 侧能力(灵魂罐/偷窃/诱饵),按原版 naughty 过载体验先预警延迟。
+        if not inst.wortox_souloverload_forceoverloading then
+            CreateAchivOverloadingFX(inst)
+            dooverload = false
+        end
+        if dooverload then
+            if inst._achiv_souloverloadtask ~= nil then
+                inst._achiv_souloverloadtask:Cancel()
+                inst._achiv_souloverloadtask = nil
+            end
+            inst._achiv_souloverloadtask = inst:DoTaskInTime((TUNING.WORTOX_SOUL_HEAL_DELAY or 1) + 0.1, ClearAchivSoulOverloadTask)
+            local dropcount = count - math.floor(max_count / 2) + math.random(0, 2) - 1
+            local dropped = DropSouls(inst, souls, dropcount)
+            count = count - dropped
+            if dropped > 0 and inst.components.sanity ~= nil then
+                inst.components.sanity:DoDelta(-TUNING.SANITY_MEDLARGE * math.ceil(dropped / max_count))
+            end
+            inst:PushEvent("souloverload")
+        end
+    elseif TUNING.WORTOX_WISECRACKER_TOOMANY ~= nil and count > max_count * TUNING.WORTOX_WISECRACKER_TOOMANY then
+        inst:PushEvent("soultoomany")
+        if inst.wortox_souloverload_stoppertask ~= nil then
+            DestroyAchivOverloadingFX(inst)
+            inst:PushEvent("souloverloadavoided")
+        end
+    elseif inst.wortox_souloverload_stoppertask ~= nil then
+        DestroyAchivOverloadingFX(inst)
+        inst:PushEvent("souloverloadavoided")
+    end
+
+    inst.soulcount = count + CountStoredSoulJarSouls(inst)
+end
+
+local function CheckSoulsAdded(inst)
+    if inst.components.inventory == nil then
+        return
+    end
+    local souls = inst.components.inventory:FindItems(IsSoul)
+    local count = 0
+    for i, v in ipairs(souls) do
+        count = count + GetStackSize(v)
+    end
+
     --移除玩家身上的灵魂
     if inst.prefab ~= "wortox" and  inst.components.achievementability.soulhopcopy ~= true  then
         for k,v in pairs(inst.components.inventory.itemslots) do
@@ -272,6 +438,9 @@ local function CheckSoulsAdded(inst)
                 v:Remove()
             end
         end
+        inst.soulcount = 0
+    elseif inst.prefab ~= "wortox" and inst.components.achievementability.soulhopcopy == true then
+        CheckAchivSoulOverload(inst, souls, count)
     end
 end
 local function OnRestoreSoul(victim)
@@ -692,7 +861,8 @@ local function DealAction()
                     end
                 end
                 if player.components.achievementmanager.checkmoon_56 ~= true  then
-                    if message == "祈福" then
+                    -- 中文"祈福"或英文 pray/bless 都算(英文取小写后比较)
+                    if message == "祈福" or anything_message == "pray" or anything_message == "bless" then
                         player.components.achievementmanager.currentmoon_56amount = player.components.achievementmanager.currentmoon_56amount + 1
                         if player.components.achievementmanager.currentmoon_56amount == achievement_config.idconfig["moon_56"].need_amount then
                             player.components.achievementmanager.checkmoon_56 = true

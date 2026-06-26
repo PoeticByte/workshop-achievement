@@ -2,7 +2,7 @@ ChooseTranslationTable = ChooseTranslationTable or function() end
 name ="New Achievement"
 description = "Achievement (Reburn)"
 author = "ACLegend"
-version = "3.3.3"
+version = "3.5.1"
 
 forumthread = ""
 
@@ -83,12 +83,12 @@ local MODINFO_NAME = {
     KILLAMOUNT_CAN_FINISH_ACHIEVEMENT = {
         "kill amount can finish achievement",
         ["zh"] = "消耗杀戮值可以完成成就",
-        ["en"] = "Max Crit up",
+        ["en"] = "Spend kill points to finish achievements",
     },
     COST_KILL_AMOUNT = {
         "kill amount can finish achievement",
         ["zh"] = "完成一个成就消耗杀戮值数量",
-        ["en"] = "finsh achievement cost kill amount",
+        ["en"] = "Kill points cost per achievement",
     },
     CAN_HIDE_HUD = 
     {
@@ -189,7 +189,12 @@ configuration_options =
         hover = "language",
         options =   {
                         {description = "简体中文", data = "zh"},
+                        {description = "繁體中文", data = "zht"},
                         {description = "English", data = "en"},
+                        {description = "Русский", data = "ru"},
+                        {description = "Español", data = "es"},
+                        {description = "Português-BR", data = "pt"},
+                        {description = "한국어", data = "ko"},
                     },
         default = "zh",
     },
@@ -198,7 +203,7 @@ configuration_options =
         label = ChooseTranslationTable(MODINFO_NAME.DIFFICULTY),
         hover = "Difficulty",
         options =   {
-                        {description = "EAZY",hover = "0.5 times", data = 0.5},
+                        {description = "EASY",hover = "0.5 times", data = 0.5},
                         {description = "NORMAL",hover = "1 times",data = 1},
                         {description = "HARD",hover = "1.5 times", data = 1.5},
                         {description = "NIGHTMARE",hover = "2 times", data = 2},
@@ -292,7 +297,7 @@ configuration_options =
     {
         name = "cost_kill_amount",
         label = ChooseTranslationTable(MODINFO_NAME.COST_KILL_AMOUNT),
-        hover = "finsh achievement cost",
+        hover = "finish achievement cost",
         options =   {
             {description = "500",hover = "500", data = 500},
             {description = "800",hover = "800", data = 800},
@@ -336,7 +341,7 @@ configuration_options =
     {
         name = "attribute_points_gained",
         label = ChooseTranslationTable(MODINFO_NAME.LEVELUP_AWARD_ATTRIBUTE),
-        hover = "finsh achievement cost",
+        hover = "attribute points gained per level up",
         options =   {
             {description = "1",hover = "1", data = 1},
             {description = "2",hover = "2", data = 2},

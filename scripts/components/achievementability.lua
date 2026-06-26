@@ -199,6 +199,8 @@ function achievementability:OnSave()
         levelswitch = self.levelswitch,
         effectswitch = self.effectswitch,
         effectstype = self.effectstype,
+        electricswitch = self.electricswitch,
+        fireflylightswitch = self.fireflylightswitch,
         nomoistswitch = self.nomoistswitch,
         shadowsubmissiveswitch = self.shadowsubmissiveswitch, 
         murlocdisguiseswitch = self.murlocdisguiseswitch, 
@@ -224,15 +226,17 @@ function achievementability:OnLoad(data)
     self.attributepointamount = data.attributepointamount or 0
     self.resetamount = data.resetamount or 0
     self.usedresetamount = data.usedresetamount or 0
-    self.thornsswitch = data.thornsswitch or true --反伤
-    self.effectswitch = data.effectswitch or true
+    self.thornsswitch = data.thornsswitch ~= nil and data.thornsswitch or true --反伤
+    self.effectswitch = data.effectswitch ~= nil and data.effectswitch or true
     self.effectstype = data.effectstype or 1
-    self.nomoistswitch = data.nomoistswitch or true
-    self.cookmasterswitch = data.cookmasterswitch or true
-    self.frozenswitch = data.frozenswitch or true    --冰冻开关
-    self.levelswitch = data.levelswitch or true
-    self.shadowsubmissiveswitch = data.shadowsubmissiveswitch or true
-    self.murlocdisguiseswitch = data.murlocdisguiseswitch or true
+    self.electricswitch = data.electricswitch ~= nil and data.electricswitch or true
+    self.fireflylightswitch = data.fireflylightswitch or 1
+    self.nomoistswitch = data.nomoistswitch ~= nil and data.nomoistswitch or true
+    self.cookmasterswitch = data.cookmasterswitch ~= nil and data.cookmasterswitch or true
+    self.frozenswitch = data.frozenswitch ~= nil and data.frozenswitch or true    --冰冻开关
+    self.levelswitch = data.levelswitch ~= nil and data.levelswitch or true
+    self.shadowsubmissiveswitch = data.shadowsubmissiveswitch ~= nil and data.shadowsubmissiveswitch or true
+    self.murlocdisguiseswitch = data.murlocdisguiseswitch ~= nil and data.murlocdisguiseswitch or true
     self.ghostly_friend_maxhealth = data.ghostly_friend_maxhealth or 150
     self.ghostly_friend_curhealth = data.ghostly_friend_curhealth or 1
     self.flashyswitch = data.flashyswitch or 1
@@ -458,7 +462,6 @@ local function GetStackSize(item)
     return item.components.stackable ~= nil and item.components.stackable:StackSize() or 1
 end
 
-
 local function IsSoul(item)
     return item.prefab == "wortox_soul"
 end
@@ -470,6 +473,24 @@ local function GetSouls(inst)
         count = count + GetStackSize(v)
     end
     return souls, count
+end
+
+local function IsSoulJar(item)
+    return item ~= nil and item.prefab == "wortox_souljar"
+end
+
+local function CountStoredSoulJarSouls(inst)
+    local count = 0
+    inst.components.inventory:ForEachItemSlot(function(item)
+        if IsSoulJar(item) then
+            count = count + (item.soulcount or 0)
+        end
+    end)
+    local activeitem = inst.components.inventory:GetActiveItem()
+    if IsSoulJar(activeitem) then
+        count = count + (activeitem.soulcount or 0)
+    end
+    return count
 end
 
 local function PutSoulOnCooldown(item)
@@ -490,6 +511,18 @@ local function RemoveSoulCooldown(item)
     if item.components.rechargeable ~= nil then
         item.components.rechargeable:SetPercent(1)
     end
+end
+
+-- 灵魂罐扩容(souljar_2)的安全版 DoCheckSoulsAdded。
+-- 官方 wortox_souljar_2.onactivate 调 inst:DoCheckSoulsAdded()(Wortox 专属方法,非Wortox为nil会崩)。
+-- 这里刷新 inst.soulcount(散装灵魂 + 灵魂罐内计数),实际超上限爆魂由 achievementmanager 的周期检查处理。
+local function DoCheckSoulsAddedSafe(inst)
+    if inst.components.inventory == nil then
+        return
+    end
+    local _, count = GetSouls(inst)
+    count = count + CountStoredSoulJarSouls(inst)
+    inst.soulcount = count
 end
 
 local function SetNetvar(inst)
@@ -708,7 +741,11 @@ function achievementability:soulhopcopyfn(inst)
         inst:DoTaskInTime(0.5, TryToOnRespawnedFromGhost)
         inst:ListenForEvent("ms_respawnedfromghost", OnRespawnedFromGhost)
         inst:ListenForEvent("ms_becameghost", OnBecameGhost)
-        -- 授予 Wortox 技能树(灵魂护盾/振奋/偷窃/诱饵/灵魂罐/抓取袋/复活器)。灵魂生成已由上方监听复刻; 物品配方经 Route B 可造。
+        -- 灵魂罐扩容技能(souljar_2)的 onactivate 会调 inst:DoCheckSoulsAdded(),授予前先挂安全版,否则崩。
+        if inst.DoCheckSoulsAdded == nil then
+            inst.DoCheckSoulsAdded = DoCheckSoulsAddedSafe
+        end
+        -- 授予 Wortox 技能树(灵魂护盾/振奋/偷窃/诱饵/灵魂罐+扩容/抓取袋/复活器)。灵魂生成已由上方监听复刻; 物品配方经 Route B 可造。
         local _wortox_st = ability_cost["soulhopcopy"].skilltree
         if _wortox_st ~= nil then
             AchivGrantSkills(inst, _wortox_st.char, _wortox_st.skills)
@@ -953,6 +990,12 @@ function achievementability:fastbuildfn(inst)
         inst:AddTag("wagstafft1maker")
         -- inst:AddTag("wagstafft2maker")
 
+        -- Winona's inspectacles hat needs this component to create and track the treasure game.
+        if inst.components.inspectaclesparticipant == nil then
+            inst:AddComponent("inspectaclesparticipant")
+            inst._achiv_inspectaclesparticipant = true
+        end
+
         -- 授予全部薇诺娜技能树技能: 投石机/电池/聚光灯升级、暗影/月亮对齐、便携、黑暗免疫、传送(wagstaff_2),
         -- 并解锁官方 builder_skill 配方(眼镜/储物机器人/遥控器齐射/传送伞/传送垫)。
         -- 服务端置 _achiv_skills + 跑 onactivate; 客户端经 currentfastbuild netvar 反查 IsActivated(见 modmain 桥接)。
@@ -1019,13 +1062,17 @@ function achievementability:electriccoin(inst)
                 inst._aifx2:kill_fx()               
                 inst._aifx2 = nil
             end
+            if inst.components.debuffable ~= nil then
+                inst.components.debuffable:RemoveDebuff("buff_electricattack")
+            end
             self.electricswitch = false
         else
+            self.electricswitch = true
+            self:electricfn(inst)
         	if inst._aifx2 == nil then            
                 inst._aifx2 = SpawnPrefab("electricfx") -- electricfx  electricfx2      achiv_lasertrail
                 inst._aifx2.entity:SetParent(inst.entity)
                 inst._aifx2.Transform:SetPosition(0, 0.2, 0)
-                self.electricswitch = true
             end
         end
     end
@@ -1054,12 +1101,14 @@ function achievementability:electriccoin(inst)
 end
 --电击获取
 function achievementability:electricfn(inst)
-    if  self.electric >= 1  then
+    if self.electric >= 1 and self.electricswitch then
         if inst.components.debuffable ~= nil and inst.components.debuffable:IsEnabled() and
             not (inst.components.health ~= nil and inst.components.health:IsDead()) and
             not inst:HasTag("playerghost") and not inst.components.debuffable:HasDebuff("buff_electricattack") then
             inst.components.debuffable:AddDebuff("buff_electricattack", "buff_electricattack")
         end
+    elseif inst.components.debuffable ~= nil then
+        inst.components.debuffable:RemoveDebuff("buff_electricattack")
     end
     
 end
@@ -2659,6 +2708,36 @@ function achievementability:fastcollectionfn(inst)
     end
 end
 
+------------------------------韦斯·气球(纯标签 balloonomancer)------------------------------------
+function achievementability:balloonmastercoin(inst)
+    if self.balloonmaster ~= true and self.coinamount >= ability_cost["balloonmaster"].cost and inst.prefab ~= "wes" then
+        self.balloonmaster = true
+        self:coinDoDelta(-ability_cost["balloonmaster"].cost)
+        self:balloonmasterfn(inst)
+        self:ongetcoin(inst)
+    end
+end
+function achievementability:balloonmasterfn(inst)
+    if self.balloonmaster then
+        inst:AddTag("balloonomancer")  --气球配方门控(makeballoon状态在公共SGwilson,任意玩家可造)
+    end
+end
+
+------------------------------韦伯·蜘蛛(纯标签 spiderwhisperer)------------------------------------
+function achievementability:spiderfriendcoin(inst)
+    if self.spiderfriend ~= true and self.coinamount >= ability_cost["spiderfriend"].cost and inst.prefab ~= "webber" then
+        self.spiderfriend = true
+        self:coinDoDelta(-ability_cost["spiderfriend"].cost)
+        self:spiderfriendfn(inst)
+        self:ongetcoin(inst)
+    end
+end
+function achievementability:spiderfriendfn(inst)
+    if self.spiderfriend then
+        inst:AddTag("spiderwhisperer")  --蜘蛛不主动攻击+投食招随从+蜘蛛建造配方门控(不加playermonster/monster减益)
+    end
+end
+
 --wendy
 local function WendyOnDespawn(inst)
     local abigail = inst.components.ghostlybond.ghost
@@ -3817,6 +3896,9 @@ function achievementability:resetbuff(inst)
 
     inst:RemoveTag("achiveking")
     inst:RemoveTag("fastpicker")
+    -- 重置移除气球/蜘蛛标签,带本角色守卫(balloonomancer=Wes原生, spiderwhisperer=Webber原生,不能从本体摘)
+    if inst.prefab ~= "wes" then inst:RemoveTag("balloonomancer") end
+    if inst.prefab ~= "webber" then inst:RemoveTag("spiderwhisperer") end
     if inst.icebodytemperature ~= nil  then
         inst.icebodytemperature:Cancel()
         inst.icebodytemperature = nil
@@ -3927,6 +4009,10 @@ function achievementability:resetbuff(inst)
         inst:RemoveTag("portableengineer")
         inst:RemoveTag("charliet1maker")
         inst:RemoveTag("wagstafft1maker")
+        if inst._achiv_inspectaclesparticipant and inst.components.inspectaclesparticipant ~= nil then
+            inst:RemoveComponent("inspectaclesparticipant")
+            inst._achiv_inspectaclesparticipant = nil
+        end
     end
     if inst.prefab ~= "woodie" then
         inst:RemoveTag("werehuman")

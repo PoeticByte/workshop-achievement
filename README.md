@@ -2,6 +2,8 @@
 
 # workshop-achievement ｜ 新成就 New Achievement (Reburn)
 
+> English version: [README_EN.md](README_EN.md)
+
 > Don't Starve Together Achievement Mod —— 饥荒联机版成就养成 MOD
 > 创意工坊订阅：https://steamcommunity.com/sharedfiles/filedetails/?id=2139402585
 

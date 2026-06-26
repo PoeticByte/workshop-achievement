@@ -67,12 +67,13 @@ local achievement_ability_config = {
         recipes = {"winona_storage_robot", "winona_telebrella", "winona_teleport_pad_item"}}},
         -- 灵魂跳跃(Wortox基底): 已复刻灵魂系统(击杀生成灵魂 wortox_soul_common + 灵魂跳跃)。这里再授予 Wortox 技能树:
         -- 治疗者/灵魂护盾/振奋(nice)+ 偷窃/灵魂诱饵/抓取袋/灵魂罐(naughty)。物品(灵魂罐/抓取袋/复活器)经 builder_skill+Route B 可造。
-        -- 排除: souljar_2(onactivate 调 Wortox 专属 DoCheckSoulsAdded 会崩)、排箫(需 timer 组件,非Wortox没有)、暗影/月亮阵营(重叠)。
+        -- souljar_2(灵魂上限扩容,每个灵魂罐+5)经 soulhopcopyfn 复刻安全版 DoCheckSoulsAdded 后已可授予;
+        -- 仍排除: 排箫(需 timer 组件,非Wortox没有)、暗影/月亮阵营(重叠)。
         {ability = "soulhopcopy", cost = 55, default_value = false, skilltree = {char = "wortox", skip_generic_remove = true, skills = {
             "wortox_lifebringer_1","wortox_lifebringer_2","wortox_lifebringer_3",
             "wortox_soulprotector_1","wortox_soulprotector_2","wortox_soulprotector_3","wortox_soulprotector_4",
             "wortox_liftedspirits_1","wortox_liftedspirits_2","wortox_liftedspirits_3","wortox_liftedspirits_4",
-            "wortox_nabbag","wortox_souljar_1","wortox_souljar_3",
+            "wortox_nabbag","wortox_souljar_1","wortox_souljar_2","wortox_souljar_3",
             "wortox_thief_1","wortox_thief_2","wortox_thief_3","wortox_thief_4",
             "wortox_souldecoy_1","wortox_souldecoy_2","wortox_souldecoy_3",
         }}},
@@ -81,6 +82,9 @@ local achievement_ability_config = {
         {ability = "eventtechnology", cost = 30, default_value = false,},
         {ability = "murlocdisguise", cost = 45, default_value = false,canswitch = true,},
         {ability = "fastcollection", cost = 35, default_value = false,},
+        -- Wes 气球(纯标签 balloonomancer→气球配方可造) / Webber 蜘蛛(纯标签 spiderwhisperer→蜘蛛友好+招随从+蜘蛛建造)。非技能树,客户端tag自动同步。
+        {ability = "balloonmaster", cost = 30, default_value = false,},
+        {ability = "spiderfriend", cost = 50, default_value = false,},
         -- 灵魂伙伴(Wendy基底): 已给 ghostlybond(阿比盖尔)+elixirbrewer。这里再授予 Wendy 技能树: 姊妹龛/灵药/小阿比/幽花/墓碑/阿比指令升级。
         -- 排除: wendy_sisturn_2(onactivate 调 sanityauraadjuster,非Wendy无此组件会崩)、暗影/月亮阵营(重叠)。skip_generic_remove=true(有手写Remove含阿比清理)。
         {ability = "ghostly_friend", cost = 70, default_value = false, skilltree = {char = "wendy", skip_generic_remove = true, skills = {
