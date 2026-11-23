@@ -382,11 +382,13 @@ function achievementability:jumpfn(inst)
             inst._cdtaskachiv = inst:DoTaskInTime(.5, OnCooldown)
             SpawnPrefab("bramblefx_armor"):SetFXOwner(inst)--22
 
-            if data and data.attacker and data.attacker.components.combat and data.attacker.components.combat.defaultdamage >= 45   and   inst.components.health and  not inst.components.health:IsDead() and not inst:HasTag("playerghost")  then
+            local combat = data.attacker and data.attacker.components.combat
+            local damage = combat and combat.defaultdamage
+            if type(damage) == "number" and damage >= 45 and inst.components.health and not inst.components.health:IsDead() and not inst:HasTag("playerghost") then
                 SpawnPrefab("bramblefx_trap"):SetFXOwner(inst)--40
             end
             
-            if data and data.attacker and data.attacker.components.combat and data.attacker.components.combat.defaultdamage >= 60   and  inst.components.health and  not inst.components.health:IsDead() and not inst:HasTag("playerghost")  then
+            if type(damage) == "number" and damage >= 60 and inst.components.health and not inst.components.health:IsDead() and not inst:HasTag("playerghost") then
                 SpawnPrefab("bramblefx_trap"):SetFXOwner(inst)--40
             end
             if inst.SoundEmitter ~= nil then
